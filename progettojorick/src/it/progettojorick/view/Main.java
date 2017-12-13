@@ -7,7 +7,7 @@ import it.progettojorick.model.Persona;
 import it.progettojorick.model.Utente;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String args[]) {//ciao riccardo
 
       new LoginFrame();
 
