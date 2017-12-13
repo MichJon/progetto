@@ -10,6 +10,7 @@ public class Main {
     public static void main(String args[]) {//ciao riccardo
 
       new LoginFrame();
+      new RegistrazioneFrame();
 
     }
 }
