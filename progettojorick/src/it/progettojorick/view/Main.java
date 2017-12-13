@@ -10,10 +10,15 @@ import it.progettojorick.model.Utente;
 public class Main {
     public static void main(String args[]) {
 
-//      new LoginFrame();
-
-        LoginFrame loginFrame = new LoginFrame();
-        SessionManager.getInstance().getSession().put("finestra_login", loginFrame);
+//<<<<<<< HEAD
+////      new LoginFrame();
+//
+//        LoginFrame loginFrame = new LoginFrame();
+//        SessionManager.getInstance().getSession().put("finestra_login", loginFrame);
+//=======
+      new LoginFrame();
+      new RegistrazioneFrame();
+//>>>>>>> origin/master
 
     }
 }

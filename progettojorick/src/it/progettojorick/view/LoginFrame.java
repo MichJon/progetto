@@ -77,9 +77,20 @@ JPanel nord = new JPanel();
         sud.setLayout(new FlowLayout());
        // sud.add(new JLabel("Benvenuto"));
         JButton btnlogin = new JButton("LOGIN");
+        JButton btnRegistrazione = new JButton("REGISTRATI");
+       // btnRegistrazione.addActionListener(listener);
+        //sud.add(btnRegistrazione);
         btnlogin.addActionListener(listener);
         sud.add(btnlogin);
 
+        /*
+        private void JButtonActionPerformed(java.awt.event.ActionEvent evt) {
+            this.dispose();
+            RegistrazioneFrame RFrame = new RegistrazioneFrame();
+            RFrame.setVisible(true);
+
+        }
+*/
 
     c.add(centro, BorderLayout.CENTER);             // pattern command
     c.add(sud,BorderLayout.SOUTH);
