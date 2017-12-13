@@ -1,6 +1,7 @@
 package it.progettojorick.actionListeners;
 
 import it.progettojorick.business.PersonaBusiness;
+import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.GestoreCatalogo;
 import it.progettojorick.model.Persona;
@@ -44,19 +45,28 @@ public class LoginListener implements ActionListener {
                 System.out.println("Benvenuto amministratore " + p.getNome() + " " + p.getCognome() + "!");
                 Amministratore a = (Amministratore) p;
                 System.out.println("email: " + a.getEmailAmministratore());
-                JOptionPane.showMessageDialog(null,"Benvenuto amministratore " + p.getNome() + " " + p.getCognome() + "!");
+               // JOptionPane.showMessageDialog(null,"Benvenuto amministratore " + p.getNome() + " " + p.getCognome() + "!");
+                SessionManager.getInstance().getSession().put("amministratore", a);
+                //mostriamo la view dell'amministratore
+
             } else if (p instanceof GestoreCatalogo) {
                 //apriremo la view del gestore catalogo
                 System.out.println("Benvenuto gestore catalogo " + p.getNome() + " " + p.getCognome() + "!");
                 GestoreCatalogo g = (GestoreCatalogo) p;
                 System.out.println("email: " + g.getEmailGestore());
-                JOptionPane.showMessageDialog(null,"Benvenuto gestore catalogo " + p.getNome() + " " + p.getCognome() + "!");
+               // JOptionPane.showMessageDialog(null,"Benvenuto gestore catalogo " + p.getNome() + " " + p.getCognome() + "!");
+                SessionManager.getInstance().getSession().put("gestore", g);
+                //qui quella del gestore
+
             } else if (p instanceof Utente) {
                 // apriremo la view dell'utente
                 System.out.println("Benvenuto utente " + p.getNome() + " " + p.getCognome() + "!");
                 Utente u = (Utente) p;
                 System.out.println("email: " + u.getEmailUtente());
-                JOptionPane.showMessageDialog(null,"Benvenuto Utente " + p.getNome() + " " + p.getCognome() + "!");
+              //  JOptionPane.showMessageDialog(null,"Benvenuto Utente " + p.getNome() + " " + p.getCognome() + "!");
+                SessionManager.getInstance().getSession().put("utente", u);
+                //qui quella dell'utente
+
             }
         }
         else {

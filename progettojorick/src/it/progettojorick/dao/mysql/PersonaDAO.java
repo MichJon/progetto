@@ -51,6 +51,7 @@ public class PersonaDAO implements IPersonaDAO {
             if(p!=null){
                 p.setNome(utente[1]);
                 p.setCognome(utente[2]);
+
             }
         }
 
@@ -58,7 +59,35 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
+    public void insertPersona(String email, String nome, String cognome, byte[] password, String indirizzo, String numTelefono) {
+        DbConnection.getInstance().eseguiQuery("INSERT INTO persona (email,nome,cognome,password,indirizzo,num_telefono)"+
+               " VALUES ('"+email+"', '" + nome + "', '" + cognome +"', '" + new String(password)+"', '" + indirizzo +"', '"+numTelefono+"');");
+    }
+
+    @Override
     public ArrayList<Persona> findAll() {
         return null;
     }
+
+    @Override
+    public Persona findByEmail(String email){
+
+        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM persona WHERE email = '"+email+"';");
+
+        if (risultato.size()==0) return null;
+
+        Persona p=new Persona();
+
+        String[] riga= risultato.get(0);
+        p.setEmail(riga[0]);
+        p.setNome(riga[1]);
+        p.setCognome(riga[2]);
+        p.setPassword(riga[3].getBytes());
+        p.setIndirizzo(riga[4]);
+        p.setNumtelefono(riga[5]);
+
+        return p;
+
+    }
+
 }

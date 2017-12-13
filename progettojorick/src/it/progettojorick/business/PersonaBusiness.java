@@ -22,4 +22,9 @@ public class PersonaBusiness {
 
     }
 
+//    public void inviaRichiestaRegistrazione(String email, String nome, String cognome, byte[] password, String indirizzo, String numTelefono){
+//
+//        PersonaDAO.getInstance().insertPersona(email, nome, cognome, password, indirizzo, numTelefono);
+//    }
+
 }

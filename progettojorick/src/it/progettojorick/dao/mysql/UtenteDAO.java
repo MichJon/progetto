@@ -78,6 +78,14 @@ public class UtenteDAO implements IUtenteDAO {
         return pagamenti;
     }
 
+    @Override
+    public void insertUtente(String email) {
+        DbConnection.getInstance().eseguiQuery("INSERT INTO utente (persona_email)"+
+                " VALUES ('"+email+"');");
+    }
+
+
+
 }
 
 
