@@ -60,7 +60,7 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public void insertPersona(String email, String nome, String cognome, byte[] password, String indirizzo, String numTelefono) {
-        DbConnection.getInstance().eseguiQuery("INSERT INTO persona (email,nome,cognome,password,indirizzo,num_telefono)"+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO persona (email,nome,cognome,password,indirizzo,num_telefono)"+
                " VALUES ('"+email+"', '" + nome + "', '" + cognome +"', '" + new String(password)+"', '" + indirizzo +"', '"+numTelefono+"');");
     }
 
@@ -88,6 +88,11 @@ public class PersonaDAO implements IPersonaDAO {
 
         return p;
 
+    }
+
+    @Override
+    public void deletePersona(Persona p) {
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM persona WHERE email = '"+p.getEmail()+"';");
     }
 
 }

@@ -80,7 +80,7 @@ public class UtenteDAO implements IUtenteDAO {
 
     @Override
     public void insertUtente(String email) {
-        DbConnection.getInstance().eseguiQuery("INSERT INTO utente (persona_email)"+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO utente (persona_email)"+
                 " VALUES ('"+email+"');");
     }
 

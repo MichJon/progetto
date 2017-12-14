@@ -1,7 +1,9 @@
 package it.progettojorick.business;
 
+import it.progettojorick.dao.mysql.PersonaDAO;
 import it.progettojorick.dao.mysql.RichiestaRegistrazioneDAO;
 import it.progettojorick.dao.mysql.UtenteDAO;
+import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.Persona;
 import it.progettojorick.model.RichiestaRegistrazione;
 
@@ -18,18 +20,26 @@ public class AmministratoreBusiness {
 
     public void confermaRichiesta(String email){
 
-        RichiestaRegistrazione r = RichiestaRegistrazioneDAO.getInstance().findByUtente(email);
-        r.setStato("accettata");
-        UtenteDAO.getInstance().insertUtente(email);
+        Amministratore a = (Amministratore) SessionManager.getInstance().getSession().get("amministratore");
 
+        RichiestaRegistrazione r = RichiestaRegistrazioneDAO.getInstance().findByUtente(email);
+        if (UtenteDAO.getInstance().findByEmail(email)==null) {
+
+            RichiestaRegistrazioneDAO.getInstance().setStato("accettata", r);
+            RichiestaRegistrazioneDAO.getInstance().setAmministratore(a, r);
+
+            UtenteDAO.getInstance().insertUtente(email);
+        }
 
     }
     public void negaRichiesta(String email){
 
         RichiestaRegistrazione r = RichiestaRegistrazioneDAO.getInstance().findByUtente(email);
-        r.setStato("negata");
-
-
+        if (!r.getStato().equals("accettata")) {
+            RichiestaRegistrazioneDAO.getInstance().deleteRichiesta(r);
+            Persona p = PersonaDAO.getInstance().findByEmail(email);
+            PersonaDAO.getInstance().deletePersona(p);
+        }
     }
 
 }

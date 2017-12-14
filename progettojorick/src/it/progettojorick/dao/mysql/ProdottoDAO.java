@@ -22,7 +22,7 @@ public class ProdottoDAO implements IProdottoDAO {
 
     @Override
     public Prodotto findByName(String nome){
-        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM prodotto WHERE nome = '"+nome+"';");
+        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM prodotto WHERE nome_prodotto = '"+nome+"';");
         if (risultato.size()==0) return null;
 
         Prodotto p=new Prodotto();
@@ -41,11 +41,26 @@ public class ProdottoDAO implements IProdottoDAO {
         p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
         p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[7])));
         p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
+        p.setImgUrl(riga[8]);
 
         return p;
 
 
     }
+
+    @Override
+    public void insertProdotto(Prodotto p) {
+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO prodotto (nome_prodotto,descrizione," +
+                        "prezzo,quantita,categoria_nome_categoria, produttore_idproduttore," +
+                        "distributore_iddistributore, url_immagine)" +
+                        "VALUES ('"+p.getNome()+"','"+p.getDescrizione()+"','"+p.getPrezzo()+"','"+p.getQuantita()+"','"+
+                                    p.getCategoria().getNomecategoria()+"','"+p.getProduttore().getId()+"','"+
+                                    p.getDistributore().getId()+"','"+p.getImgUrl()+"');");
+
+
+    }
+
 
 
     @Override
@@ -72,6 +87,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[7])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
+            p.setImgUrl(riga[8]);
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -102,6 +118,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[7])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
+            p.setImgUrl(riga[8]);
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -138,5 +155,9 @@ public class ProdottoDAO implements IProdottoDAO {
       }
       return prodottiCont;
   }
+
+
+
+
 
 }

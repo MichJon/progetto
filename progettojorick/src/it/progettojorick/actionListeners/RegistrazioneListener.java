@@ -1,5 +1,7 @@
 package it.progettojorick.actionListeners;
 
+import it.progettojorick.business.RichiestaRegistrazioneBusiness;
+import it.progettojorick.business.SessionManager;
 import it.progettojorick.view.LoginFrame;
 import it.progettojorick.view.RegistrazioneFrame;
 
@@ -20,14 +22,23 @@ public class RegistrazioneListener implements ActionListener {
 
         //CONTROLLI
         System.out.println("Evento catturato!");
-        if ("RANDOM_MENU_ITEM".equals(e.getActionCommand())){
-            JOptionPane.showMessageDialog(null,"Hai premuto la voce di menu random");
+        String nome= finestra.getTxtNome().getText();
+        String cognome= finestra.getTxtCognome().getText();
+        String email= finestra.getTxtEmail().getText();
+        byte[] password = finestra.getTxtPassword().getText().getBytes();
+        String indirizzo= finestra.getTxtIndirizzo().getText();
+        String numTelefono= finestra.getTxtNumTelefono().getText();
+
+
+        if(e.getSource() instanceof JButton ){
+
+            RichiestaRegistrazioneBusiness.getInstance().registraPersona(email,nome,cognome,password,indirizzo,numTelefono);
+            JOptionPane.showMessageDialog(null,"La registrazione è in attesa di conferma.");
+            finestra.setVisible(false);
+            LoginFrame finestraLogin = new LoginFrame();
+            SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
 
         }
-
-
-
-
 
 
     }

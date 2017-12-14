@@ -23,7 +23,7 @@ public class RichiestaRegistrazioneDAO implements IRichiestaRegistrazioneDAO {
 
 
     @Override
-    public ArrayList findAll() {
+    public ArrayList<RichiestaRegistrazione> findAll() {
         ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM richiesta_registrazione");
         if (risultato.size()==0) return null;
         ArrayList<RichiestaRegistrazione> listaRichieste = new ArrayList<RichiestaRegistrazione>();
@@ -44,11 +44,18 @@ public class RichiestaRegistrazioneDAO implements IRichiestaRegistrazioneDAO {
     }
 
     @Override
-    public void setStato(String stato, Persona p) {
+    public void setStato(String stato, RichiestaRegistrazione r) {
 
-        DbConnection.getInstance().eseguiAggiornamento("UPDATE richiesta_registrazione SET stato = "+stato+" " +
-                "WHERE persona_email = "+p.getEmail());
+        DbConnection.getInstance().eseguiAggiornamento("UPDATE richiesta_registrazione SET stato_registrazione = '"+stato+"' " +
+                "WHERE persona_email = '"+r.getPersona().getEmail()+"'");
     }
+
+    public void setAmministratore(Amministratore a, RichiestaRegistrazione r) {
+
+        DbConnection.getInstance().eseguiAggiornamento("UPDATE richiesta_registrazione SET amministratore_persona_email = '"+a.getEmailAmministratore()+"' " +
+                "WHERE persona_email = '"+r.getPersona().getEmail()+"'");
+    }
+
 
     @Override
     public RichiestaRegistrazione findByUtente(String email) {
@@ -73,11 +80,15 @@ public class RichiestaRegistrazioneDAO implements IRichiestaRegistrazioneDAO {
 
 
     @Override
-    public void insertRichiesta(Persona p, String stato) {
-        DbConnection.getInstance().eseguiQuery("INSERT INTO richiesta_registrazione (persona_email,stato)"+
-                " VALUES ('"+ p.getEmail() + "', '" + stato +"');");
+    public void insertRichiesta(RichiestaRegistrazione r) {
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO richiesta_registrazione (persona_email,stato_registrazione)"+
+                " VALUES ('"+ r.getPersona().getEmail() + "', '" + r.getStato() +"');");
     }
 
+    @Override
+    public void deleteRichiesta(RichiestaRegistrazione r) {
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM richiesta_registrazione WHERE persona_email='"+r.getPersona().getEmail()+"';");
+    }
 
 
 }

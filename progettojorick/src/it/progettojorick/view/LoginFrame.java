@@ -78,9 +78,10 @@ JPanel nord = new JPanel();
        // sud.add(new JLabel("Benvenuto"));
         JButton btnlogin = new JButton("LOGIN");
         JButton btnRegistrazione = new JButton("REGISTRATI");
-       // btnRegistrazione.addActionListener(listener);
-        //sud.add(btnRegistrazione);
+        btnRegistrazione.addActionListener(listener);
         btnlogin.addActionListener(listener);
+        sud.add(btnRegistrazione);
+
         sud.add(btnlogin);
 
         /*

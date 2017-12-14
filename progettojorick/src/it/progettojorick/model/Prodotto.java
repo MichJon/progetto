@@ -15,6 +15,7 @@ public class Prodotto {
     private Produttore produttore;
     private Distributore distributore;
     private ArrayList<Prodotto> prodottiContenuti=null;
+    private String imgUrl;
 
     public ArrayList<Prodotto> getProdottiContenuti() {
         return prodottiContenuti;
@@ -123,5 +124,13 @@ public class Prodotto {
 
     public void setDistributore(Distributore distributore) {
         this.distributore = distributore;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

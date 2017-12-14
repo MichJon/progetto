@@ -4,7 +4,7 @@ public class RichiestaRegistrazione {
     private int idRegistrazione;
     private Amministratore amministratore;
     private Persona persona;
-    private String stato;
+    private String stato="In attesa di conferma...";
 
     public int getIdRegistrazione() {
         return idRegistrazione;

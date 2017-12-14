@@ -19,7 +19,9 @@ public class RichiestaRegistrazioneBusiness {
 
         PersonaDAO.getInstance().insertPersona(email, nome, cognome, password, indirizzo, numTelefono);
         Persona p = PersonaDAO.getInstance().findByEmail(email);
-        RichiestaRegistrazioneDAO.getInstance().insertRichiesta(p,"In attesa di conferma...");
+        RichiestaRegistrazione r = new RichiestaRegistrazione();
+        r.setPersona(p);
+        RichiestaRegistrazioneDAO.getInstance().insertRichiesta(r);
 
     }
 

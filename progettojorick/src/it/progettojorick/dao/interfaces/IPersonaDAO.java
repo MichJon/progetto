@@ -10,4 +10,6 @@ public interface IPersonaDAO extends IBaseDAO<Persona> {
 
      Persona findByEmail(String email);
 
+     void deletePersona (Persona p);
+
 }

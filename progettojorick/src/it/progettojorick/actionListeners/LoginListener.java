@@ -6,7 +6,10 @@ import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.GestoreCatalogo;
 import it.progettojorick.model.Persona;
 import it.progettojorick.model.Utente;
+import it.progettojorick.view.AmministratoreFrame;
+import it.progettojorick.view.GestoreFrame;
 import it.progettojorick.view.LoginFrame;
+import it.progettojorick.view.RegistrazioneFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,12 @@ public class LoginListener implements ActionListener {
         this.finestra=finestra;
     }
 
+//    public LoginListener(){
+//        this.finestra=(LoginFrame)SessionManager.getInstance().getSession().get("finestra_login");
+//    }
+
+  // LoginFrame finestra = (LoginFrame)SessionManager.getInstance().getSession().get("finestra_login");
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -29,16 +38,25 @@ public class LoginListener implements ActionListener {
 
     }
 
-    if(e.getSource() instanceof JButton || e.getSource() instanceof JTextField || e.getSource() instanceof JPasswordField ){
+        if(e.getSource() instanceof JButton && ((JButton) e.getSource()).getText().equals("REGISTRATI") ) {
+
+            finestra.setVisible(false);
+            RegistrazioneFrame reg = new RegistrazioneFrame();
+            reg.setVisible(true);
+            SessionManager.getInstance().getSession().put("finestra_registrazione",reg);
+
+        }
+
+    else if(e.getSource() instanceof JButton || e.getSource() instanceof JTextField || e.getSource() instanceof JPasswordField ){
        // String username = "mario.rossi";
        // byte[] password = "Passw0rd1".getBytes();
-
         String email= finestra.getTxtEmail().getText();
         byte[] password = new String(finestra.getTxtPassword().getPassword()).getBytes();
 
         Persona p = PersonaBusiness.getInstance().login(email, password);
 
-        if (p!=null) {
+
+         if (p!=null) {
             System.out.println("LOGIN OK!");
             if (p instanceof Amministratore) {
                 //apriremo la view dell'amministratore
@@ -48,6 +66,11 @@ public class LoginListener implements ActionListener {
                // JOptionPane.showMessageDialog(null,"Benvenuto amministratore " + p.getNome() + " " + p.getCognome() + "!");
                 SessionManager.getInstance().getSession().put("amministratore", a);
                 //mostriamo la view dell'amministratore
+                finestra.setVisible(false);
+                AmministratoreFrame ammFrame = new AmministratoreFrame();
+                ammFrame.setVisible(true);
+                SessionManager.getInstance().getSession().put("finestra_amministratore", ammFrame);
+
 
             } else if (p instanceof GestoreCatalogo) {
                 //apriremo la view del gestore catalogo
@@ -57,6 +80,10 @@ public class LoginListener implements ActionListener {
                // JOptionPane.showMessageDialog(null,"Benvenuto gestore catalogo " + p.getNome() + " " + p.getCognome() + "!");
                 SessionManager.getInstance().getSession().put("gestore", g);
                 //qui quella del gestore
+                finestra.setVisible(false);
+                GestoreFrame gestFrame = new GestoreFrame();
+                gestFrame.setVisible(true);
+                SessionManager.getInstance().getSession().put("finestra_gestore", gestFrame);
 
             } else if (p instanceof Utente) {
                 // apriremo la view dell'utente
@@ -80,7 +107,7 @@ public class LoginListener implements ActionListener {
     }
 
 
-    // if(e.getSource() instanceof  ) { }
+
 
     }
 }
