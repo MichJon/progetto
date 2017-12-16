@@ -5,6 +5,8 @@ import it.progettojorick.dao.mysql.RichiestaRegistrazioneDAO;
 import it.progettojorick.model.Persona;
 import it.progettojorick.model.RichiestaRegistrazione;
 
+import java.util.ArrayList;
+
 public class RichiestaRegistrazioneBusiness {
 
     private static RichiestaRegistrazioneBusiness instance;
@@ -22,6 +24,12 @@ public class RichiestaRegistrazioneBusiness {
         RichiestaRegistrazione r = new RichiestaRegistrazione();
         r.setPersona(p);
         RichiestaRegistrazioneDAO.getInstance().insertRichiesta(r);
+
+    }
+
+    public ArrayList<RichiestaRegistrazione> richiestePresenti(){
+
+        return RichiestaRegistrazioneDAO.getInstance().findAll();
 
     }
 
