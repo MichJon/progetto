@@ -1,6 +1,7 @@
 package it.progettojorick.view;
 
 import it.progettojorick.business.AmministratoreBusiness;
+import it.progettojorick.business.RichiestaRegistrazioneBusiness;
 import it.progettojorick.dao.mysql.RichiestaRegistrazioneDAO;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.business.SessionManager;
@@ -30,7 +31,7 @@ public class RichiestaRegistrazioneFrame extends JFrame {
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
         Amministratore a = (Amministratore)SessionManager.getInstance().getSession().get("amministratore");
-        ArrayList<RichiestaRegistrazione> richieste = RichiestaRegistrazioneDAO.getInstance().findAll();
+        ArrayList<RichiestaRegistrazione> richieste = RichiestaRegistrazioneBusiness.getInstance().richiestePresenti();
 
 
 
