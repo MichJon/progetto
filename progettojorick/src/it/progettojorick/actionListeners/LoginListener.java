@@ -4,10 +4,7 @@ import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.PersonaBusiness;
 import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
-import it.progettojorick.model.Amministratore;
-import it.progettojorick.model.GestoreCatalogo;
-import it.progettojorick.model.Persona;
-import it.progettojorick.model.Utente;
+import it.progettojorick.model.*;
 import it.progettojorick.view.*;
 
 import javax.swing.*;
@@ -94,6 +91,9 @@ public class LoginListener implements ActionListener {
                 SessionManager.getInstance().getSession().put("finestra_utente", utFr);
 
                 CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
+                Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
+                SessionManager.getInstance().getSession().put("carrello",c);
+
             }
         }
         else {
