@@ -6,7 +6,7 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Carrello;
 import it.progettojorick.model.Prodotto;
 import it.progettojorick.model.Utente;
-import jdk.nashorn.internal.scripts.JO;
+//import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +22,7 @@ public class InfoProdottoFrame extends JFrame {
 
 
     public InfoProdottoFrame(Prodotto p) {
+
 
 
         super("Finestra di Info");

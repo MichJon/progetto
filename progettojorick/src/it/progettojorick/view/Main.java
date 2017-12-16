@@ -13,8 +13,9 @@ public class Main {
 
 //      new LoginFrame();
 
-        LoginFrame loginFrame = new LoginFrame();
-        SessionManager.getInstance().getSession().put("finestra_login", loginFrame);
+                LoginFrame loginFrame = new LoginFrame();
+                SessionManager.getInstance().getSession().put("finestra_login", loginFrame);
+
 
 //      new LoginFrame();
 //      new RegistrazioneFrame();
