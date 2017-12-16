@@ -36,12 +36,14 @@ public class ProdottoDAO implements IProdottoDAO {
         p.setCategoria(riga[5]);
         p.setIdproduttore(Integer.parseInt(riga[6]));
         p.setIddistributore(Integer.parseInt(riga[7]));*/
-        p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-        p.setCategoria(CategoriaDAO.getInstance().findByName(riga[5]));
-        p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
-        p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[7])));
+//       if (riga[4]!=null)
+//        p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
+//       else p.setCarrello(null);
+        p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
+        p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
+        p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
         p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
-        p.setImgUrl(riga[8]);
+        p.setImgUrl(riga[7]);
 
         return p;
 
@@ -82,12 +84,14 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setCategoria(riga[5]);
             p.setIdproduttore(Integer.parseInt(riga[6]));
             p.setIddistributore(Integer.parseInt(riga[7]));*/
-            p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-            p.setCategoria(CategoriaDAO.getInstance().findByName(riga[5]));
-            p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
-            p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[7])));
+//            if (riga[4]!=null)
+//                p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
+//            else p.setCarrello(null);
+            p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
+            p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
+            p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
-            p.setImgUrl(riga[8]);
+            p.setImgUrl(riga[7]);
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -113,12 +117,12 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setCategoria(riga[5]);
             p.setIdproduttore(Integer.parseInt(riga[6]));
             p.setIddistributore(Integer.parseInt(riga[7]));*/
-            p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-            p.setCategoria(CategoriaDAO.getInstance().findByName(riga[5]));
-            p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
-            p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[7])));
+//            p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
+            p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
+            p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
+            p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
-            p.setImgUrl(riga[8]);
+            p.setImgUrl(riga[7]);
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -157,7 +161,68 @@ public class ProdottoDAO implements IProdottoDAO {
   }
 
 
+    public ArrayList<Prodotto> findByCategoria(String categoria){
 
+        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM prodotto WHERE categoria_nome_categoria= '"+categoria+"';");
+        if (risultato.size()==0) return null;
+        ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
 
+        Iterator<String[]> i = risultato.iterator();
+
+        while(i.hasNext()) {
+            String[] riga = i.next();
+            Prodotto p = new Prodotto();
+            p.setNome(riga[0]);
+            p.setDescrizione(riga[1]);
+            p.setPrezzo(Float.parseFloat(riga[2]));
+            p.setQuantita(Integer.parseInt(riga[3]));
+         /*   p.setIdcarrello(Integer.parseInt(riga[4]));
+            p.setCategoria(riga[5]);
+            p.setIdproduttore(Integer.parseInt(riga[6]));
+            p.setIddistributore(Integer.parseInt(riga[7]));*/
+//            if (riga[4]!=null)
+//                p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
+//            else p.setCarrello(null);
+            p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
+            p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
+            p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
+            p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
+            p.setImgUrl(riga[7]);
+            listaProdotti.add(p);
+        }
+        return listaProdotti;
+    }
+
+    public ArrayList<Prodotto> findByCarrello(int id){
+
+        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM prodotto WHERE carrello_idcarrello= "+id);
+        if (risultato.size()==0) return null;
+        ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
+
+        Iterator<String[]> i = risultato.iterator();
+
+        while(i.hasNext()) {
+            String[] riga = i.next();
+            Prodotto p = new Prodotto();
+            p.setNome(riga[0]);
+            p.setDescrizione(riga[1]);
+            p.setPrezzo(Float.parseFloat(riga[2]));
+            p.setQuantita(Integer.parseInt(riga[3]));
+         /*   p.setIdcarrello(Integer.parseInt(riga[4]));
+            p.setCategoria(riga[5]);
+            p.setIdproduttore(Integer.parseInt(riga[6]));
+            p.setIddistributore(Integer.parseInt(riga[7]));*/
+//            if (riga[4]!=null)
+//                p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
+//            else p.setCarrello(null);
+            p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
+            p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
+            p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
+            p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
+            p.setImgUrl(riga[7]);
+            listaProdotti.add(p);
+        }
+        return listaProdotti;
+    }
 
 }

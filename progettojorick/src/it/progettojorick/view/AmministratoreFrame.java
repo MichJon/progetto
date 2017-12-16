@@ -14,10 +14,12 @@ public class AmministratoreFrame extends JFrame {
     private int x=500;
     private int y=150;
 
+
     Amministratore a = (Amministratore)SessionManager.getInstance().getSession().get("amministratore");
 
     public AmministratoreFrame() {
         super("finestra amministratore");
+
 
 
     Container c = getContentPane();
@@ -27,11 +29,11 @@ public class AmministratoreFrame extends JFrame {
 
         c.setLayout(new BorderLayout());
 
-        JPanel centro = new JPanel();
+        JPanel nord = new JPanel();
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
         JLabel benvenuto = new JLabel("Benvenuto amministratore "+a.getNome()+"!");
-        centro.add(benvenuto);
+        nord.add(benvenuto);
 
         JButton richiesteReg = new JButton("Gestisci registrazioni");
         JButton ordini = new JButton("Gestisci ordini");// Sistemare action listener
@@ -72,7 +74,7 @@ public class AmministratoreFrame extends JFrame {
         sud.add(richiesteReg);
         sud.add(ordini);
 
-        c.add(centro, BorderLayout.CENTER);             // pattern command
+        c.add(nord, BorderLayout.NORTH);             // pattern command
         c.add(sud,BorderLayout.SOUTH);
 
 

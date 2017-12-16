@@ -1,10 +1,11 @@
 package it.progettojorick.business;
 
+import it.progettojorick.dao.mysql.CarrelloDAO;
 import it.progettojorick.dao.mysql.ProdottoDAO;
-import it.progettojorick.model.Categoria;
-import it.progettojorick.model.Distributore;
-import it.progettojorick.model.Prodotto;
-import it.progettojorick.model.Produttore;
+import it.progettojorick.model.*;
+
+import javax.swing.*;
+import java.util.ArrayList;
 
 public class ProdottoBusiness {
 
@@ -36,8 +37,20 @@ public class ProdottoBusiness {
 
     public void inserisciProdotto(Prodotto p){
 
-        if (ProdottoDAO.getInstance().findByName(p.getNome())==null)
-        ProdottoDAO.getInstance().insertProdotto(p);
+        if (ProdottoDAO.getInstance().findByName(p.getNome())==null) {
+            ProdottoDAO.getInstance().insertProdotto(p);
+            JOptionPane.showMessageDialog(null,"Prodotto inserito.");
+        }
+        else JOptionPane.showMessageDialog(null,"Prodotto già presente.");
+    }
+
+    public ArrayList<Prodotto> prodottiPresenti(){
+        return ProdottoDAO.getInstance().findAll();
+
+    }
+
+    public ArrayList<Prodotto> prodottiPerCategoria(Categoria c){
+        return ProdottoDAO.getInstance().findByCategoria(c.getNomecategoria());
 
     }
 

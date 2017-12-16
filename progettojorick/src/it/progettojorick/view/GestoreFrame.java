@@ -1,12 +1,14 @@
 package it.progettojorick.view;
 
 import it.progettojorick.business.SessionManager;
+import it.progettojorick.model.GestoreCatalogo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 public class GestoreFrame extends JFrame{
 
@@ -15,6 +17,8 @@ public class GestoreFrame extends JFrame{
 
     public GestoreFrame(){
         super("finestra gestore");
+
+        GestoreCatalogo g =(GestoreCatalogo) SessionManager.getInstance().getSession().get("gestore");
 
         Container c = getContentPane();
 
@@ -25,11 +29,19 @@ public class GestoreFrame extends JFrame{
 
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+        JPanel nord = new JPanel();
+
+
 
         GestoreFrame _this=this;
 
         JButton inserisciProdotto=new JButton("Inserisci Prodotto");
         sud.add(inserisciProdotto);
+        JLabel benvenuto = new JLabel("Benvenuto gestore "+g.getNome()+"!");
+        nord.add(benvenuto);
+        JButton inserisciCategoria = new JButton("Inserisci Categoria");
+        sud.add(inserisciCategoria);
+
 
 
         inserisciProdotto.addActionListener(new ActionListener() {
@@ -41,16 +53,21 @@ public class GestoreFrame extends JFrame{
             }
         });
 
+        inserisciCategoria.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.setVisible(false);
+                CategoriaFrame c = null;
+                try {
+                    c = new CategoriaFrame();               //exception
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                SessionManager.getInstance().getSession().put("finestra_categoria",c);
+            }
+        });
 
-//        JButton sfoglia = new JButton("Sfoglia");
-//        sfoglia.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                new FileChooser();
-//            }
-//        });
-//
-//        c.add(sfoglia);
+        c.add(nord, BorderLayout.NORTH);
         c.add(sud, BorderLayout.SOUTH);
         setSize(x, y);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

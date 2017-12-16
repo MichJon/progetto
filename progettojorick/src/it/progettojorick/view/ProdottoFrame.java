@@ -22,10 +22,19 @@ public class ProdottoFrame extends JFrame{
     private JTextField txtDistributore = new JTextField();
     private JTextField txtImgUrl = new JTextField();
     private JLabel lblUrl=new JLabel();
+    private JLabel lblNomeFile = new JLabel();
    // private Path path;
 
     private int x = 400;
     private int y = 350;
+
+    public JLabel getLblNomeFile() {
+        return lblNomeFile;
+    }
+
+    public void setLblNomeFile(JLabel lblNomeFile) {
+        this.lblNomeFile = lblNomeFile;
+    }
 
     public JLabel getLblUrl() {
         return lblUrl;
@@ -134,9 +143,10 @@ public class ProdottoFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 FileChooser fc=new FileChooser();
-                _this.setLblUrl(new JLabel(fc.getUrl()));
-
-                pan.add(lblUrl);
+               // _this.setLblUrl(new JLabel(fc.getUrl()));
+                _this.setLblNomeFile( new JLabel(fc.getNomeFile()));
+               // pan.add(lblUrl);
+                pan.add(lblNomeFile);
                 _this.setVisible(false);
                 _this.setVisible(true);
 

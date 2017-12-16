@@ -1,15 +1,14 @@
 package it.progettojorick.actionListeners;
 
+import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.PersonaBusiness;
+import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.GestoreCatalogo;
 import it.progettojorick.model.Persona;
 import it.progettojorick.model.Utente;
-import it.progettojorick.view.AmministratoreFrame;
-import it.progettojorick.view.GestoreFrame;
-import it.progettojorick.view.LoginFrame;
-import it.progettojorick.view.RegistrazioneFrame;
+import it.progettojorick.view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,10 +32,7 @@ public class LoginListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     System.out.println("Evento catturato!");
-    if ("RANDOM_MENU_ITEM".equals(e.getActionCommand())){
-        JOptionPane.showMessageDialog(null,"Hai premuto la voce di menu random");
 
-    }
 
         if(e.getSource() instanceof JButton && ((JButton) e.getSource()).getText().equals("REGISTRATI") ) {
 
@@ -93,7 +89,11 @@ public class LoginListener implements ActionListener {
               //  JOptionPane.showMessageDialog(null,"Benvenuto Utente " + p.getNome() + " " + p.getCognome() + "!");
                 SessionManager.getInstance().getSession().put("utente", u);
                 //qui quella dell'utente
+                finestra.setVisible(false);
+                UtenteFrame utFr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());
+                SessionManager.getInstance().getSession().put("finestra_utente", utFr);
 
+                CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
             }
         }
         else {

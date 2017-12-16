@@ -3,6 +3,7 @@ package it.progettojorick.dao.mysql;
 import it.progettojorick.dao.interfaces.ICarrelloDAO;
 import it.progettojorick.dbInterface.DbConnection;
 import it.progettojorick.model.Carrello;
+import it.progettojorick.model.Prodotto;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ public class CarrelloDAO implements ICarrelloDAO {
         c.setIdcarrello(Integer.parseInt(riga[0]));
         //c.setEmailutente(riga[1]);
         c.setUtente(UtenteDAO.getInstance().findByEmail(riga[1]));
+        c.setProdottiContenuti(this.findProdottiContenuti(Integer.parseInt(riga[0])));
         return c;
     }
 
@@ -47,6 +49,7 @@ public class CarrelloDAO implements ICarrelloDAO {
             c.setIdcarrello(Integer.parseInt(riga[0]));
             //c.setEmailutente(riga[1]);
             c.setUtente(UtenteDAO.getInstance().findByEmail(riga[1]));
+            c.setProdottiContenuti(this.findProdottiContenuti(Integer.parseInt(riga[0])));
             listaCarrelli.add(c);
         }
         return listaCarrelli;
@@ -63,6 +66,43 @@ public class CarrelloDAO implements ICarrelloDAO {
         c.setIdcarrello(Integer.parseInt(riga[0]));
         //c.setEmailutente(riga[1]);
         c.setUtente(UtenteDAO.getInstance().findByEmail(riga[1]));
+        c.setProdottiContenuti(this.findProdottiContenuti(Integer.parseInt(riga[0])));
         return c;
     }
+
+    @Override
+    public void insertCarrello( String email) {
+
+        if (this.findByUtente(email)==null)
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO carrello (utente_persona_email) " +
+                "VALUES ('"+email+"');");
+
+    }
+
+    @Override
+    public ArrayList<Prodotto> findProdottiContenuti(int id) {
+
+        ArrayList<String []>  risNomiProdotti= DbConnection.getInstance().eseguiQuery("SELECT prodotto_nome_prodotto FROM carrello_has_prodotto WHERE carrello_idcarrello =" +id );
+        ArrayList<Prodotto> prodottiCont = new ArrayList<Prodotto>();
+        if (risNomiProdotti.size()==0) return null;
+        Iterator<String[]> i = risNomiProdotti.iterator();
+
+        while (i.hasNext()){
+            String[] riga = i.next();
+            Prodotto ProdottoContenuto = ProdottoDAO.getInstance().findByName(riga[0]);
+            prodottiCont.add(ProdottoContenuto);
+        }
+        return prodottiCont;
+    }
+
+    @Override
+    public void insertProdottoInCarrello(String nomeProdotto, int idCarrello) {
+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO carrello_has_prodotto (carrello_idcarrello,prodotto_nome_prodotto)" +
+                "VALUES ('"+idCarrello+"','"+nomeProdotto+"');");
+
+
+    }
+
+
 }

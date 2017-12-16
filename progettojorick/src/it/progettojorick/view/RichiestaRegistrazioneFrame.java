@@ -18,31 +18,21 @@ import java.util.Iterator;
 
 public class RichiestaRegistrazioneFrame extends JFrame {
 
+    int x=1024;
+    int y=700;
+
     public RichiestaRegistrazioneFrame() {
         super("Finestra amministratore");
         getContentPane().setLayout(new BorderLayout());
+
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
         Amministratore a = (Amministratore)SessionManager.getInstance().getSession().get("amministratore");
         ArrayList<RichiestaRegistrazione> richieste = RichiestaRegistrazioneDAO.getInstance().findAll();
 
 
-
-            //getContentPane().add(new JLabel("area di lavoro"), BorderLayout.CENTER);
-
-            String[][] data = new String[3][3];
-//        data[0][0] = "a";
-//        data[0][1] = "b";
-//        data[0][2] = "c";
-//        data[1][0] = "d";
-//        data[1][1] = "e";
-//        data[1][2] = "f";
-//        data[2][0] = "g";
-//        data[2][1] = "h";
-//        data[2][2] = "i";
-
-            String[] columnNames = new String[]{"Id richiesta", "Amministratore", "Email utente", "Stato"};
-
-            TableModel tm = new DefaultTableModel(data, columnNames);
 
             RichiesteRegistrazioneTableModel rrtm = new RichiesteRegistrazioneTableModel(richieste);
 
@@ -137,7 +127,7 @@ public class RichiestaRegistrazioneFrame extends JFrame {
             });
 
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(1024,700);
+            setSize(x,y);
             setVisible(true);
 
 //        else{

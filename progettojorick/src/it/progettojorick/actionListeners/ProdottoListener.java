@@ -41,17 +41,17 @@ public class ProdottoListener implements ActionListener {
         Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtProduttore().getText()));
         Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtDistributore().getText()));
        // Path path= finestra.get;
-        String url=finestra.getLblUrl().getText();
-        String imgUrl= url.replace("\\", "\\\\\\");
-
+//        String url=finestra.getLblUrl().getText();
+//        String imgUrl= url.replace("\\", "\\\\\\");
+            String nomeFile = finestra.getLblNomeFile().getText();
 
 
 
         if(e.getSource() instanceof JButton ){
 
-            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,quantita,categoria,produttore,distributore,imgUrl);
+            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,quantita,categoria,produttore,distributore,nomeFile);
             ProdottoBusiness.getInstance().inserisciProdotto(p);
-            JOptionPane.showMessageDialog(null,"Prodotto inserito.");
+
             finestra.setVisible(false);
             GestoreFrame finestraGestore = new GestoreFrame();
             SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);

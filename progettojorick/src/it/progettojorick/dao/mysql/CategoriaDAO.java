@@ -49,9 +49,17 @@ public class CategoriaDAO implements ICategoriaDAO {
             String[] riga = i.next();
             Categoria c=new Categoria();
             c.setNomecategoria(riga[0]);
-            c.setGestoreCatalogo(GestoreCatalogoDAO.getInstance().findByEmail(riga[2]));
+            c.setGestoreCatalogo(GestoreCatalogoDAO.getInstance().findByEmail(riga[1]));
             listaCategorie.add(c);
         }
         return listaCategorie;
+    }
+    @Override
+    public void insertCategoria(Categoria c) {
+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO categoria (nome_categoria,gestore_catalogo_persona_email)" +
+                " VALUES ('"+c.getNomecategoria()+"','"+c.getGestoreCatalogo().getEmailGestore()+"');");
+
+
     }
 }

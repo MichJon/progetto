@@ -7,7 +7,8 @@ import java.nio.file.Path;
 
 public class FileChooser extends JFrame {
 
-private String url;
+//private String url;
+private String nomeFile;
 
     public FileChooser(){
 
@@ -19,15 +20,20 @@ private String url;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             //This is where a real application would open the file.
-            this.url = file.getPath();
-            //System.out.println(url);
+            //this.url = file.getPath();
+            this.nomeFile=file.getName();
+//            System.out.println(nomeFile);
 
         }
 
 
     }
 
-    public String getUrl() {
-        return url;
+//    public String getUrl() {
+//        return url;
+//    }
+
+    public String getNomeFile() {
+        return nomeFile;
     }
 }
