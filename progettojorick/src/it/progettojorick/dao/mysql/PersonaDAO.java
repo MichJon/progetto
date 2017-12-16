@@ -49,9 +49,12 @@ public class PersonaDAO implements IPersonaDAO {
                 p=a;
             }
             if(p!=null){
+                p.setEmail(utente[0]);
                 p.setNome(utente[1]);
                 p.setCognome(utente[2]);
-
+                p.setPassword(utente[3].getBytes());
+                p.setIndirizzo(utente[4]);
+                p.setNumtelefono(utente[5]);
             }
         }
 

@@ -47,6 +47,7 @@ public class LoginListener implements ActionListener {
         byte[] password = new String(finestra.getTxtPassword().getPassword()).getBytes();
 
         Persona p = PersonaBusiness.getInstance().login(email, password);
+        SessionManager.getInstance().getSession().put("persona",p);
 
 
          if (p!=null) {

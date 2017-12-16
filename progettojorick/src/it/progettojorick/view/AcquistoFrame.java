@@ -4,6 +4,7 @@ package it.progettojorick.view;
 
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Carrello;
+import it.progettojorick.model.Persona;
 import it.progettojorick.model.Prodotto;
 import it.progettojorick.model.Utente;
 
@@ -12,14 +13,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static jdk.nashorn.internal.objects.NativeSymbol.iterator;
+//import static jdk.nashorn.internal.objects.NativeSymbol.iterator;
 
 public class AcquistoFrame extends JFrame {
 
-    private int x = 500;
-    private int y = 400;
+    private int x = 1024;
+    private int y = 700;
 
     Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
+   // Persona p = (Persona) SessionManager.getInstance().getSession().get("persona");
+
     Carrello car = (Carrello) SessionManager.getInstance().getSession().get("carrello");
 
 
@@ -33,32 +36,37 @@ public class AcquistoFrame extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
 
-        c.setLayout(new BorderLayout());
+        c.setLayout(new BoxLayout(c,BoxLayout.PAGE_AXIS));
 
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
 
         JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(6,1));
+        centro.setLayout(new BoxLayout(centro,BoxLayout.PAGE_AXIS));//GridLayout(6,1));
 
         JPanel generalita = new JPanel();
         generalita.setLayout(new GridLayout(5,2));
 
         JPanel pagamento = new JPanel();
-        pagamento.setLayout(new GridLayout(1,2));
+        pagamento.setLayout(new BoxLayout(pagamento,BoxLayout.PAGE_AXIS));//GridLayout(1,2));
 
         JPanel bottonipagamento =new JPanel();
         bottonipagamento.setLayout(new FlowLayout());
 
         JPanel consegna = new JPanel();
-        consegna.setLayout(new GridLayout(1,2));
+        consegna.setLayout(new BoxLayout(consegna,BoxLayout.PAGE_AXIS));//GridLayout(1,2));
 
         JPanel bottoniconsegna = new JPanel();
         bottoniconsegna.setLayout(new FlowLayout());
 
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+
+//        JPanel vuoto = new JPanel();
+//        vuoto.setLayout(new FlowLayout());
+//        vuoto.setSize(2,30);
+//        vuoto.setVisible(true);
 
         JLabel intro = new JLabel("Conferma o modifica le tue generalità");
         nord.add(intro);
@@ -70,8 +78,11 @@ public class AcquistoFrame extends JFrame {
         JLabel lblNumtelefono = new JLabel("Num. Telefono: ");
 
         JLabel lblNomeU = new JLabel(u.getNome());
+       // JTextField lblNomeU = new JTextField();
+      //  lblNomeU.setText(u.getNome());
+      //  lblNomeU.setEditable(false);
         JLabel lblCognomeU = new JLabel(u.getCognome());
-        JLabel lblEmailU = new JLabel(u.getEmailUtente());
+        JLabel lblEmailU = new JLabel(u.getEmail());
         JLabel lblIndirizzoU = new JLabel(u.getIndirizzo());
         JLabel lblNumtelefonoU = new JLabel(u.getNumtelefono());
 
@@ -86,7 +97,9 @@ public class AcquistoFrame extends JFrame {
         generalita.add(lblNumtelefono);
         generalita.add(lblNumtelefonoU);
 
+
         JLabel modpagamento = new JLabel("Modalità di Pagamento: ");
+        
 
         JPanel daticarta = new JPanel();
         daticarta.setLayout(new GridLayout(2,4));
@@ -108,8 +121,10 @@ public class AcquistoFrame extends JFrame {
         daticarta.add(datascadenza);
         daticarta.add(datascadenzaU);
 
+
         pagamento.add(modpagamento);
         pagamento.add(daticarta);
+
 
         JButton confermapagamento = new JButton("Conferma");
         JButton modificapagamento = new JButton("Modifica");
@@ -124,6 +139,11 @@ public class AcquistoFrame extends JFrame {
         JLabel lblNominativoU = new JLabel(u.getNome()+" "+u.getCognome());
         JLabel lblIndirizzoSped = new JLabel("Indirizzo di spedizione: ");
         JLabel lblIndirizzoSpedU = new JLabel(u.getIndirizzo());
+
+        daticonsegna.add(lblNominativo);
+        daticonsegna.add(lblNominativoU);
+        daticonsegna.add(lblIndirizzoSped);
+        daticonsegna.add(lblIndirizzoSpedU);
 
         consegna.add(preferenzeconsegna);
         consegna.add(daticonsegna);
@@ -158,7 +178,9 @@ public class AcquistoFrame extends JFrame {
 
         c.add(nord);
 
+
         centro.add(generalita);
+        centro.add(Box.createRigidArea(new Dimension(0,20)));
         centro.add(pagamento);
         centro.add(bottonipagamento);
         centro.add(consegna);
@@ -166,6 +188,7 @@ public class AcquistoFrame extends JFrame {
         centro.add(prodottidaacquistare);
 
         c.add(centro);
+
 
         c.add(sud);
 

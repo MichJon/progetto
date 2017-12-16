@@ -38,6 +38,7 @@ public class CarrelloBusiness {
     public void inserisciProdottoNelCarrello (Prodotto p, Carrello c)  {
 
         CarrelloDAO.getInstance().insertProdottoInCarrello(p.getNome(),c.getIdcarrello());
+        c.addProdottoContenuto(p);
     }
 
 }

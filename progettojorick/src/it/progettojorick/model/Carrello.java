@@ -13,6 +13,10 @@ public class Carrello {
         return prodottiContenuti;
     }
 
+    public void addProdottoContenuto(Prodotto p){
+        this.prodottiContenuti.add(p);
+    }
+
     public void setProdottiContenuti(ArrayList<Prodotto> prodottiContenuti) {
         this.prodottiContenuti = prodottiContenuti;
     }
