@@ -93,6 +93,7 @@ public class LoginListener implements ActionListener {
                 CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
                 Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
                 SessionManager.getInstance().getSession().put("carrello",c);
+
             }
         }
         else {
