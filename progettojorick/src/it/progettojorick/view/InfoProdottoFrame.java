@@ -89,11 +89,18 @@ public class InfoProdottoFrame extends JFrame {
                 Utente u = (Utente)SessionManager.getInstance().getSession().get("utente");
                 Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
 
+              //  Carrello c = (Carrello) SessionManager.getInstance().getSession().get("carrello");
 
-                    CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(p, c);
+                    if(!CarrelloBusiness.getInstance().isPresente(p,c)){
+                        CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(p, c);
+                    JOptionPane.showMessageDialog(null,"Il prodotto è stato inserito nel carrello.");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null,"Il prodotto è già presente nel carrello.");
 
 
-             //   JOptionPane.showMessageDialog(null,"Il prodotto è stato inserito nel carrello.");
+
+
                 _this.dispose();
                 UtenteFrame ufr=(UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
                 ufr.setVisible(true);

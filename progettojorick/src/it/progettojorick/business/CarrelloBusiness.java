@@ -8,6 +8,7 @@ import it.progettojorick.model.Utente;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CarrelloBusiness {
 
@@ -41,4 +42,18 @@ public class CarrelloBusiness {
         c.addProdottoContenuto(p);
     }
 
+    public boolean isPresente(Prodotto p, Carrello c){
+
+      ArrayList<Prodotto> prodottiContenuti = c.getProdottiContenuti();
+        Iterator i = prodottiContenuti.iterator();
+
+        while (i.hasNext()){
+
+            Prodotto prod = (Prodotto)i.next();
+
+            if(prod.getNome().equals(p.getNome())) return true;
+        }
+
+        return false;
+    }
 }

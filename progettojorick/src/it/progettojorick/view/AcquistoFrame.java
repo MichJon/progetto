@@ -2,6 +2,7 @@ package it.progettojorick.view;
 
 
 
+import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Carrello;
 import it.progettojorick.model.Persona;
@@ -23,7 +24,8 @@ public class AcquistoFrame extends JFrame {
     Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
    // Persona p = (Persona) SessionManager.getInstance().getSession().get("persona");
 
-    Carrello car = (Carrello) SessionManager.getInstance().getSession().get("carrello");
+  //  Carrello car = (Carrello) SessionManager.getInstance().getSession().get("carrello");
+    Carrello car = CarrelloBusiness.getInstance().carrelloUtente(u);
 
 
 
@@ -99,7 +101,7 @@ public class AcquistoFrame extends JFrame {
 
 
         JLabel modpagamento = new JLabel("Modalità di Pagamento: ");
-        
+
 
         JPanel daticarta = new JPanel();
         daticarta.setLayout(new GridLayout(2,4));

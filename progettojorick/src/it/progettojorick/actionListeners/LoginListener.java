@@ -88,12 +88,14 @@ public class LoginListener implements ActionListener {
                 SessionManager.getInstance().getSession().put("utente", u);
                 //qui quella dell'utente
                 finestra.setVisible(false);
-                UtenteFrame utFr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());
-                SessionManager.getInstance().getSession().put("finestra_utente", utFr);
-
                 CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
                 Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
                 SessionManager.getInstance().getSession().put("carrello",c);
+
+                UtenteFrame utFr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());
+                SessionManager.getInstance().getSession().put("finestra_utente", utFr);
+
+
 
             }
         }

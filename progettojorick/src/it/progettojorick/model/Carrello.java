@@ -7,14 +7,17 @@ public class Carrello {
     private int idcarrello;
     //private String emailutente;
     private Utente utente;
-    ArrayList<Prodotto> prodottiContenuti;
+    private ArrayList<Prodotto> prodottiContenuti;
+
 
     public ArrayList<Prodotto> getProdottiContenuti() {
         return prodottiContenuti;
     }
 
     public void addProdottoContenuto(Prodotto p){
-        this.prodottiContenuti.add(p);
+       // this.prodottiContenuti = new ArrayList<Prodotto>();
+       this.prodottiContenuti.add(p);
+
     }
 
     public void setProdottiContenuti(ArrayList<Prodotto> prodottiContenuti) {
