@@ -4,13 +4,12 @@ package it.progettojorick.view;
 
 import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.SessionManager;
-import it.progettojorick.model.Carrello;
-import it.progettojorick.model.Persona;
-import it.progettojorick.model.Prodotto;
-import it.progettojorick.model.Utente;
+import it.progettojorick.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,6 +19,43 @@ public class AcquistoFrame extends JFrame {
 
     private int x = 1024;
     private int y = 700;
+
+    Pagamento pag = (Pagamento)SessionManager.getInstance().getSession().get("pagamento_selezionato");
+    PreferenzeConsegna pref = (PreferenzeConsegna) SessionManager.getInstance().getSession().get("preferenza_consegna");
+
+
+
+//    public JLabel getNumcartaU() {
+//        return numcartaU;
+//    }
+//
+//    public void setNumcartaU(JLabel numcartaU) {
+//        this.numcartaU = numcartaU;
+//    }
+//
+//    public JLabel getCircuitoU() {
+//        return circuitoU;
+//    }
+//
+//    public void setCircuitoU(JLabel circuitoU) {
+//        this.circuitoU = circuitoU;
+//    }
+//
+//    public JLabel getCodsicurezzaU() {
+//        return codsicurezzaU;
+//    }
+//
+//    public void setCodsicurezzaU(JLabel codsicurezzaU) {
+//        this.codsicurezzaU = codsicurezzaU;
+//    }
+//
+//    public JLabel getDatascadenzaU() {
+//        return datascadenzaU;
+//    }
+//
+//    public void setDatascadenzaU(JLabel datascadenzaU) {
+//        this.datascadenzaU = datascadenzaU;
+//    }
 
     Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
    // Persona p = (Persona) SessionManager.getInstance().getSession().get("persona");
@@ -32,6 +68,8 @@ public class AcquistoFrame extends JFrame {
     public AcquistoFrame() {
 
         super("Finestra dell'Acquisto");
+
+        AcquistoFrame _this = this;
 
         Container c = getContentPane();
 
@@ -78,6 +116,18 @@ public class AcquistoFrame extends JFrame {
         JLabel lblEmail = new JLabel("Email: ");
         JLabel lblIndirizzo = new JLabel("Indirizzo di residenza: ");
         JLabel lblNumtelefono = new JLabel("Num. Telefono: ");
+        JLabel numcartaU = new JLabel();
+        JLabel circuitoU = new JLabel();
+        JLabel codsicurezzaU = new JLabel();
+        JLabel datascadenzaU = new JLabel();
+
+
+        if(pag!=null){
+         numcartaU = new JLabel(String.valueOf(pag.getNumCarta()));
+         circuitoU = new JLabel(pag.getCircuito());
+         codsicurezzaU = new JLabel(String.valueOf(pag.getCodSicurezza()));
+         datascadenzaU = new JLabel(pag.getDataScadenza());}
+
 
         JLabel lblNomeU = new JLabel(u.getNome());
        // JTextField lblNomeU = new JTextField();
@@ -109,10 +159,7 @@ public class AcquistoFrame extends JFrame {
         JLabel circuito = new JLabel("Circuito: ");
         JLabel codsicurezza = new JLabel("CVV: ");
         JLabel datascadenza = new JLabel("Data Scadenza: ");
-        JLabel numcartaU = new JLabel();
-        JLabel circuitoU = new JLabel();
-        JLabel codsicurezzaU = new JLabel();
-        JLabel datascadenzaU = new JLabel();
+
 
         daticarta.add(numcarta);
         daticarta.add(numcartaU);
@@ -128,10 +175,17 @@ public class AcquistoFrame extends JFrame {
         pagamento.add(daticarta);
 
 
-        JButton confermapagamento = new JButton("Conferma");
+        //JButton confermapagamento = new JButton("Conferma");
         JButton modificapagamento = new JButton("Modifica");
+        modificapagamento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.setVisible(false);
+                new PagamentiSalvatiFrame();
+            }
+        });
 
-        bottonipagamento.add(confermapagamento);
+       // bottonipagamento.add(confermapagamento);
         bottonipagamento.add(modificapagamento);
 
         JLabel preferenzeconsegna = new JLabel("Preferenze di consegna: ");
@@ -141,6 +195,10 @@ public class AcquistoFrame extends JFrame {
         JLabel lblNominativoU = new JLabel(u.getNome()+" "+u.getCognome());
         JLabel lblIndirizzoSped = new JLabel("Indirizzo di spedizione: ");
         JLabel lblIndirizzoSpedU = new JLabel(u.getIndirizzo());
+        if(pref!=null){
+            lblNominativoU=new JLabel(pref.getNominativo());
+            lblIndirizzoSpedU=new JLabel((pref.getIndirizzoConsegna()));
+        }
 
         daticonsegna.add(lblNominativo);
         daticonsegna.add(lblNominativoU);
@@ -150,10 +208,21 @@ public class AcquistoFrame extends JFrame {
         consegna.add(preferenzeconsegna);
         consegna.add(daticonsegna);
 
-        JButton confermapreferenze = new JButton("Conferma");
+       // JButton confermapreferenze = new JButton("Conferma");
         JButton modificapreferenze = new JButton("Modifica");
 
-        bottoniconsegna.add(confermapreferenze);
+        modificapreferenze.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+               // SessionManager.getInstance().getSession().put("finestra_preferenze",new PreferenzeConsegnaFrame());
+                new PreferenzeConsegnaDatiFrame();
+
+
+            }
+        });
+
+      //  bottoniconsegna.add(confermapreferenze);
         bottoniconsegna.add(modificapreferenze);
 
         JPanel prodottidaacquistare = new JPanel();

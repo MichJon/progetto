@@ -41,13 +41,16 @@ public class CarrelloFrame extends JFrame {
 
         JTable carrello = new JTable(ctm);
         JButton procedi = new JButton("Procedi all'acquisto");
+        if (c.getProdottiContenuti().size()==0)
+            procedi.setEnabled(false);
 
         procedi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 _this.setVisible(false);
-                new AcquistoFrame();
+                AcquistoFrame acfr = new AcquistoFrame();
+                SessionManager.getInstance().getSession().put("finestra_acquisto",acfr);
 
 
             }
