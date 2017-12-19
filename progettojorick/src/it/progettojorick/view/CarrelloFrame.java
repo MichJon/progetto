@@ -28,7 +28,8 @@ public class CarrelloFrame extends JFrame {
 
         getContentPane().setLayout(new BorderLayout());
 
-        Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
+        //Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
+        Carrello c = (Carrello)SessionManager.getInstance().getSession().get("carrello");
         JPanel sud = new JPanel(new FlowLayout());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

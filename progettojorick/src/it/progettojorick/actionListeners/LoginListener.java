@@ -4,12 +4,15 @@ import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.PersonaBusiness;
 import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
+import it.progettojorick.dao.mysql.CarrelloDAO;
 import it.progettojorick.model.*;
 import it.progettojorick.view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class LoginListener implements ActionListener {
 
@@ -88,8 +91,23 @@ public class LoginListener implements ActionListener {
                 SessionManager.getInstance().getSession().put("utente", u);
                 //qui quella dell'utente
                 finestra.setVisible(false);
-                CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
+
+               // ArrayList<Carrello> carrelli = CarrelloBusiness.getInstance().carrelloUtente(u);
                 Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
+//                if(carrelli==null)
+//                    CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
+//
+//                Carrello c = new Carrello();
+//
+//                Iterator i = carrelli.iterator();
+//                while (i.hasNext()){
+//                    Carrello j = (Carrello)i.next();
+//                    if(!j.isUsato())
+//                        c=j;
+//
+//                }
+
+
                 SessionManager.getInstance().getSession().put("carrello",c);
 
                 UtenteFrame utFr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());

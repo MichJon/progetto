@@ -7,6 +7,7 @@ import it.progettojorick.model.Prodotto;
 import it.progettojorick.model.Utente;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -21,6 +22,15 @@ public class CarrelloBusiness {
     }
 
     public Carrello carrelloUtente(Utente u){
+
+        ArrayList carrelli = CarrelloBusiness.getInstance().carrelliUtente(u);
+        return (Carrello)carrelli.get(carrelli.size()-1);
+
+
+    }
+
+
+    public ArrayList<Carrello> carrelliUtente(Utente u){
 
         return CarrelloDAO.getInstance().findByUtente(u.getEmailUtente());
 

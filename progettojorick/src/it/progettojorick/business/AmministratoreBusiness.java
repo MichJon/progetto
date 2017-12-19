@@ -1,10 +1,12 @@
 package it.progettojorick.business;
 
 import it.progettojorick.dao.mysql.PersonaDAO;
+import it.progettojorick.dao.mysql.RichiestaOrdineDAO;
 import it.progettojorick.dao.mysql.RichiestaRegistrazioneDAO;
 import it.progettojorick.dao.mysql.UtenteDAO;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.Persona;
+import it.progettojorick.model.RichiestaOrdine;
 import it.progettojorick.model.RichiestaRegistrazione;
 
 public class AmministratoreBusiness {
@@ -42,4 +44,20 @@ public class AmministratoreBusiness {
         }
     }
 
+    public void ordineEffettuato(String email, RichiestaOrdine r){
+
+        Amministratore a = (Amministratore) SessionManager.getInstance().getSession().get("amministratore");
+
+        RichiestaOrdine richiesta = RichiestaOrdineDAO.getInstance().findById(r.getIdRichiesta());
+
+        RichiestaOrdineDAO.getInstance().setStato("effettuato", r);
+        RichiestaOrdineDAO.getInstance().setAmministratore(a, r);
+
+
+    }
+
+
 }
+
+
+

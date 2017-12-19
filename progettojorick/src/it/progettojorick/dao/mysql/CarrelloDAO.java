@@ -21,20 +21,41 @@ public class CarrelloDAO implements ICarrelloDAO {
     }
 
 
+//    @Override
+//    public Carrello findByUtente(String emailutente) {
+//        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM carrello WHERE utente_persona_email = '"+emailutente+"';");
+//        if (risultato.size()==0) return null;
+//
+//        Carrello c=new Carrello();
+//
+//        String[] riga= risultato.get(0);
+//        c.setIdcarrello(Integer.parseInt(riga[0]));
+//        //c.setEmailutente(riga[1]);
+//        c.setUtente(UtenteDAO.getInstance().findByEmail(riga[1]));
+//        c.setProdottiContenuti(CarrelloDAO.getInstance().findProdottiContenuti(Integer.parseInt(riga[0])));
+//        return c;
+//    }
+
     @Override
-    public Carrello findByUtente(String emailutente) {
+    public ArrayList<Carrello> findByUtente(String emailutente) {
         ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM carrello WHERE utente_persona_email = '"+emailutente+"';");
         if (risultato.size()==0) return null;
+        ArrayList<Carrello> listaCarrelli = new ArrayList<Carrello>();
 
-        Carrello c=new Carrello();
+        Iterator<String[]> i = risultato.iterator();
 
-        String[] riga= risultato.get(0);
-        c.setIdcarrello(Integer.parseInt(riga[0]));
-        //c.setEmailutente(riga[1]);
-        c.setUtente(UtenteDAO.getInstance().findByEmail(riga[1]));
-        c.setProdottiContenuti(CarrelloDAO.getInstance().findProdottiContenuti(Integer.parseInt(riga[0])));
-        return c;
+        while(i.hasNext()) {
+            String[] riga = i.next();
+            Carrello c=new Carrello();
+            c.setIdcarrello(Integer.parseInt(riga[0]));
+            //c.setEmailutente(riga[1]);
+            c.setUtente(UtenteDAO.getInstance().findByEmail(riga[1]));
+            c.setProdottiContenuti(CarrelloDAO.getInstance().findProdottiContenuti(Integer.parseInt(riga[0])));
+            listaCarrelli.add(c);
+        }
+        return listaCarrelli;
     }
+
 
     @Override
     public ArrayList<Carrello> findAll() {
@@ -74,7 +95,7 @@ public class CarrelloDAO implements ICarrelloDAO {
     @Override
     public void insertCarrello( String email) {
 
-        if (this.findByUtente(email)==null)
+       //if (this.findByUtente(email)==null)
         DbConnection.getInstance().eseguiAggiornamento("INSERT INTO carrello (utente_persona_email) " +
                 "VALUES ('"+email+"');");
 

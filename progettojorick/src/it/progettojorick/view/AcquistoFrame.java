@@ -3,6 +3,7 @@ package it.progettojorick.view;
 
 
 import it.progettojorick.business.CarrelloBusiness;
+import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.*;
 
@@ -60,8 +61,8 @@ public class AcquistoFrame extends JFrame {
     Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
    // Persona p = (Persona) SessionManager.getInstance().getSession().get("persona");
 
-  //  Carrello car = (Carrello) SessionManager.getInstance().getSession().get("carrello");
-    Carrello car = CarrelloBusiness.getInstance().carrelloUtente(u);
+    Carrello car = (Carrello) SessionManager.getInstance().getSession().get("carrello");
+    //Carrello car = CarrelloBusiness.getInstance().carrelloUtente(u);
 
 
 
@@ -244,6 +245,31 @@ public class AcquistoFrame extends JFrame {
 
         JLabel totale = new JLabel("Totale da pagare: "+tot+"€");
         JButton procedi = new JButton("Procedi all'acquisto");
+
+        procedi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+
+                if(pag!=null) {
+                    _this.dispose();
+                    JOptionPane.showMessageDialog(null, "L'ordine è stato effettuato.");
+                    RichiestaOrdineBusiness.getInstance().inviaRichiestaOrdine("effettuato", car.getIdcarrello(), u.getEmailUtente(), pag.getNumCarta());
+                   // SessionManager.getInstance().getSession().put()
+                    car.setUsato(true);
+                    CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
+                    Carrello carNuovo = CarrelloBusiness.getInstance().carrelloUtente(u);
+                    SessionManager.getInstance().getSession().put("carrello",carNuovo);
+                    UtenteFrame utfr = (UtenteFrame) SessionManager.getInstance().getSession().get("finestra_utente");
+                    utfr.setVisible(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Le modalità di pagamento non sono valide");
+                }
+            }
+        });
+
         sud.add(totale);
         sud.add(procedi);
 

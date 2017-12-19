@@ -8,7 +8,15 @@ public class Carrello {
     //private String emailutente;
     private Utente utente;
     private ArrayList<Prodotto> prodottiContenuti;
+    boolean usato=false;
 
+    public boolean isUsato() {
+        return usato;
+    }
+
+    public void setUsato(boolean usato) {
+        this.usato = usato;
+    }
 
     public ArrayList<Prodotto> getProdottiContenuti() {
         return prodottiContenuti;

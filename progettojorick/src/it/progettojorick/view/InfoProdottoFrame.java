@@ -87,9 +87,9 @@ public class InfoProdottoFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Utente u = (Utente)SessionManager.getInstance().getSession().get("utente");
-                Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
+                //Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
 
-              //  Carrello c = (Carrello) SessionManager.getInstance().getSession().get("carrello");
+                Carrello c = (Carrello) SessionManager.getInstance().getSession().get("carrello");
 
                     if(!CarrelloBusiness.getInstance().isPresente(p,c)){
                         CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(p, c);
