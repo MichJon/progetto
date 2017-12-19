@@ -2,16 +2,16 @@ package it.progettojorick.model;
 
 public class Pagamento {
 
-    private int numCarta;
+    private long numCarta;
     private String circuito;
     private int codSicurezza;
     private String dataScadenza;
 
-    public int getNumCarta() {
+    public long getNumCarta() {
         return numCarta;
     }
 
-    public void setNumCarta(int numCarta) {
+    public void setNumCarta(long numCarta) {
         this.numCarta = numCarta;
     }
 

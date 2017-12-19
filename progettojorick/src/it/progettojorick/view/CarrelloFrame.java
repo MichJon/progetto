@@ -28,8 +28,9 @@ public class CarrelloFrame extends JFrame {
 
         getContentPane().setLayout(new BorderLayout());
 
-        Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
-        JTable sud = new JTable();
+        //Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
+        Carrello c = (Carrello)SessionManager.getInstance().getSession().get("carrello");
+        JPanel sud = new JPanel(new FlowLayout());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
@@ -41,12 +42,16 @@ public class CarrelloFrame extends JFrame {
 
         JTable carrello = new JTable(ctm);
         JButton procedi = new JButton("Procedi all'acquisto");
+        if (c.getProdottiContenuti().size()==0)
+            procedi.setEnabled(false);
 
         procedi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 _this.setVisible(false);
+                AcquistoFrame acfr = new AcquistoFrame();
+                SessionManager.getInstance().getSession().put("finestra_acquisto",acfr);
 
 
             }
@@ -54,7 +59,7 @@ public class CarrelloFrame extends JFrame {
 
         getContentPane().add(new JScrollPane(carrello), BorderLayout.CENTER);
         sud.add(procedi);
-        getContentPane().add(sud);
+        getContentPane().add(sud, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x,y);

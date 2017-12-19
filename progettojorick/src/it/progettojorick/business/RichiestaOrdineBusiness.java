@@ -3,6 +3,9 @@ package it.progettojorick.business;
 import it.progettojorick.dao.mysql.RichiestaOrdineDAO;
 import it.progettojorick.model.RichiestaOrdine;
 
+import it.progettojorick.model.Utente;
+
+
 import java.util.ArrayList;
 
 public class RichiestaOrdineBusiness {
@@ -20,5 +23,22 @@ public class RichiestaOrdineBusiness {
         return RichiestaOrdineDAO.getInstance().findAll();
 
     }
+
+
+    public void inviaRichiestaOrdine(String stato, int idCarrello, String emailUt, long numCarta){
+
+
+        RichiestaOrdineDAO.getInstance().insertRichiestaOrdine(stato,idCarrello,emailUt,numCarta);
+
+    }
+
+    public ArrayList<RichiestaOrdine> richiesteOrdineUtente(Utente u){
+
+        return RichiestaOrdineDAO.getInstance().findByUtente(u.getEmailUtente());
+
+    }
+
+  //  boolean carrelloUsato(c)
+
 
 }

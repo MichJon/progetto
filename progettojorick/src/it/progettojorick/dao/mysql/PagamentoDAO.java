@@ -20,19 +20,31 @@ public class PagamentoDAO implements IPagamentoDAO {
 
 
     @Override
-    public Pagamento findByNumcarta(int numCarta) {
+    public Pagamento findByNumcarta(long numCarta) {
         ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM pagamento WHERE num_carta="+numCarta);
         if (risultato.size()==0) return null;
 
         Pagamento p=new Pagamento();
 
         String[] riga= risultato.get(0);
-        p.setNumCarta(Integer.parseInt(riga[0]));
+        p.setNumCarta(Long.parseLong(riga[0]));
         p.setCircuito(riga[1]);
         p.setCodSicurezza(Integer.parseInt(riga[2]));
         p.setDataScadenza(riga[3]);
 
         return p;
+    }
+
+    @Override
+    public void insertPagamento(long numCarta, String circuito, int codSicurezza, String dataScadenza) {
+         DbConnection.getInstance().eseguiAggiornamento("INSERT INTO pagamento (num_carta,circuito,codice_sicurezza,data_scadenza)" +
+                 " VALUES ("+numCarta+",'"+circuito+"',"+codSicurezza+",'"+dataScadenza+"');");
+    }
+
+    @Override
+    public void insertPagamentoUtente(String email, long numCarta) {
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO utente_has_pagamento (utente_persona_email,pagamento_num_carta)" +
+                " VALUES ('"+email+"',"+numCarta+");");
     }
 
     @Override
@@ -46,7 +58,7 @@ public class PagamentoDAO implements IPagamentoDAO {
             while(i.hasNext()) {
                 String[] riga = i.next();
                 Pagamento p = new Pagamento();
-                p.setNumCarta(Integer.parseInt(riga[0]));
+                p.setNumCarta(Long.parseLong(riga[0]));
                 p.setCircuito(riga[1]);
                 p.setCodSicurezza(Integer.parseInt(riga[2]));
                 p.setDataScadenza(riga[3]);
@@ -54,4 +66,7 @@ public class PagamentoDAO implements IPagamentoDAO {
             }
             return listaPagamenti;
     }
+
+
+
 }

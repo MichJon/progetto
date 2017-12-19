@@ -72,7 +72,7 @@ public class UtenteDAO implements IUtenteDAO {
 
         while (i.hasNext()){
             String[] riga = i.next();
-            Pagamento pagamento = PagamentoDAO.getInstance().findByNumcarta(Integer.parseInt(riga[0]));
+            Pagamento pagamento = PagamentoDAO.getInstance().findByNumcarta(Long.parseLong(riga[0]));
             pagamenti.add(pagamento);
         }
         return pagamenti;
