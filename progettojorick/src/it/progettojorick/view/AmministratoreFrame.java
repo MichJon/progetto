@@ -20,6 +20,7 @@ public class AmministratoreFrame extends JFrame {
     public AmministratoreFrame() {
         super("finestra amministratore");
 
+        AmministratoreFrame _this = this;
 
 
     Container c = getContentPane();
@@ -37,6 +38,16 @@ public class AmministratoreFrame extends JFrame {
 
         JButton richiesteReg = new JButton("Gestisci registrazioni");
         JButton ordini = new JButton("Gestisci ordini");// Sistemare action listener
+        ordini.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                _this.setVisible(false);
+                OrdiniAmministratoreFrame oafr= new OrdiniAmministratoreFrame();
+                SessionManager.getInstance().getSession().put("finestra_gestione_ordini",oafr);
+
+            }
+        });
         JButton btnLogout = new JButton("Logout");
         sud.add(btnLogout);
 
@@ -57,7 +68,7 @@ public class AmministratoreFrame extends JFrame {
             }
         });
 
-        AmministratoreFrame _this = this;
+      //  AmministratoreFrame _this = this;
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,9 +1,11 @@
 package it.progettojorick.view;
 
 import it.progettojorick.business.AmministratoreBusiness;
+import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Amministratore;
+import it.progettojorick.model.Carrello;
 import it.progettojorick.model.RichiestaOrdine;
 
 import javax.swing.*;
@@ -22,6 +24,7 @@ public class OrdiniAmministratoreFrame extends JFrame {
         super("Finestra gestione ordini (amministratore)");
         getContentPane().setLayout(new BorderLayout());
 
+        OrdiniAmministratoreFrame _this = this;
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
@@ -41,13 +44,56 @@ public class OrdiniAmministratoreFrame extends JFrame {
         sud.setLayout(new FlowLayout());
         JButton btnLogout = new JButton("Logout");
         sud.add(btnLogout);
-        JButton btnModificaStato = new JButton("Modifica stato");
-        sud.add(btnModificaStato);
+        JButton btnMettiInSpedizione = new JButton("Metti in spedizione");
+        sud.add(btnMettiInSpedizione);
+        btnMettiInSpedizione.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Integer> id = new ArrayList<Integer>();
+                int[] righeSelezionate = richiesteOrd.getSelectedRows();
+                for (int i = 0; i < righeSelezionate.length; i++) {
+                    int rowCount = righeSelezionate[i];
+                    int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
+                    id.add(idd);
+                }
+
+                Iterator j = id.iterator();
+
+                while (j.hasNext()) {
+                                                            ////////////EMAIL
+                    int idRichiesta = (int) j.next();
+
+                    AmministratoreBusiness.getInstance().ordineInSpedizione(idRichiesta);
+
+                }
+                _this.setVisible(false);
+                SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+
+            }
+
+
+        });
+        JButton btnVisualizza = new JButton("Visualizza");
+        sud.add(btnVisualizza);
+        btnVisualizza.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               // _this.setVisible(false);
+
+                int index = richiesteOrd.getSelectedRow();
+                int idRichiesta = (int)richiesteOrd.getModel().getValueAt(index,0);
+                RichiestaOrdine r = RichiestaOrdineBusiness.getInstance().trovaRichiesta(idRichiesta);
+                Carrello c = r.getCarrello();
+                new ProdottiOrdineFrame(c);
+
+
+            }
+        });
         //JButton btnNegaRichieste = new JButton("Nega");
         //sud.add(btnNegaRichieste);
         getContentPane().add(sud, BorderLayout.SOUTH);
 
-        OrdiniAmministratoreFrame _this = this;
+       // OrdiniAmministratoreFrame _this = this;
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

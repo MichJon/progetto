@@ -57,7 +57,18 @@ public class CarrelloFrame extends JFrame {
             }
         });
 
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.setVisible(false);
+                UtenteFrame utfr= (UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
+                utfr.setVisible(true);
+            }
+        });
+
         getContentPane().add(new JScrollPane(carrello), BorderLayout.CENTER);
+        sud.add(indietro);
         sud.add(procedi);
         getContentPane().add(sud, BorderLayout.SOUTH);
 

@@ -38,6 +38,13 @@ public class RichiestaOrdineBusiness {
 
     }
 
+    public RichiestaOrdine trovaRichiesta(int id){
+
+        return RichiestaOrdineDAO.getInstance().findById(id);
+
+    }
+
+
   //  boolean carrelloUsato(c)
 
 

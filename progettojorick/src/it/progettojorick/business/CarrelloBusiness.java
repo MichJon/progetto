@@ -66,4 +66,10 @@ public class CarrelloBusiness {
 
         return false;
     }
+
+    public Carrello trovaCarrello(int id){
+
+        return CarrelloDAO.getInstance().findById(id);
+
+    }
 }

@@ -44,14 +44,16 @@ public class AmministratoreBusiness {
         }
     }
 
-    public void ordineEffettuato(String email, RichiestaOrdine r){
+    public void ordineInSpedizione(int id){
 
         Amministratore a = (Amministratore) SessionManager.getInstance().getSession().get("amministratore");
 
-        RichiestaOrdine richiesta = RichiestaOrdineDAO.getInstance().findById(r.getIdRichiesta());
+        RichiestaOrdine richiesta = RichiestaOrdineDAO.getInstance().findById(id);
 
-        RichiestaOrdineDAO.getInstance().setStato("effettuato", r);
-        RichiestaOrdineDAO.getInstance().setAmministratore(a, r);
+        if(richiesta.getStato().equals("effettuato")){
+        RichiestaOrdineDAO.getInstance().setStato("In spedizione", richiesta);
+        RichiestaOrdineDAO.getInstance().setAmministratore(a, richiesta);
+        }
 
 
     }
