@@ -1,0 +1,70 @@
+package it.progettojorick.view;
+
+import it.progettojorick.business.AmministratoreBusiness;
+import it.progettojorick.business.RichiestaOrdineBusiness;
+import it.progettojorick.business.SessionManager;
+import it.progettojorick.model.Amministratore;
+import it.progettojorick.model.RichiestaOrdine;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class OrdiniAmministratoreFrame extends JFrame {
+
+    int x = 1024;
+    int y = 700;
+
+    public OrdiniAmministratoreFrame() {
+        super("Finestra gestione ordini (amministratore)");
+        getContentPane().setLayout(new BorderLayout());
+
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
+
+        Amministratore a = (Amministratore) SessionManager.getInstance().getSession().get("amministratore");
+        ArrayList<RichiestaOrdine> richiesteOrdine = RichiestaOrdineBusiness.getInstance().richiestePresenti();
+
+
+        OrdiniTableModel otm = new OrdiniTableModel(richiesteOrdine);
+
+        JTable richiesteOrd = new JTable(otm);
+        getContentPane().add(new JScrollPane(richiesteOrd), BorderLayout.CENTER);
+
+
+        getContentPane().add(new JLabel("BENVENUTO " + a.getNome() + " " + a.getCognome() + "!"), BorderLayout.NORTH);
+        JPanel sud = new JPanel();
+        sud.setLayout(new FlowLayout());
+        JButton btnLogout = new JButton("Logout");
+        sud.add(btnLogout);
+        JButton btnModificaStato = new JButton("Modifica stato");
+        sud.add(btnModificaStato);
+        //JButton btnNegaRichieste = new JButton("Nega");
+        //sud.add(btnNegaRichieste);
+        getContentPane().add(sud, BorderLayout.SOUTH);
+
+        OrdiniAmministratoreFrame _this = this;
+        btnLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                SessionManager.getInstance().getSession().put("amministratore", null);
+                _this.setVisible(false);
+                AmministratoreFrame finestraAmministratore = new AmministratoreFrame();
+                SessionManager.getInstance().getSession().put("finestra_amministratore", finestraAmministratore);
+            }
+        });
+
+        //btnModificaStato.addActionListener(new ActionListener() {
+
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(x, y);
+        setVisible(true);
+
+    }
+}
