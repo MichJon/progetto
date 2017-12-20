@@ -35,8 +35,8 @@ public class GestoreFrame extends JFrame{
 
         GestoreFrame _this=this;
 
-        JButton inserisciProdotto=new JButton("Inserisci Prodotto");
-        sud.add(inserisciProdotto);
+        //JButton inserisciProdotto=new JButton("Inserisci Prodotto");
+        //sud.add(inserisciProdotto);
         JLabel benvenuto = new JLabel("Benvenuto gestore "+g.getNome()+"!");
         nord.add(benvenuto);
         JButton inserisciCategoria = new JButton("Inserisci Categoria");
@@ -44,14 +44,14 @@ public class GestoreFrame extends JFrame{
 
 
 
-        inserisciProdotto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                _this.setVisible(false);
-                ProdottoFrame p = new ProdottoFrame();
-                SessionManager.getInstance().getSession().put("finestra_prodotto",p);
-            }
-        });
+        //inserisciProdotto.addActionListener(new ActionListener() {
+         //   @Override
+         //   public void actionPerformed(ActionEvent e) {
+         //       _this.setVisible(false);
+         //       ProdottoFrame p = new ProdottoFrame();
+         //       SessionManager.getInstance().getSession().put("finestra_prodotto",p);
+          //  }
+        //});
 
         inserisciCategoria.addActionListener(new ActionListener() {
             @Override
@@ -66,6 +66,28 @@ public class GestoreFrame extends JFrame{
                 SessionManager.getInstance().getSession().put("finestra_categoria",c);
             }
         });
+
+        JButton btnLogout = new JButton("Logout");
+        sud.add(btnLogout);
+
+        btnLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                SessionManager.getInstance().getSession().put("gestore", null);
+                _this.setVisible(false);
+
+                LoginFrame finestraLogin = new LoginFrame();
+                SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
+
+            }
+        });
+
+        JButton mostratutti = new JButton("Lista Prodotti");
+        sud.add(mostratutti);
+
+        JButton mostracategorie = new JButton("Lista categorie");
+        sud.add(mostracategorie);
 
         c.add(nord, BorderLayout.NORTH);
         c.add(sud, BorderLayout.SOUTH);
