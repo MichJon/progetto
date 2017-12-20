@@ -52,7 +52,6 @@ public class ListaProdottiFrame extends JFrame {
                 ProdottoFrame p = new ProdottoFrame();
                 SessionManager.getInstance().getSession().put("finestra_prodotto",p);
 
-                //REFRESH LISTA
             }
         });
 
@@ -65,6 +64,13 @@ public class ListaProdottiFrame extends JFrame {
 
                 //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
                 //REFRESH
+                int index = listaProd.getSelectedRow();
+
+                String nome = (String)listaProd.getModel().getValueAt(index, 0);
+                ProdottoBusiness.getInstance().rimuoviProdotto(nome);
+                JOptionPane.showMessageDialog(null, "Prodotto rimosso.");
+                _this.dispose();
+                new ListaProdottiFrame();
             }
         });
 

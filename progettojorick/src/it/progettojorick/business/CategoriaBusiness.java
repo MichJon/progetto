@@ -38,4 +38,10 @@ public class CategoriaBusiness {
 
     }
 
+
+    public void rimuoviCategoria(String nome){
+
+        CategoriaDAO.getInstance().deleteCategoria(nome);
+
+    }
 }

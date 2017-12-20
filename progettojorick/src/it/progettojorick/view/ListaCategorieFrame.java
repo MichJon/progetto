@@ -55,7 +55,8 @@ public class ListaCategorieFrame extends JFrame {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                SessionManager.getInstance().getSession().put("finestra_categoria",c);
+              //  SessionManager.getInstance().getSession().put("finestra_categoria",new ListaCategorieFrame());
+//            new ListaCategorieFrame();
             }
         });
 
@@ -67,6 +68,13 @@ public class ListaCategorieFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
                 //REFRESH
+                int index = listaCat.getSelectedRow();
+
+                String nome = (String)listaCat.getModel().getValueAt(index, 0);
+                CategoriaBusiness.getInstance().rimuoviCategoria(nome);
+                JOptionPane.showMessageDialog(null, "Categoria rimossa.");
+                _this.dispose();
+                new ListaCategorieFrame();
             }
         });
 

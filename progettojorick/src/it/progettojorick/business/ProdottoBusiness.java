@@ -54,5 +54,10 @@ public class ProdottoBusiness {
 
     }
 
+    public void rimuoviProdotto(String nome){
+
+        ProdottoDAO.getInstance().deleteProdotto(nome);
+
+    }
 
 }

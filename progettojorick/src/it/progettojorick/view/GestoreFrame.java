@@ -39,8 +39,8 @@ public class GestoreFrame extends JFrame{
         //sud.add(inserisciProdotto);
         JLabel benvenuto = new JLabel("Benvenuto gestore "+g.getNome()+"!");
         nord.add(benvenuto);
-        JButton inserisciCategoria = new JButton("Inserisci Categoria");
-        sud.add(inserisciCategoria);
+        JButton gestCategorie = new JButton("Gestisci Categorie");
+        sud.add(gestCategorie);
 
 
 
@@ -53,17 +53,25 @@ public class GestoreFrame extends JFrame{
           //  }
         //});
 
-        inserisciCategoria.addActionListener(new ActionListener() {
+//        inserisciCategoria.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                _this.setVisible(false);
+//                CategoriaFrame c = null;
+//                try {
+//                    c = new CategoriaFrame();               //exception
+//                } catch (IOException e1) {
+//                    e1.printStackTrace();
+//                }
+//                SessionManager.getInstance().getSession().put("finestra_categoria",c);
+//            }
+//        });
+
+        gestCategorie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 _this.setVisible(false);
-                CategoriaFrame c = null;
-                try {
-                    c = new CategoriaFrame();               //exception
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                SessionManager.getInstance().getSession().put("finestra_categoria",c);
+                new ListaCategorieFrame();
             }
         });
 
@@ -83,11 +91,18 @@ public class GestoreFrame extends JFrame{
             }
         });
 
-        JButton mostratutti = new JButton("Lista Prodotti");
-        sud.add(mostratutti);
-
-        JButton mostracategorie = new JButton("Lista categorie");
-        sud.add(mostracategorie);
+        JButton gestProdotti = new JButton("Gestisci Prodotti");
+        gestProdotti.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.setVisible(false);
+                new ListaProdottiFrame();
+            }
+        });
+        sud.add(gestProdotti);
+//
+//        JButton mostracategorie = new JButton("Lista categorie");
+//        sud.add(mostracategorie);
 
         c.add(nord, BorderLayout.NORTH);
         c.add(sud, BorderLayout.SOUTH);

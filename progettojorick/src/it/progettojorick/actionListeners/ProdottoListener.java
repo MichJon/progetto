@@ -12,6 +12,7 @@ import it.progettojorick.model.Distributore;
 import it.progettojorick.model.Prodotto;
 import it.progettojorick.model.Produttore;
 import it.progettojorick.view.GestoreFrame;
+import it.progettojorick.view.ListaProdottiFrame;
 import it.progettojorick.view.ProdottoFrame;
 
 import javax.swing.*;
@@ -53,8 +54,9 @@ public class ProdottoListener implements ActionListener {
             ProdottoBusiness.getInstance().inserisciProdotto(p);
 
             finestra.setVisible(false);
-            GestoreFrame finestraGestore = new GestoreFrame();
-            SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);
+//            GestoreFrame finestraGestore = new GestoreFrame();
+//            SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);
+            new ListaProdottiFrame();
 
         }
 

@@ -6,6 +6,7 @@ import it.progettojorick.model.Categoria;
 import it.progettojorick.model.GestoreCatalogo;
 import it.progettojorick.view.CategoriaFrame;
 import it.progettojorick.view.GestoreFrame;
+import it.progettojorick.view.ListaCategorieFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,8 +36,9 @@ public class CategoriaListener implements ActionListener{
             CategoriaBusiness.getInstance().inserisciCategoria(c);
             JOptionPane.showMessageDialog(null,"Categoria inserita.");
             finestra.setVisible(false);
-            GestoreFrame finestraGestore = new GestoreFrame();
-            SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);
+//            GestoreFrame finestraGestore = new GestoreFrame();
+//            SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);
+            new ListaCategorieFrame();
 
         }
 

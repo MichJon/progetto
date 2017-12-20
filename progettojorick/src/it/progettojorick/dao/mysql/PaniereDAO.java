@@ -21,7 +21,7 @@ public class PaniereDAO implements IPaniereDAO {
 
     @Override
     public ArrayList<Paniere> findByEmailutente(String emailutente) {
-        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM paniere,WHERE utente_email = '" +emailutente+"';");
+        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT * FROM paniere WHERE utente_persona_email = '" +emailutente+"';");
         if (risultato.size()==0) return null;
 
         ArrayList<Paniere> listaPanieri = new ArrayList<Paniere>();
@@ -36,7 +36,7 @@ public class PaniereDAO implements IPaniereDAO {
            /* p.setEmailutente(riga[2]);
             p.setIdcarrello(Integer.parseInt(riga[3]));*/
             p.setUtente(UtenteDAO.getInstance().findByEmail(riga[2]));
-            p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[3])));
+//            p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[3])));
             p.setProdotti(PaniereDAO.getInstance().prodottiContenuti(Integer.parseInt(riga[0])));
             listaPanieri.add(p);
         }
@@ -56,7 +56,7 @@ public class PaniereDAO implements IPaniereDAO {
            /* p.setEmailutente(riga[2]);
             p.setIdcarrello(Integer.parseInt(riga[3]));*/
         p.setUtente(UtenteDAO.getInstance().findByEmail(riga[2]));
-        p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[3])));
+//        p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[3])));
         p.setProdotti(PaniereDAO.getInstance().prodottiContenuti(Integer.parseInt(riga[0])));
 
         return p;
@@ -92,7 +92,7 @@ public class PaniereDAO implements IPaniereDAO {
 
     public ArrayList<Prodotto> prodottiContenuti ( int id){
 
-        ArrayList<String []>  risNomiProdotti= DbConnection.getInstance().eseguiQuery("SELECT prodotto_nome_prodotto FROM paniere_has_prodotto WHERE paniere_id_paniere =" +id );
+        ArrayList<String []>  risNomiProdotti= DbConnection.getInstance().eseguiQuery("SELECT prodotto_nome_prodotto FROM paniere_has_prodotto WHERE paniere_idpaniere =" +id );
         ArrayList<Prodotto> prodottiCont = new ArrayList<Prodotto>();
         if (risNomiProdotti.size()==0) return null;
         Iterator<String[]> i = risNomiProdotti.iterator();
@@ -103,5 +103,26 @@ public class PaniereDAO implements IPaniereDAO {
             prodottiCont.add(ProdottoContenuto);
         }
     return prodottiCont;
+    }
+
+    public void insertProdottoInPaniere(int id, String nome){
+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO paniere_has_prodotto (paniere_idpaniere, prodotto_nome_prodotto) " +
+                "VALUES ("+id+",'"+nome+"');");
+
+    }
+
+    public void deleteProdottoFromPaniere(String nome, int id){
+
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM paniere_has_prodotto WHERE paniere_idpaniere ="+id+" AND " +
+                "prodotto_nome_prodotto='"+nome+"';");
+
+    }
+
+    public void insertPaniere(String nome, String emailUt){
+
+        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO paniere (nome_paniere, utente_persona_email) " +
+                "VALUES ('"+nome+"','"+emailUt+"');");
+
     }
 }

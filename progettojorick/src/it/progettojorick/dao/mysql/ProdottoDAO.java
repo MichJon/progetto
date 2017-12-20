@@ -225,4 +225,10 @@ public class ProdottoDAO implements IProdottoDAO {
         return listaProdotti;
     }
 
+   public void deleteProdotto(String nome){
+
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM prodotto WHERE nome_prodotto='"+nome+"';");
+
+    }
+
 }

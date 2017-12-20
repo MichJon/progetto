@@ -24,6 +24,10 @@ public class CarrelloBusiness {
     public Carrello carrelloUtente(Utente u){
 
         ArrayList carrelli = CarrelloBusiness.getInstance().carrelliUtente(u);
+        if (carrelli == null) {
+            CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
+            carrelli=CarrelloBusiness.getInstance().carrelliUtente(u);
+        }
         return (Carrello)carrelli.get(carrelli.size()-1);
 
 

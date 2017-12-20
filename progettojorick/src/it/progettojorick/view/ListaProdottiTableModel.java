@@ -49,7 +49,7 @@ public class ListaProdottiTableModel extends AbstractTableModel {
             case 3:
                 return p.getQuantita();
             case 4:
-                return p.getCategoria();
+                return p.getCategoria().getNomecategoria();
             case 5:
                 return p.getProduttore().getId();
             case 6:

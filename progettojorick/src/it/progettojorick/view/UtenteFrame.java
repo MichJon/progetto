@@ -51,9 +51,16 @@ public class UtenteFrame extends JFrame {
         c.add(centro,BorderLayout.CENTER);
         c.add(sud, BorderLayout.SOUTH);
 
-        JButton creaPaniere = new JButton("Crea paniere");
+        JButton panieri = new JButton("Panieri");
+        panieri.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.setVisible(false);
+                new ElencoPanieriView();
+            }
+        });
         JButton carrello = new JButton("Carrello");
-        sud.add(creaPaniere);
+        sud.add(panieri);
         sud.add(carrello);
         carrello.addActionListener(new ActionListener() {
             @Override

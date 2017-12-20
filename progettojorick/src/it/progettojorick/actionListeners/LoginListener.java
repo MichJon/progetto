@@ -92,10 +92,10 @@ public class LoginListener implements ActionListener {
                 //qui quella dell'utente
                 finestra.setVisible(false);
 
-               // ArrayList<Carrello> carrelli = CarrelloBusiness.getInstance().carrelloUtente(u);
+               // Carrello carrelli = CarrelloBusiness.getInstance().carrelloUtente(u);
                 Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
-//                if(carrelli==null)
-//                    CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
+              // if(carrelli==null)
+               //     CarrelloBusiness.getInstance().inserisciCarrello(u.getEmailUtente());
 //
 //                Carrello c = new Carrello();
 //

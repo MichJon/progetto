@@ -62,4 +62,11 @@ public class CategoriaDAO implements ICategoriaDAO {
 
 
     }
+
+
+    public void deleteCategoria(String nome){
+
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM categoria WHERE nome_categoria='"+nome+"';");
+
+    }
 }
