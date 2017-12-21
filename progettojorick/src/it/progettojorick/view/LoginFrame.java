@@ -3,14 +3,16 @@ package it.progettojorick.view;
 import it.progettojorick.actionListeners.LoginListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class LoginFrame extends JFrame {
 
     private JTextField txtEmail = new JTextField();
     private JPasswordField txtPassword = new JPasswordField();
-    private int x=500;
-    private int y=150;
+    private int x=300;
+    private int y=250;
 
     public JTextField getTxtEmail() {
         return txtEmail;
@@ -53,31 +55,44 @@ public class LoginFrame extends JFrame {
     c.add(new JTextField(), BorderLayout.CENTER);
     c.add(new JPasswordField(), BorderLayout.CENTER);
 */
-
+        Border blackline;
+        blackline = BorderFactory.createLineBorder(Color.black);
 
     c.setLayout(new BorderLayout());
     LoginListener listener = new LoginListener(this);
     JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(2,2));
-       JLabel lblEmail = new JLabel("Email");
-       JLabel lblPassword = new JLabel("Password");
+        centro.setLayout(new GridLayout(2,1));
+       //JLabel lblEmail = new JLabel("Email");
+       //JLabel lblPassword = new JLabel("Password");
 
-        centro.add(lblEmail);
+        TitledBorder Temail;
+        Temail = BorderFactory.createTitledBorder(blackline,"Email");
+        TitledBorder Tpassword;
+        Tpassword = BorderFactory.createTitledBorder(blackline,"Password");
+        txtEmail.setBorder(Temail);
+        txtPassword.setBorder(Tpassword);
+
+        //centro.add(lblEmail);
         centro.add(txtEmail);
-        centro.add(lblPassword);
+        //centro.add(lblPassword);
         centro.add(txtPassword);
         txtEmail.addActionListener(listener);
         txtPassword.addActionListener(listener);
 
 JPanel nord = new JPanel();
     nord.setLayout(new FlowLayout());
-    nord.add(new JLabel("Benvenuto Utente!"));
+    JLabel benvenuto = new JLabel("Benvenuto Utente!");
+        benvenuto.setFont(new Font("Serif", Font.PLAIN, 18));
+    nord.add(benvenuto);
 
     JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
        // sud.add(new JLabel("Benvenuto"));
         JButton btnlogin = new JButton("LOGIN");
         JButton btnRegistrazione = new JButton("REGISTRATI");
+
+        //btnRegistrazione.setBorder(BorderFactory.createLineBorder(Color.black));
+
         btnRegistrazione.addActionListener(listener);
         btnlogin.addActionListener(listener);
         sud.add(btnRegistrazione);
