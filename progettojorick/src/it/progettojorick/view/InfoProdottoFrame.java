@@ -76,8 +76,8 @@ public class InfoProdottoFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 _this.dispose();
-                UtenteFrame u=(UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
-                u.setVisible(true);
+//                UtenteFrame u=(UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
+//                u.setVisible(true);
             }
         });
         sud.add(indietro);
@@ -93,6 +93,7 @@ public class InfoProdottoFrame extends JFrame {
 
                     if(!CarrelloBusiness.getInstance().isPresente(p,c)){
                         CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(p, c);
+                        p.setDalPaniere(false);
                     JOptionPane.showMessageDialog(null,"Il prodotto è stato inserito nel carrello.");
                     }
                     else

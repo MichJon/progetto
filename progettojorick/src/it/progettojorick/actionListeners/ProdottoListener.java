@@ -37,7 +37,7 @@ public class ProdottoListener implements ActionListener {
         String nome= finestra.getTxtNome().getText();
         String descrizione= finestra.getTxtDescrizone().getText();
         float prezzo= Float.parseFloat(finestra.getTxtPrezzo().getText());
-        int quantita = Integer.parseInt(finestra.getTxtQuantita().getText());
+        int disponibilita = Integer.parseInt(finestra.getTxtDisponibilita().getText());
         Categoria categoria= CategoriaDAO.getInstance().findByName(finestra.getTxtCategoria().getText());
         Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtProduttore().getText()));
         Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtDistributore().getText()));
@@ -50,7 +50,7 @@ public class ProdottoListener implements ActionListener {
 
         if(e.getSource() instanceof JButton ){
 
-            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,quantita,categoria,produttore,distributore,nomeFile);
+            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,disponibilita,categoria,produttore,distributore,nomeFile);
             ProdottoBusiness.getInstance().inserisciProdotto(p);
 
             finestra.setVisible(false);

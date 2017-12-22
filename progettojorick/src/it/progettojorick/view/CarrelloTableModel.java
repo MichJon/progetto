@@ -1,20 +1,40 @@
 package it.progettojorick.view;
 
+import it.progettojorick.business.ProdottoBusiness;
+import it.progettojorick.business.SessionManager;
+import it.progettojorick.model.Carrello;
+import it.progettojorick.model.Paniere;
 import it.progettojorick.model.Prodotto;
+import utilities.SpinnerEditor;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EventObject;
 
 public class CarrelloTableModel extends AbstractTableModel {
 
     private ArrayList<Prodotto> prodotti;
-    private String columnNames[] = {"Nome Prodotto", "Prezzo", "Quantità"};
+    private String nomePaniere;
+    private String columnNames[] = {"Nome Prodotto", "Prezzo", "Quantità"};//, "Paniere"};
 
-    public CarrelloTableModel(ArrayList<Prodotto> prodotti){
+    Carrello c =(Carrello)SessionManager.getInstance().getSession().get("carrello");
+
+    public CarrelloTableModel(ArrayList<Prodotto> prodotti){//, String nomePaniere){
         this.prodotti=prodotti;
+     //   this.nomePaniere=nomePaniere;
     }
-
+//
+//    @Override
+//    public Class getColumnClass(int columnIndex) {
+//        if(columnIndex == 3) return SpinnerModel.class;
+//
+//        return String.class;
+//    }
 
     @Override
     public String getColumnName(int columnIndex) {
@@ -31,17 +51,54 @@ public class CarrelloTableModel extends AbstractTableModel {
 
     }
 
+//    public void setCellEditable(int row, int col, boolean value) {
+//        this.editable_cells[row][col] = value; // set cell true/false
+//        this.fireTableCellUpdated(row, col);
+//    }
+
+    @Override
+    public boolean isCellEditable(int row, int col) {
+        return col==2;
+    }
+
+
+    @Override
+    public void setValueAt(Object value, int row, int col){
+        Prodotto p = prodotti.get(row);
+        String quantita = (String) value;
+
+        ProdottoBusiness.getInstance().setQuantita(quantita,c,p);
+
+
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Prodotto p = prodotti.get(rowIndex);
 
 
 
+        String quantita = ProdottoBusiness.getInstance().getQuantita(c,p);
+//        Paniere pan =(Paniere) SessionManager.getInstance().getSession().get("paniere");
+//
+//        String nomePan = "";
+//        if(pan!=null)
+//            nomePan=pan.getNome();
+
         switch(columnIndex) {
             case 0: return p.getNome();
             case 1: return p.getPrezzo();
-            case 2: return p.getQuantita();
+            case 2:
+
+                return quantita ;
+//            case 3:
+//                if(p.isDalPaniere()) return pan.getNome();
+//                else return null;
             default: return null;
         }
     }
+
+
+
+
 }

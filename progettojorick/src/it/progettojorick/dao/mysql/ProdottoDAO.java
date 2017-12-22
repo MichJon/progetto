@@ -31,14 +31,7 @@ public class ProdottoDAO implements IProdottoDAO {
         p.setNome(riga[0]);
         p.setDescrizione(riga[1]);
         p.setPrezzo(Float.parseFloat(riga[2]));
-        p.setQuantita(Integer.parseInt(riga[3]));
-       /* p.setIdcarrello(Integer.parseInt(riga[4]));
-        p.setCategoria(riga[5]);
-        p.setIdproduttore(Integer.parseInt(riga[6]));
-        p.setIddistributore(Integer.parseInt(riga[7]));*/
-//       if (riga[4]!=null)
-//        p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-//       else p.setCarrello(null);
+        p.setDisponibilita(Integer.parseInt(riga[3]));
         p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
         p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
         p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
@@ -54,9 +47,9 @@ public class ProdottoDAO implements IProdottoDAO {
     public void insertProdotto(Prodotto p) {
 
         DbConnection.getInstance().eseguiAggiornamento("INSERT INTO prodotto (nome_prodotto,descrizione," +
-                        "prezzo,quantita,categoria_nome_categoria, produttore_idproduttore," +
+                        "prezzo,disponibilita,categoria_nome_categoria, produttore_idproduttore," +
                         "distributore_iddistributore, url_immagine)" +
-                        "VALUES ('"+p.getNome()+"','"+p.getDescrizione()+"','"+p.getPrezzo()+"','"+p.getQuantita()+"','"+
+                        "VALUES ('"+p.getNome()+"','"+p.getDescrizione()+"','"+p.getPrezzo()+"','"+p.getDisponibilita()+"','"+
                                     p.getCategoria().getNomecategoria()+"','"+p.getProduttore().getId()+"','"+
                                     p.getDistributore().getId()+"','"+p.getImgUrl()+"');");
 
@@ -79,14 +72,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setNome(riga[0]);
             p.setDescrizione(riga[1]);
             p.setPrezzo(Float.parseFloat(riga[2]));
-            p.setQuantita(Integer.parseInt(riga[3]));
-           /* p.setIdcarrello(Integer.parseInt(riga[4]));
-            p.setCategoria(riga[5]);
-            p.setIdproduttore(Integer.parseInt(riga[6]));
-            p.setIddistributore(Integer.parseInt(riga[7]));*/
-//            if (riga[4]!=null)
-//                p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-//            else p.setCarrello(null);
+            p.setDisponibilita(Integer.parseInt(riga[3]));
             p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
             p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
@@ -112,12 +98,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setNome(riga[0]);
             p.setDescrizione(riga[1]);
             p.setPrezzo(Float.parseFloat(riga[2]));
-            p.setQuantita(Integer.parseInt(riga[3]));
-         /*   p.setIdcarrello(Integer.parseInt(riga[4]));
-            p.setCategoria(riga[5]);
-            p.setIdproduttore(Integer.parseInt(riga[6]));
-            p.setIddistributore(Integer.parseInt(riga[7]));*/
-//            p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
+            p.setDisponibilita(Integer.parseInt(riga[3]));
             p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
             p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
@@ -175,14 +156,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setNome(riga[0]);
             p.setDescrizione(riga[1]);
             p.setPrezzo(Float.parseFloat(riga[2]));
-            p.setQuantita(Integer.parseInt(riga[3]));
-         /*   p.setIdcarrello(Integer.parseInt(riga[4]));
-            p.setCategoria(riga[5]);
-            p.setIdproduttore(Integer.parseInt(riga[6]));
-            p.setIddistributore(Integer.parseInt(riga[7]));*/
-//            if (riga[4]!=null)
-//                p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-//            else p.setCarrello(null);
+            p.setDisponibilita(Integer.parseInt(riga[3]));
             p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
             p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
@@ -207,14 +181,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setNome(riga[0]);
             p.setDescrizione(riga[1]);
             p.setPrezzo(Float.parseFloat(riga[2]));
-            p.setQuantita(Integer.parseInt(riga[3]));
-         /*   p.setIdcarrello(Integer.parseInt(riga[4]));
-            p.setCategoria(riga[5]);
-            p.setIdproduttore(Integer.parseInt(riga[6]));
-            p.setIddistributore(Integer.parseInt(riga[7]));*/
-//            if (riga[4]!=null)
-//                p.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[4])));
-//            else p.setCarrello(null);
+            p.setDisponibilita(Integer.parseInt(riga[3]));
             p.setCategoria(CategoriaDAO.getInstance().findByName(riga[4]));
             p.setProduttore(ProduttoreDAO.getInstance().findById(Integer.parseInt(riga[5])));
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
@@ -228,6 +195,23 @@ public class ProdottoDAO implements IProdottoDAO {
    public void deleteProdotto(String nome){
 
         DbConnection.getInstance().eseguiAggiornamento("DELETE FROM prodotto WHERE nome_prodotto='"+nome+"';");
+
+    }
+
+    public String getQuantita(int idCarrello, String nomeProdotto){
+
+        ArrayList<String []> risultato = DbConnection.getInstance().eseguiQuery("SELECT quantita FROM carrello_has_prodotto WHERE prodotto_nome_prodotto = '"+nomeProdotto+"' AND " +
+                "carrello_idcarrello = "+idCarrello);
+        if (risultato.size()==0) return null;
+
+        return risultato.get(0)[0];
+
+    }
+
+    public void setQuantita(String quantita, int idCarrello, String nomeProdotto){
+
+        DbConnection.getInstance().eseguiAggiornamento("UPDATE carrello_has_prodotto SET quantita = '"+quantita+"' WHERE prodotto_nome_prodotto = '"+nomeProdotto+"' AND "  +
+                "carrello_idcarrello = "+idCarrello);
 
     }
 

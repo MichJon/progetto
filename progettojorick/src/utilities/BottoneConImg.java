@@ -18,19 +18,20 @@ import java.io.File;
 
 public class BottoneConImg extends JPanel {
 
+//    private String sessione;
     private String url;
     private String nomeFile;
     private String nomeProdotto;
     private String prezzo;
 
-    public BottoneConImg(String nomeFile, String nomeProdotto, String prezzo) {
+    public BottoneConImg(String nomeFile, String nomeProdotto, String prezzo){//, String sessione) {
         super();
         super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         super.setVisible(true);
         this.nomeFile = nomeFile;
         this.nomeProdotto=nomeProdotto;
         this.prezzo= prezzo;
-
+//        this.sessione=sessione;
 
 
 
@@ -41,8 +42,9 @@ public class BottoneConImg extends JPanel {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UtenteFrame utfr = (UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
-                utfr.setVisible(false);
+
+//                UtenteFrame utfr = (UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
+//                utfr.setVisible(false);
                 Prodotto pr= ProdottoDAO.getInstance().findByName(nomeProdotto); //inserire nel business
                 InfoProdottoFrame prfr=new InfoProdottoFrame(pr);
                 prfr.setVisible(true);

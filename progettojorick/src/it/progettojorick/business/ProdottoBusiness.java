@@ -16,13 +16,13 @@ public class ProdottoBusiness {
             instance = new ProdottoBusiness();
         return instance;
     }
-    public Prodotto creaProdotto(String nome, String descrizione, float prezzo, int quantita, Categoria c, Produttore pr, Distributore d, String imgUrl){
+    public Prodotto creaProdotto(String nome, String descrizione, float prezzo, int disponibilita, Categoria c, Produttore pr, Distributore d, String imgUrl){
 
     Prodotto p = new Prodotto();
         p.setNome(nome);
         p.setDescrizione(descrizione);
         p.setPrezzo(prezzo);
-        p.setQuantita(quantita);
+        p.setDisponibilita(disponibilita);
 
 
         p.setCategoria(c);
@@ -60,4 +60,15 @@ public class ProdottoBusiness {
 
     }
 
+    public String getQuantita(Carrello c, Prodotto p){
+
+        return ProdottoDAO.getInstance().getQuantita(c.getIdcarrello(),p.getNome());
+
+    }
+
+    public void setQuantita(String quantita,Carrello c, Prodotto p){
+
+        ProdottoDAO.getInstance().setQuantita(quantita,c.getIdcarrello(),p.getNome());
+
+    }
 }

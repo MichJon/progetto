@@ -19,7 +19,7 @@ import java.util.Iterator;
 
 public class UtenteFrame extends JFrame {
 
-    private int x=1024;
+    private int x=850;
     private int y=700;
 
 

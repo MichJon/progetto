@@ -1,12 +1,10 @@
 package it.progettojorick.view;
 
+import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.CategoriaBusiness;
 import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
-import it.progettojorick.model.Categoria;
-import it.progettojorick.model.Paniere;
-import it.progettojorick.model.Prodotto;
-import it.progettojorick.model.Utente;
+import it.progettojorick.model.*;
 import utilities.BottoneConImg;
 
 import javax.swing.*;
@@ -28,6 +26,9 @@ public class ProdottiPaniereFrame extends JFrame {
     ArrayList<Prodotto> prodottiList= ProdottoBusiness.getInstance().prodottiPresenti();
 
     Utente u =(Utente) SessionManager.getInstance().getSession().get("utente");
+
+    Carrello car=(Carrello) SessionManager.getInstance().getSession().get("carrello");
+
 //
 //    public void setProdottiList(ArrayList<Prodotto> prodottiList) {
 //        this.prodottiList = prodottiList;
@@ -72,6 +73,29 @@ public class ProdottiPaniereFrame extends JFrame {
         sud.add(panieri);
         sud.add(carrello);
         sud.add(aggPanAlCarrello);
+        aggPanAlCarrello.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ArrayList<Prodotto> prodContenuti = p.getProdotti();
+
+                Iterator i = prodContenuti.iterator();
+
+                while(i.hasNext()){
+
+                    Prodotto prod =(Prodotto) i.next();
+
+                    prod.setDalPaniere(true);
+                    if(!CarrelloBusiness.getInstance().isPresente(prod,car)) {
+                        CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(prod, car);
+
+                    }
+                    else JOptionPane.showMessageDialog(null,"Il prodotto "+prod.getNome()+" è già presente nel carrello.");
+
+                }
+                JOptionPane.showMessageDialog(null, "I prodotti del paniere sono stati aggiunti al carrello.");
+            }
+        });
         sud.add(modificaPaniere);
         modificaPaniere.addActionListener(new ActionListener() {
             @Override
@@ -103,6 +127,7 @@ public class ProdottiPaniereFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 _this.setVisible(false);
+                SessionManager.getInstance().getSession().put("paniere",null);
                UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());
 
                     SessionManager.getInstance().getSession().put("finestra_utente",fr);

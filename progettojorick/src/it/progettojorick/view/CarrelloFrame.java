@@ -6,12 +6,18 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Carrello;
 import it.progettojorick.model.Prodotto;
 import it.progettojorick.model.Utente;
+import utilities.SpinnerEditor;
+import utilities.SpinnerRenderer;
 
 import javax.swing.*;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.EventObject;
 
 public class CarrelloFrame extends JFrame {
 
@@ -41,6 +47,9 @@ public class CarrelloFrame extends JFrame {
         CarrelloTableModel ctm = new CarrelloTableModel(prodotti);
 
         JTable carrello = new JTable(ctm);
+//        TableColumn tc = carrello.getColumnModel().getColumn(2);
+        //tc.setCellEditor(new SpinnerEditor());
+//        tc.setCellRenderer(new SpinnerRenderer());
         JButton procedi = new JButton("Procedi all'acquisto");
         if (c.getProdottiContenuti().size()==0)
             procedi.setEnabled(false);
@@ -76,4 +85,7 @@ public class CarrelloFrame extends JFrame {
         setSize(x,y);
         setVisible(true);
     }
+
+
+
 }

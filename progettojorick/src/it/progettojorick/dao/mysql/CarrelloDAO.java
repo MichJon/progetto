@@ -123,8 +123,8 @@ public class CarrelloDAO implements ICarrelloDAO {
     public void insertProdottoInCarrello(String nomeProdotto, int idCarrello) {
 
 
-            DbConnection.getInstance().eseguiAggiornamento("INSERT INTO carrello_has_prodotto (carrello_idcarrello,prodotto_nome_prodotto)" +
-                    "VALUES ('" + idCarrello + "','" + nomeProdotto + "');");
+            DbConnection.getInstance().eseguiAggiornamento("INSERT INTO carrello_has_prodotto (carrello_idcarrello,prodotto_nome_prodotto,quantita)" +
+                    "VALUES ('" + idCarrello + "','" + nomeProdotto + "',1 );");
 
 
     }

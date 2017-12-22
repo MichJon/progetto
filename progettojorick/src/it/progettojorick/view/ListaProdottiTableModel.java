@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ListaProdottiTableModel extends AbstractTableModel {
 
     private ArrayList<Prodotto> listaprodotti;
-    private String columnNames[] = {"Nome", "Descrizione", "Prezzo", "Quantità", "Categoria", "Id Produttore", "Id Distributore"};
+    private String columnNames[] = {"Nome", "Descrizione", "Prezzo", "Disponibilità", "Categoria", "Id Produttore", "Id Distributore"};
 
     public ListaProdottiTableModel(ArrayList<Prodotto> listaprodotti) {
         this.listaprodotti = listaprodotti;
@@ -47,7 +47,7 @@ public class ListaProdottiTableModel extends AbstractTableModel {
             case 2:
                 return p.getPrezzo();
             case 3:
-                return p.getQuantita();
+                return p.getDisponibilita();
             case 4:
                 return p.getCategoria().getNomecategoria();
             case 5:

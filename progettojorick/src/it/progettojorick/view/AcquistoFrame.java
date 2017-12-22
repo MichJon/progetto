@@ -3,6 +3,7 @@ package it.progettojorick.view;
 
 
 import it.progettojorick.business.CarrelloBusiness;
+import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.*;
@@ -229,21 +230,32 @@ public class AcquistoFrame extends JFrame {
         JPanel prodottidaacquistare = new JPanel();
 
         ArrayList<Prodotto> prodotti = car.getProdottiContenuti();
-        prodottidaacquistare.setLayout(new GridLayout(prodotti.size(),2));
+        prodottidaacquistare.setLayout(new GridLayout(prodotti.size()+1,3));
+        JLabel nome = new JLabel("Nome prodotto:");
+        nome.setFont(new Font("Serif", Font.PLAIN, 18));
+        JLabel prezzo = new JLabel("Prezzo:");
+        prezzo.setFont(new Font("Serif", Font.PLAIN, 18));
+        JLabel quantitalbl = new JLabel("Quantità:");
+        quantitalbl.setFont(new Font("Serif", Font.PLAIN, 18));
+        prodottidaacquistare.add(nome);
+        prodottidaacquistare.add(prezzo);
+        prodottidaacquistare.add(quantitalbl);
 
         float tot = 0;
         for(int i=0;i<prodotti.size();i++){
 
 
+            int quantita = Integer.parseInt(ProdottoBusiness.getInstance().getQuantita(car, prodotti.get(i)));
             JLabel nomeprodotto = new JLabel(prodotti.get(i).getNome());
-            JLabel prezzoprodotto = new JLabel(Float.toString(prodotti.get(i).getPrezzo()));
-            tot += prodotti.get(i).getPrezzo();
+            JLabel prezzoprodotto = new JLabel("€"+Float.toString(prodotti.get(i).getPrezzo()));
+            tot += prodotti.get(i).getPrezzo()*quantita;
             prodottidaacquistare.add(nomeprodotto);
             prodottidaacquistare.add(prezzoprodotto);
+            prodottidaacquistare.add(new JLabel(String.valueOf(quantita)));
         }
 
 
-        JLabel totale = new JLabel("Totale da pagare: "+tot+"€");
+        JLabel totale = new JLabel("Totale da pagare: €"+tot);
         JButton procedi = new JButton("Procedi all'acquisto");
 
         procedi.addActionListener(new ActionListener() {
@@ -289,6 +301,7 @@ public class AcquistoFrame extends JFrame {
 
         c.add(sud);
 
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x,y);
         setVisible(true);

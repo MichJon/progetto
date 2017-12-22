@@ -9,13 +9,22 @@ public class Prodotto {
     private String nome;
     private String descrizione;
     private float prezzo;
-    private int quantita;
+    private int disponibilita;
     private Carrello carrello;
     private Categoria categoria;
     private Produttore produttore;
     private Distributore distributore;
     private ArrayList<Prodotto> prodottiContenuti=null;
     private String imgUrl;
+    private boolean dalPaniere=false;
+
+    public boolean isDalPaniere() {
+        return dalPaniere;
+    }
+
+    public void setDalPaniere(boolean dalPaniere) {
+        this.dalPaniere = dalPaniere;
+    }
 
     public ArrayList<Prodotto> getProdottiContenuti() {
         return prodottiContenuti;
@@ -54,12 +63,12 @@ public class Prodotto {
         this.prezzo = prezzo;
     }
 
-    public int getQuantita() {
-        return quantita;
+    public int getDisponibilita() {
+        return disponibilita;
     }
 
-    public void setQuantita(int quantita) {
-        this.quantita = quantita;
+    public void setDisponibilita(int disponibilita) {
+        this.disponibilita = disponibilita;
     }
 
   /*  public int getIdcarrello() {

@@ -16,7 +16,7 @@ public class ProdottoFrame extends JFrame{
     private JTextField txtNome = new JTextField();
     private JTextField txtDescrizone = new JTextField();
     private JTextField txtPrezzo = new JTextField();
-    private JTextField txtQuantita = new JTextField();
+    private JTextField txtDisponibilita = new JTextField();
     private JTextField txtCategoria = new JTextField();
     private JTextField txtProduttore = new JTextField();
     private JTextField txtDistributore = new JTextField();
@@ -68,12 +68,12 @@ public class ProdottoFrame extends JFrame{
         this.txtPrezzo = txtPrezzo;
     }
 
-    public JTextField getTxtQuantita() {
-        return txtQuantita;
+    public JTextField getTxtDisponibilita() {
+        return txtDisponibilita;
     }
 
-    public void setTxtQuantita(JTextField txtQuantita) {
-        this.txtQuantita = txtQuantita;
+    public void setTxtDisponibilita(JTextField txtDisponibilita) {
+        this.txtDisponibilita = txtDisponibilita;
     }
 
     public JTextField getTxtCategoria() {
@@ -127,7 +127,7 @@ public class ProdottoFrame extends JFrame{
         JLabel lblNome = new JLabel("Nome");
         JLabel lblDescrizione = new JLabel("Descrizione");
         JLabel lblPrezzo = new JLabel("Prezzo");
-        JLabel lblQuantita = new JLabel("Quantita");
+        JLabel lblDisponibilita = new JLabel("Disponibilità");
         JLabel lblCategoria = new JLabel("Categoria");
         JLabel lblProduttore = new JLabel("Produttore");
         JLabel lblDistributore = new JLabel("Distributore");
@@ -160,8 +160,8 @@ public class ProdottoFrame extends JFrame{
         centro.add(txtDescrizone);
         centro.add(lblPrezzo);
         centro.add(txtPrezzo);
-        centro.add(lblQuantita);
-        centro.add(txtQuantita);
+        centro.add(lblDisponibilita);
+        centro.add(txtDisponibilita);
         centro.add(lblCategoria);
         centro.add(txtCategoria);
         centro.add(lblProduttore);
