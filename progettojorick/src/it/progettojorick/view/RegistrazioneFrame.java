@@ -5,6 +5,8 @@ import it.progettojorick.actionListeners.RegistrazioneListener;
 
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class RegistrazioneFrame extends JFrame {
@@ -17,8 +19,8 @@ public class RegistrazioneFrame extends JFrame {
     private JTextField txtNumTelefono = new JTextField();
 
 
-    private int x = 400;
-    private int y = 350;
+    private int x = 325;
+    private int y = 400;
 
     public JTextField getTxtNome() {
         return txtNome;
@@ -82,25 +84,29 @@ public class RegistrazioneFrame extends JFrame {
 
         JPanel centro = new JPanel();
         centro.setLayout(new GridLayout(6,2));
+        Border blackline;
+        blackline = BorderFactory.createLineBorder(Color.black);
 
-        JLabel lblNome = new JLabel("Nome");
-        JLabel lblCognome = new JLabel("Cognome");
-        JLabel lblEmail = new JLabel("Email");
-        JLabel lblPassword = new JLabel("Password");
-        JLabel lblIndirizzo = new JLabel("Indirizzo");
-        JLabel lblNumtelefono = new JLabel("Numero di telefono");
+        TitledBorder Tnome,Tcognome,Temail,Tpassword,Tindirizzo,Tnumtelefono;
+        Tnome = BorderFactory.createTitledBorder(blackline,"Nome");
+        Tcognome = BorderFactory.createTitledBorder(blackline,"Cognome");
+        Temail = BorderFactory.createTitledBorder(blackline,"Email");
+        Tpassword = BorderFactory.createTitledBorder(blackline,"Password");
+        Tindirizzo = BorderFactory.createTitledBorder(blackline,"Indirizzo");
+        Tnumtelefono = BorderFactory.createTitledBorder(blackline,"Numero di telefono");
 
-        centro.add(lblNome);
+        txtNome.setBorder(Tnome);
+        txtCognome.setBorder(Tcognome);
+        txtEmail.setBorder(Temail);
+        txtPassword.setBorder(Tpassword);
+        txtIndirizzo.setBorder(Tindirizzo);
+        txtNumTelefono.setBorder(Tnumtelefono);
+
         centro.add(txtNome);
-        centro.add(lblCognome);
         centro.add(txtCognome);
-        centro.add(lblEmail);
         centro.add(txtEmail);
-        centro.add(lblPassword);
         centro.add(txtPassword);
-        centro.add(lblIndirizzo);
         centro.add(txtIndirizzo);
-        centro.add(lblNumtelefono);
         centro.add(txtNumTelefono);
 
         txtNome.addActionListener(listener);
@@ -118,7 +124,9 @@ public class RegistrazioneFrame extends JFrame {
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
-        nord.add(new JLabel(" Compila i campi seguenti con i dati richiesti "));
+        JLabel intro = new JLabel(" Compila i campi seguenti con i dati richiesti ");
+        intro.setFont(new Font("Serif", Font.PLAIN, 17));
+        nord.add(intro);
 
         RegPane.add(centro, BorderLayout.CENTER);             // pattern command
         RegPane.add(sud,BorderLayout.SOUTH);
