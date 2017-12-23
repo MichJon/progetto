@@ -12,14 +12,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 
 public class InfoProdottoFrame extends JFrame {
 
     Prodotto p;
 
     private int x = 400;
-    private int y = 500;
+    private int y = 350;
 
 
     public InfoProdottoFrame(Prodotto p) {
@@ -41,7 +40,7 @@ public class InfoProdottoFrame extends JFrame {
         InfoProdottoFrame _this = this;
 
         JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(7,2));
+        centro.setLayout(new GridLayout(6,2));
         JPanel sud = new JPanel(new FlowLayout());
 
         JLabel lblNome = new JLabel("Nome:");
@@ -58,11 +57,6 @@ public class InfoProdottoFrame extends JFrame {
         JLabel lblDescrizioneProduttoreI = new JLabel(p.getProduttore().getDescrizione());
         JLabel lblDescrizioneDistributoreI = new JLabel(p.getDistributore().getDescrizione());
 
-        JPanel prodottiCont = new JPanel();
-        prodottiCont.setLayout(new BoxLayout(prodottiCont, BoxLayout.PAGE_AXIS));
-
-
-
         centro.add(lblNome);
         centro.add(lblNomeI);
         centro.add(lblDescrizione);
@@ -76,21 +70,6 @@ public class InfoProdottoFrame extends JFrame {
         centro.add(lblDescrizioneDistributore);
         centro.add(lblDescrizioneDistributoreI);
 
-        if (p.getProdottiContenuti()!=null){
-            centro.add(new JLabel("Prodotti contenuti"));
-
-            Iterator i = p.getProdottiContenuti().iterator();
-
-            while(i.hasNext()){
-                Prodotto pr =(Prodotto) i.next();
-
-                prodottiCont.add(new JLabel(pr.getNome()));
-
-
-            }
-            centro.add(prodottiCont);
-
-        }
 
         JButton indietro = new JButton("Indietro");
         indietro.addActionListener(new ActionListener() {
@@ -124,8 +103,8 @@ public class InfoProdottoFrame extends JFrame {
 
 
                 _this.dispose();
-//                UtenteFrame ufr=(UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
-//                ufr.setVisible(true);
+                UtenteFrame ufr=(UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
+                ufr.setVisible(true);
             }
         });
         sud.add(aggCarrello);
@@ -138,7 +117,8 @@ public class InfoProdottoFrame extends JFrame {
         immagine.add(new JLabel(newImg), BorderLayout.CENTER);
         pack();
 
-        RegPane.add(immagine,BorderLayout.NORTH);
+
+
         RegPane.add(centro, BorderLayout.CENTER);             // pattern command
         RegPane.add(sud, BorderLayout.SOUTH);
 

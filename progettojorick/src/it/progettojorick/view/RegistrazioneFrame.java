@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RegistrazioneFrame extends JFrame {
 
@@ -76,6 +78,8 @@ public class RegistrazioneFrame extends JFrame {
 
         Container RegPane = getContentPane();
 
+        RegistrazioneFrame _this = this;
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
@@ -120,6 +124,19 @@ public class RegistrazioneFrame extends JFrame {
         sud.setLayout(new FlowLayout());
         JButton btnRegistrazione = new JButton("REGISTRATI");
         btnRegistrazione.addActionListener(listener);
+        JButton btnIndietro = new JButton("Indietro");
+        btnIndietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                new LoginFrame();
+            }
+        });
+        sud.add(btnIndietro);
+        sud.add(new JSeparator(SwingConstants.VERTICAL));
+        sud.add(new JSeparator(SwingConstants.VERTICAL));
+        sud.add(new JSeparator(SwingConstants.VERTICAL));
+        sud.add(new JSeparator(SwingConstants.VERTICAL));
         sud.add(btnRegistrazione);
 
         JPanel nord = new JPanel();

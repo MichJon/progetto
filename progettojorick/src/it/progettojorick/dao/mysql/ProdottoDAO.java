@@ -215,11 +215,4 @@ public class ProdottoDAO implements IProdottoDAO {
 
     }
 
-    public void insertProdottiContenuti(String nomeProdComposto, String nomeProdContenuto){
-
-        DbConnection.getInstance().eseguiAggiornamento("INSERT INTO prodotto_has_prodotto (prodotto_nome_prodotto_composto,prodotto_nome_prodotto_contenuto) " +
-                "VALUES ('"+nomeProdComposto+"','"+nomeProdContenuto+"');");
-
-    }
-
 }
