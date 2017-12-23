@@ -100,12 +100,9 @@ public class OrdiniAmministratoreFrame extends JFrame {
 
                 SessionManager.getInstance().getSession().put("amministratore", null);
                 _this.setVisible(false);
-//                AmministratoreFrame finestraAmministratore = new AmministratoreFrame();
-//                SessionManager.getInstance().getSession().put("finestra_amministratore", finestraAmministratore);
-
-                new LoginFrame();
+                AmministratoreFrame finestraAmministratore = new AmministratoreFrame();
+                SessionManager.getInstance().getSession().put("finestra_amministratore", finestraAmministratore);
             }
-
         });
 
         //btnModificaStato.addActionListener(new ActionListener() {

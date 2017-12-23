@@ -2,12 +2,10 @@ package it.progettojorick.business;
 
 import it.progettojorick.dao.mysql.CarrelloDAO;
 import it.progettojorick.dao.mysql.ProdottoDAO;
-import it.progettojorick.dbInterface.DbConnection;
 import it.progettojorick.model.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ProdottoBusiness {
 
@@ -73,26 +71,4 @@ public class ProdottoBusiness {
         ProdottoDAO.getInstance().setQuantita(quantita,c.getIdcarrello(),p.getNome());
 
     }
-
-    public Prodotto trovaProdotto(String nome){
-
-        return ProdottoDAO.getInstance().findByName(nome);
-
-    }
-
-    public void inserisciProdottiContenuti(Prodotto prodComposto, ArrayList<Prodotto> prodContenuti){
-
-        Iterator i = prodContenuti.iterator();
-
-        while(i.hasNext()){
-
-            Prodotto p = (Prodotto) i.next();
-            ProdottoDAO.getInstance().insertProdottiContenuti(prodComposto.getNome(), p.getNome());
-
-        }
-
-
-    }
-
-
 }

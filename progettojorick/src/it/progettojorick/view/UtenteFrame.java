@@ -162,8 +162,15 @@ public class UtenteFrame extends JFrame {
             centro.add(new JLabel("Non sono presenti prodotti in questa categoria."));
         }
 
-
-
+        JButton btnLogout = new JButton("Logout");
+        btnLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                new LoginFrame();
+            }
+        });
+        sud.add(btnLogout);
 
         setJMenuBar(bar);
 

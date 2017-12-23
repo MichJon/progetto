@@ -19,7 +19,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 public class ProdottoListener implements ActionListener {
 
@@ -42,7 +41,6 @@ public class ProdottoListener implements ActionListener {
         Categoria categoria= CategoriaDAO.getInstance().findByName(finestra.getTxtCategoria().getText());
         Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtProduttore().getText()));
         Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtDistributore().getText()));
-        ArrayList<Prodotto> prodottiContenuti = finestra.getProdottiContenuti();
        // Path path= finestra.get;
 //        String url=finestra.getLblUrl().getText();
 //        String imgUrl= url.replace("\\", "\\\\\\");
@@ -54,9 +52,6 @@ public class ProdottoListener implements ActionListener {
 
             Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,disponibilita,categoria,produttore,distributore,nomeFile);
             ProdottoBusiness.getInstance().inserisciProdotto(p);
-            //inserimento prodotti composti
-            if(prodottiContenuti!=null)
-                ProdottoBusiness.getInstance().inserisciProdottiContenuti(p, prodottiContenuti);
 
             finestra.setVisible(false);
 //            GestoreFrame finestraGestore = new GestoreFrame();

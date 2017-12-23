@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ListaProdottiFrame extends JFrame {
 
@@ -50,7 +49,7 @@ public class ListaProdottiFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 _this.setVisible(false);
-                ProdottoFrame p = new ProdottoFrame(null);
+                ProdottoFrame p = new ProdottoFrame();
                 SessionManager.getInstance().getSession().put("finestra_prodotto",p);
 
             }
@@ -87,45 +86,6 @@ public class ListaProdottiFrame extends JFrame {
                 SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
             }
         });
-
-        JButton btnCreaProdComp = new JButton("Crea prodotto composto");
-        btnCreaProdComp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<String> prodotti = new ArrayList<String>();
-                int[] righeSelezionate = listaProd.getSelectedRows();
-                if(righeSelezionate.length>1){
-
-                    for (int i = 0; i < righeSelezionate.length; i++) {
-                        int rowCount = righeSelezionate[i];
-                        String prodottoContenuto = (String) listaProd.getModel().getValueAt(rowCount, 0);
-                        prodotti.add(prodottoContenuto);
-                    }
-
-                    ArrayList<Prodotto> prodottiContenuti = new ArrayList<Prodotto>();
-
-                    Iterator j = prodotti.iterator();
-
-                    while (j.hasNext()) {
-
-                        String nomeProdotto = (String)j.next();
-
-                        Prodotto p = ProdottoBusiness.getInstance().trovaProdotto(nomeProdotto);
-
-                        prodottiContenuti.add(p);
-                    }
-
-                    new ProdottoFrame(prodottiContenuti);
-
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Selezionare 2 o più prodotti.");
-                }
-            }
-
-
-        });
-        sud.add(btnCreaProdComp);
 
         getContentPane().add(sud, BorderLayout.SOUTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
