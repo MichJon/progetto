@@ -132,7 +132,7 @@ public class InfoProdottoFrame extends JFrame {
 
 
         JPanel immagine = new JPanel(new BorderLayout());
-        ImageIcon img = new ImageIcon("./images/"+p.getImgUrl());
+        ImageIcon img = new ImageIcon("./images/"+p.getImgUrl());        // ECCOLOOOO
         Image image = img.getImage().getScaledInstance(200,200,0);
         ImageIcon newImg = new ImageIcon(image);
         immagine.add(new JLabel(newImg), BorderLayout.CENTER);
