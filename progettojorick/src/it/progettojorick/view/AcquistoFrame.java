@@ -301,7 +301,7 @@ public class AcquistoFrame extends JFrame {
 
         c.add(sud);
 
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x,y);
         setVisible(true);

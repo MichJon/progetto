@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProdottoFrame extends JFrame{
 
@@ -23,10 +25,19 @@ public class ProdottoFrame extends JFrame{
     private JTextField txtImgUrl = new JTextField();
     private JLabel lblUrl=new JLabel();
     private JLabel lblNomeFile = new JLabel();
+    private ArrayList<Prodotto> prodottiContenuti = new ArrayList<Prodotto>();
    // private Path path;
 
     private int x = 400;
     private int y = 350;
+
+    public ArrayList<Prodotto> getProdottiContenuti() {
+        return prodottiContenuti;
+    }
+
+    public void setProdottiContenuti(ArrayList<Prodotto> prodottiContenuti) {
+        this.prodottiContenuti = prodottiContenuti;
+    }
 
     public JLabel getLblNomeFile() {
         return lblNomeFile;
@@ -109,20 +120,29 @@ public class ProdottoFrame extends JFrame{
     }
 
 
-    public ProdottoFrame() {
+    public ProdottoFrame(ArrayList<Prodotto> prodottiContenuti) {
 
         super("Finestra prodotto");
 
-        Container RegPane = getContentPane();
+        this.prodottiContenuti=prodottiContenuti;
+
+        Container c = getContentPane();
+        JPanel prodottoPane = new JPanel();
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
-        RegPane.setLayout(new BorderLayout());
+        prodottoPane.setLayout(new BorderLayout());
         ProdottoListener listener = new ProdottoListener(this);
 
+       // JTabbedPane tabbedPane = new JTabbedPane();
+       // JScrollPane sp = new JScrollPane();
+     //   c.add(sp);
+
         JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(8,2));
+        centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
+        JPanel centroNord = new JPanel(new GridLayout(8,2));
+
 
         JLabel lblNome = new JLabel("Nome");
         JLabel lblDescrizione = new JLabel("Descrizione");
@@ -154,24 +174,24 @@ public class ProdottoFrame extends JFrame{
             }
         });
 
-        centro.add(lblNome);
-        centro.add(txtNome);
-        centro.add(lblDescrizione);
-        centro.add(txtDescrizone);
-        centro.add(lblPrezzo);
-        centro.add(txtPrezzo);
-        centro.add(lblDisponibilita);
-        centro.add(txtDisponibilita);
-        centro.add(lblCategoria);
-        centro.add(txtCategoria);
-        centro.add(lblProduttore);
-        centro.add(txtProduttore);
-        centro.add(lblDistributore);
-        centro.add(txtDistributore);
-        centro.add(lblImgUrl);
+        centroNord.add(lblNome);
+        centroNord.add(txtNome);
+        centroNord.add(lblDescrizione);
+        centroNord.add(txtDescrizone);
+        centroNord.add(lblPrezzo);
+        centroNord.add(txtPrezzo);
+        centroNord.add(lblDisponibilita);
+        centroNord.add(txtDisponibilita);
+        centroNord.add(lblCategoria);
+        centroNord.add(txtCategoria);
+        centroNord.add(lblProduttore);
+        centroNord.add(txtProduttore);
+        centroNord.add(lblDistributore);
+        centroNord.add(txtDistributore);
+        centroNord.add(lblImgUrl);
         //pan.add(lblUrl);
         pan.add(sfoglia);
-        centro.add(pan);
+        centroNord.add(pan);
 
 
 //        txtNome.addActionListener(listener);
@@ -190,11 +210,38 @@ public class ProdottoFrame extends JFrame{
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
         nord.add(new JLabel(" Compila i campi seguenti con i dati richiesti "));
+        JPanel centroSud = new JPanel(new GridLayout(1,2));
+        JPanel prodottiCont = new JPanel();
+        prodottiCont.setLayout(new BoxLayout(prodottiCont, BoxLayout.PAGE_AXIS));
 
-        RegPane.add(centro, BorderLayout.CENTER);             // pattern command
-        RegPane.add(sud,BorderLayout.SOUTH);
-        RegPane.add(nord,BorderLayout.NORTH);
+        if (prodottiContenuti!=null){
+            centroSud.add(new JLabel("Prodotti contenuti"));
 
+            Iterator i = prodottiContenuti.iterator();
+
+            while(i.hasNext()){
+                Prodotto p =(Prodotto) i.next();
+
+                prodottiCont.add(new JLabel(p.getNome()));
+
+
+            }
+            centroSud.add(prodottiCont);
+
+        }
+
+        centro.add(centroNord);
+        centro.add(centroSud);
+
+        prodottoPane.add(centro, BorderLayout.CENTER);             // pattern command
+     //   prodottoPane.add(centroSud, BorderLayout.CENTER);
+        prodottoPane.add(sud,BorderLayout.SOUTH);
+        prodottoPane.add(nord,BorderLayout.NORTH);
+
+        //tabbedPane.add("Prodotto",prodottoPane);
+      //  sp.add(prodottoPane);
+
+        c.add(prodottoPane);
         setSize(x, y);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
