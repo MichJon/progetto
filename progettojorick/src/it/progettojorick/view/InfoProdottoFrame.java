@@ -18,8 +18,8 @@ public class InfoProdottoFrame extends JFrame {
 
     Prodotto p;
 
-    private int x = 400;
-    private int y = 500;
+    private int x = 600;
+    private int y = 450;
 
 
     public InfoProdottoFrame(Prodotto p) {
@@ -30,45 +30,54 @@ public class InfoProdottoFrame extends JFrame {
 
          this.p = p;// = //(Prodotto)SessionManager.getInstance().getSession().get("prodotto_aperto");
 
-        Container RegPane = getContentPane();
+        Container c = getContentPane();
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
-        RegPane.setLayout(new BorderLayout());
+        c.setLayout(new BorderLayout());
        // RegistrazioneListener listener = new RegistrazioneListener(this);
 
         InfoProdottoFrame _this = this;
 
+        JPanel generale = new JPanel(new GridLayout(1,2));
+        JPanel details = new JPanel(new BorderLayout());
         JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(7,2));
-        JPanel sud = new JPanel(new FlowLayout());
+        centro.setLayout(new GridLayout(6,2));
+        JPanel sud = new JPanel(new GridLayout(1,2));
 
-        JLabel lblNome = new JLabel("Nome:");
         JLabel lblDescrizione = new JLabel("Descrizione:");
         JLabel lblPrezzo = new JLabel("Prezzo:");
         JLabel lblCategoria = new JLabel("Categoria:");
-        JLabel lblDescrizioneProduttore = new JLabel("Descrizione Produttore:");
-        JLabel lblDescrizioneDistributore = new JLabel("Descrizione Distributore:");
+        JLabel lblDescrizioneProduttore = new JLabel("Info Produttore:");
+        JLabel lblDescrizioneDistributore = new JLabel("Info Distributore:");
 
         JLabel lblNomeI = new JLabel(p.getNome());
+        lblNomeI.setFont(new Font("Serif", Font.PLAIN, 22));
         JLabel lblDescrizioneI = new JLabel(p.getDescrizione());
-        JLabel lblPrezzoI = new JLabel(Float.toString(p.getPrezzo()));
+        JLabel lblPrezzoI = new JLabel("€"+Float.toString(p.getPrezzo()));
+        lblPrezzoI.setFont(new Font("Serif", Font.PLAIN, 18));
         JLabel lblCategoriaI = new JLabel(p.getCategoria().getNomecategoria());
         JLabel lblDescrizioneProduttoreI = new JLabel(p.getProduttore().getDescrizione());
         JLabel lblDescrizioneDistributoreI = new JLabel(p.getDistributore().getDescrizione());
+        JLabel lblblank = new JLabel("");
 
         JPanel prodottiCont = new JPanel();
         prodottiCont.setLayout(new BoxLayout(prodottiCont, BoxLayout.PAGE_AXIS));
 
+        JPanel immagine = new JPanel(new BorderLayout());
+        ImageIcon img = new ImageIcon("./images/"+p.getImgUrl());
+        Image image = img.getImage().getScaledInstance(200,200,0);
+        ImageIcon newImg = new ImageIcon(image);
+        immagine.add(new JLabel(newImg), BorderLayout.CENTER);
+        pack();
 
-
-        centro.add(lblNome);
         centro.add(lblNomeI);
-        centro.add(lblDescrizione);
-        centro.add(lblDescrizioneI);
+        centro.add(lblblank);
         centro.add(lblPrezzo);
         centro.add(lblPrezzoI);
+        centro.add(lblDescrizione);
+        centro.add(lblDescrizioneI);
         centro.add(lblCategoria);
         centro.add(lblCategoriaI);
         centro.add(lblDescrizioneProduttore);
@@ -101,7 +110,7 @@ public class InfoProdottoFrame extends JFrame {
 //                u.setVisible(true);
             }
         });
-        sud.add(indietro);
+
 
         JButton aggCarrello= new JButton("Aggiungi al carrello");
         aggCarrello.addActionListener(new ActionListener() {
@@ -128,19 +137,18 @@ public class InfoProdottoFrame extends JFrame {
 //                ufr.setVisible(true);
             }
         });
+        sud.add(indietro);
         sud.add(aggCarrello);
 
+        immagine.setBackground(Color.white);
+        centro.setBackground(Color.white);
+        sud.setBackground(Color.white);
 
-        JPanel immagine = new JPanel(new BorderLayout());
-        ImageIcon img = new ImageIcon("./images/"+p.getImgUrl());        // ECCOLOOOO
-        Image image = img.getImage().getScaledInstance(200,200,0);
-        ImageIcon newImg = new ImageIcon(image);
-        immagine.add(new JLabel(newImg), BorderLayout.CENTER);
-        pack();
-
-        RegPane.add(immagine,BorderLayout.NORTH);
-        RegPane.add(centro, BorderLayout.CENTER);             // pattern command
-        RegPane.add(sud, BorderLayout.SOUTH);
+        details.add(centro, BorderLayout.CENTER);             // pattern command
+        details.add(sud, BorderLayout.SOUTH);
+        generale.add(immagine);
+        generale.add(details);
+        c.add(generale,BorderLayout.CENTER);
 
         setSize(x, y);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -60,6 +60,15 @@ public class UtenteFrame extends JFrame {
             }
         });
         JButton carrello = new JButton("Carrello");
+        JButton logout = new JButton("LOGOUT");
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                new LoginFrame();
+            }
+        });
+        sud.add(logout);
         sud.add(panieri);
         sud.add(carrello);
         carrello.addActionListener(new ActionListener() {
@@ -161,6 +170,8 @@ public class UtenteFrame extends JFrame {
         } catch (NullPointerException e){
             centro.add(new JLabel("Non sono presenti prodotti in questa categoria."));
         }
+
+
 
 
 
