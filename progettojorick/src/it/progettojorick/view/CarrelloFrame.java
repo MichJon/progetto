@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.Iterator;
 
 public class CarrelloFrame extends JFrame {
 
@@ -25,17 +26,21 @@ public class CarrelloFrame extends JFrame {
     int y=700;
 
     Utente u = (Utente)SessionManager.getInstance().getSession().get("utente");
-
+   // Carrello c = (Carrello)SessionManager.getInstance().getSession().get("carrello");
+   Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
     public CarrelloFrame(){
 
         super("Carrello");
+
+        controllaProdotti();
 
         CarrelloFrame _this = this;
 
         getContentPane().setLayout(new BorderLayout());
 
-        //Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
-        Carrello c = (Carrello)SessionManager.getInstance().getSession().get("carrello");
+
+        SessionManager.getInstance().getSession().put("carrello",c);
+
         JPanel sud = new JPanel(new FlowLayout());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,6 +62,7 @@ public class CarrelloFrame extends JFrame {
         procedi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
                 _this.setVisible(false);
                 AcquistoFrame acfr = new AcquistoFrame();
@@ -86,6 +92,39 @@ public class CarrelloFrame extends JFrame {
         setVisible(true);
     }
 
+
+    private void controllaProdotti(){
+
+        ArrayList<Prodotto> prodotti = c.getProdottiContenuti();
+        Iterator i = prodotti.iterator();
+        while (i.hasNext()){
+
+            Prodotto p =(Prodotto) i.next();
+            int quantita = ProdottoBusiness.getInstance().getQuantita(c,p);
+
+            if (p.getDisponibilita()<quantita){
+
+                if(p.getDisponibilita()==0){
+                    //RIMUOVERE DAL CARRELLO
+                    CarrelloBusiness.getInstance().rimuoviProdottoDalCarrello(p,c);
+
+                    JOptionPane.showMessageDialog(null,"Il prodotto "+p.getNome()+" è stato rimosso dal carrello perché è terminato.");
+
+                }
+                else {
+                    ProdottoBusiness.getInstance().setQuantita(p.getDisponibilita(), c, p);
+                    JOptionPane.showMessageDialog(null, "La quantità del prodotto " + p.getNome() + " è stata cambiata poichè la disponibilità è variata.");
+                }
+            }
+
+
+
+
+
+
+        }
+
+    }
 
 
 }

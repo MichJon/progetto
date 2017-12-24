@@ -276,7 +276,7 @@ public class AcquistoFrame extends JFrame {
                         Prodotto p = (Prodotto) i.next();
                         int quantita = ProdottoBusiness.getInstance().getQuantita(car,p);
                         int disponibilita = p.getDisponibilita();
-                        ProdottoBusiness.getInstance().setDisponibilita(p,quantita-disponibilita );
+                        ProdottoBusiness.getInstance().setDisponibilita(p,disponibilita-quantita );
 
                     }
 

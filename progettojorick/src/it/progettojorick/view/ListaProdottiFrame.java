@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ListaProdottiFrame extends JFrame {
-
+public class ListaProdottiFrame extends JFrame {                            ///////aggiungere modifica prodotto in DAO, business e qui
+                                                                            ///////così il gestore può modificare il prodotto e la disponibilità
     int x = 1024;
     int y = 700;
 

@@ -76,4 +76,11 @@ public class CarrelloBusiness {
         return CarrelloDAO.getInstance().findById(id);
 
     }
+
+    public void rimuoviProdottoDalCarrello(Prodotto p, Carrello c){
+
+        CarrelloDAO.getInstance().deleteProdottoDalCarrello(p.getNome(),c.getIdcarrello());
+
+    }
+
 }

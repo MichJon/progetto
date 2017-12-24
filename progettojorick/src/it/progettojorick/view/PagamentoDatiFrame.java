@@ -107,17 +107,23 @@ public class PagamentoDatiFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                long numcarta=Long.parseLong(_this.getTxtNumCarta().getText());
 
-                 String circuito = (String)comboBoxCircuito.getSelectedItem();
+              try {
+                  long numcarta = Long.parseLong(_this.getTxtNumCarta().getText());
 
-                int cvv =Integer.parseInt(_this.getTxtCodSicurezza().getText());
-                String data  =_this.getTxtDataScadenza().getText();
-                PagamentoBusiness.getInstance().inserisciPagamento(numcarta,circuito,cvv,data);
-                Pagamento p =PagamentoBusiness.getInstance().trovaPagamento(numcarta);
-                PagamentoBusiness.getInstance().inserisciPagamentoUtente(u,p);
-                _this.dispose();
-                new PagamentiSalvatiFrame();
+
+                  String circuito = (String) comboBoxCircuito.getSelectedItem();
+
+                  int cvv = Integer.parseInt(_this.getTxtCodSicurezza().getText());
+                  String data = _this.getTxtDataScadenza().getText();
+                  PagamentoBusiness.getInstance().inserisciPagamento(numcarta, circuito, cvv, data);
+                  Pagamento p = PagamentoBusiness.getInstance().trovaPagamento(numcarta);
+                  PagamentoBusiness.getInstance().inserisciPagamentoUtente(u, p);
+                  _this.dispose();
+                  new PagamentiSalvatiFrame();
+              }catch (Exception ex){
+                  JOptionPane.showMessageDialog(null,"Errore. Controllare i dati inseriti.");
+              }
             }
         });
 

@@ -4,6 +4,7 @@ import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.RichiestaOrdine;
 import it.progettojorick.model.Utente;
+import sun.plugin2.os.windows.FLASHWINFO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ public class OrdiniUtenteFrame extends JFrame {
 
     public OrdiniUtenteFrame(){
 
-        super("Finestra gestione ordini (amministratore)");
+        super("Finestra gestione ordini (utente)");
 
         getContentPane().setLayout(new BorderLayout());
 
@@ -29,13 +30,18 @@ public class OrdiniUtenteFrame extends JFrame {
 
         Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
         ArrayList<RichiestaOrdine> richiesteOrdine = RichiestaOrdineBusiness.getInstance().richiesteOrdineUtente(u);
+        JPanel centro = new JPanel(new FlowLayout());
 
+        if (richiesteOrdine!=null) {
+            OrdiniTableModel otm = new OrdiniTableModel(richiesteOrdine);
 
-        OrdiniTableModel otm = new OrdiniTableModel(richiesteOrdine);
-
-        JTable richiesteOrd = new JTable(otm);
-        getContentPane().add(new JScrollPane(richiesteOrd), BorderLayout.CENTER);
-
+            JTable richiesteOrd = new JTable(otm);
+            getContentPane().add(new JScrollPane(richiesteOrd), BorderLayout.CENTER);
+        }
+        else {
+            centro.add(new JLabel("Non sono presenti ordini."));
+            getContentPane().add(centro, BorderLayout.CENTER);
+        }
         JPanel sud = new JPanel(new FlowLayout());
         //JPanel sudIndietro = new JPanel(new FlowLayout(FlowLayout.LEFT));//new BorderLayout());
        // JPanel sudPDF = new JPanel(new FlowLayout(FlowLayout.CENTER));

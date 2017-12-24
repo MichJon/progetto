@@ -107,15 +107,17 @@ public class CarrelloDAO implements ICarrelloDAO {
         ArrayList<String []>  risNomiProdotti= DbConnection.getInstance().eseguiQuery("SELECT prodotto_nome_prodotto FROM carrello_has_prodotto WHERE carrello_idcarrello =" +id );
         ArrayList<Prodotto> prodottiCont = new ArrayList<Prodotto>();
         if (risNomiProdotti.size()!=0) {//return null;
-        Iterator<String[]> i = risNomiProdotti.iterator();
+            Iterator<String[]> i = risNomiProdotti.iterator();
 
-        while (i.hasNext()){
-            String[] riga = i.next();
-            Prodotto ProdottoContenuto = ProdottoDAO.getInstance().findByName(riga[0]);
-            prodottiCont.add(ProdottoContenuto);
+            while (i.hasNext()) {
+                String[] riga = i.next();
+                Prodotto ProdottoContenuto = ProdottoDAO.getInstance().findByName(riga[0]);
+                prodottiCont.add(ProdottoContenuto);
+            }
 
         }
-        }
+
+
         return prodottiCont;
     }
 
@@ -126,8 +128,13 @@ public class CarrelloDAO implements ICarrelloDAO {
             DbConnection.getInstance().eseguiAggiornamento("INSERT INTO carrello_has_prodotto (carrello_idcarrello,prodotto_nome_prodotto,quantita)" +
                     "VALUES ('" + idCarrello + "','" + nomeProdotto + "',1 );");
 
-
     }
 
+    public void deleteProdottoDalCarrello(String nomeProdotto, int idCarrello){
+
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM carrello_has_prodotto WHERE carrello_idcarrello = "+idCarrello+" AND " +
+                "prodotto_nome_prodotto = '"+nomeProdotto+"';");
+
+    }
 
 }
