@@ -71,11 +71,15 @@ public class ListaProdottiFrame extends JFrame {
                 //REFRESH
                 int index = listaProd.getSelectedRow();
 
-                String nome = (String)listaProd.getModel().getValueAt(index, 0);
-                ProdottoBusiness.getInstance().rimuoviProdotto(nome);
-                JOptionPane.showMessageDialog(null, "Prodotto rimosso.");
-                _this.dispose();
-                new ListaProdottiFrame();
+                try {
+                    String nome = (String) listaProd.getModel().getValueAt(index, 0);
+                    ProdottoBusiness.getInstance().rimuoviProdotto(nome);
+                    JOptionPane.showMessageDialog(null, "Prodotto rimosso.");
+                    _this.dispose();
+                    new ListaProdottiFrame();
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null,"Seleziona prodotto da rimuovere");
+                }
             }
         });
 

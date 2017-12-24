@@ -45,6 +45,13 @@ public class RichiestaOrdineBusiness {
     }
 
 
+//    public ArrayList<RichiestaOrdine> richiesteOrdineUtente(Utente u){
+//
+//       return RichiestaOrdineDAO.getInstance().findByUtente(u.getEmailUtente());
+//
+//    }
+
+
   //  boolean carrelloUsato(c)
 
 

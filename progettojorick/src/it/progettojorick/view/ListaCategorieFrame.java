@@ -79,11 +79,15 @@ public class ListaCategorieFrame extends JFrame {
                 //REFRESH
                 int index = listaCat.getSelectedRow();
 
-                String nome = (String)listaCat.getModel().getValueAt(index, 0);
-                CategoriaBusiness.getInstance().rimuoviCategoria(nome);
-                JOptionPane.showMessageDialog(null, "Categoria rimossa.");
-                _this.dispose();
-                new ListaCategorieFrame();
+                try {
+                    String nome = (String) listaCat.getModel().getValueAt(index, 0);
+                    CategoriaBusiness.getInstance().rimuoviCategoria(nome);
+                    JOptionPane.showMessageDialog(null, "Categoria rimossa.");
+                    _this.dispose();
+                    new ListaCategorieFrame();
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null,"Seleziona categoria da rimuovere");
+                }
             }
         });
 

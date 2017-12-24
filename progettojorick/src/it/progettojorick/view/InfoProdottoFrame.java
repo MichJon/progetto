@@ -2,6 +2,7 @@ package it.progettojorick.view;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import it.progettojorick.business.CarrelloBusiness;
+import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Carrello;
 import it.progettojorick.model.Prodotto;
@@ -127,13 +128,44 @@ public class InfoProdottoFrame extends JFrame {
 
                 Carrello c = (Carrello) SessionManager.getInstance().getSession().get("carrello");
 
-                    if(!CarrelloBusiness.getInstance().isPresente(p,c)){
+                    if(!CarrelloBusiness.getInstance().isPresente(p,c)&&p.getDisponibilita()>0){
+
                         CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(p, c);
                         p.setDalPaniere(false);
                     JOptionPane.showMessageDialog(null,"Il prodotto è stato inserito nel carrello.");
                     }
-                    else
-                        JOptionPane.showMessageDialog(null,"Il prodotto è già presente nel carrello.");
+                    else if (p.getDisponibilita()>0){
+                     //   JOptionPane.showMessageDialog(null,"Il prodotto è già presente nel carrello.");
+
+                        Object[] options = {"Si",
+                                "No "};
+                        int n = JOptionPane.showOptionDialog(null,
+                                "Il prodotto è già presente nel carrello. Vuoi aumentarne la quantità?",
+                                "Attenzione",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,     //do not use a custom Icon
+                                options,  //the titles of buttons
+                                options[1]); //default button title
+
+                        if(n==JOptionPane.YES_OPTION){
+
+                                int quantita = ProdottoBusiness.getInstance().getQuantita(c, p);
+                                // String newQuantita=String.valueOf(quantita+1);
+                                if (p.getDisponibilita()>quantita) {
+                                ProdottoBusiness.getInstance().setQuantita(quantita + 1, c, p);
+
+                                JOptionPane.showMessageDialog(null, "Quantità aumentata.");
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null,"Impossibile aumentare la quantità. Corrisponde già alla quantità massima presente.");
+                            }
+                        }
+
+                    }
+                    else if (p.getDisponibilita()==0){
+                        JOptionPane.showMessageDialog(null,"Impossibile inserire nel carrello, prodotto terminato.");
+                    }
 
 
 

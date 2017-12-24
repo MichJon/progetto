@@ -222,4 +222,10 @@ public class ProdottoDAO implements IProdottoDAO {
 
     }
 
+    public void setDisponibilita(String nomeProdotto,int disponibilita){
+
+        DbConnection.getInstance().eseguiAggiornamento("UPDATE prodotto SET disponibilita = "+disponibilita+" WHERE nome_prodotto = '"+nomeProdotto+"';");
+
+    }
+
 }

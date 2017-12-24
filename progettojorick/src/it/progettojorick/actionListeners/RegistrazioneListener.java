@@ -32,11 +32,21 @@ public class RegistrazioneListener implements ActionListener {
 
         if(e.getSource() instanceof JButton ){
 
-            RichiestaRegistrazioneBusiness.getInstance().registraPersona(email,nome,cognome,password,indirizzo,numTelefono);
-            JOptionPane.showMessageDialog(null,"La registrazione è in attesa di conferma.");
-            finestra.setVisible(false);
-            LoginFrame finestraLogin = new LoginFrame();
-            SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
+            if(!nome.equals("") && !cognome.equals("") && !email.equals("") && password.length>0 && !indirizzo.equals("") && !numTelefono.equals("")) {
+                if (email.matches("(.*)@(.*)")) {
+
+                    RichiestaRegistrazioneBusiness.getInstance().registraPersona(email, nome, cognome, password, indirizzo, numTelefono);
+                    JOptionPane.showMessageDialog(null, "La registrazione è in attesa di conferma.");
+                    finestra.setVisible(false);
+                    LoginFrame finestraLogin = new LoginFrame();
+                    SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Email inserita non valida.");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Riempire tutti i campi.");
+            }
 
         }
 

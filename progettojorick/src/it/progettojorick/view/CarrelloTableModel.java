@@ -65,10 +65,18 @@ public class CarrelloTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int row, int col){
         Prodotto p = prodotti.get(row);
-        String quantita = (String) value;
+        String quant = (String) value;
+        int quantita = Integer.parseInt(quant);
+        int disponibilita=p.getDisponibilita();
+       // int intQuantita=Integer.parseInt(quantita);
+        if (quantita<=disponibilita) {
 
-        ProdottoBusiness.getInstance().setQuantita(quantita,c,p);
-
+            ProdottoBusiness.getInstance().setQuantita(quantita, c, p);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Quantità richiesta non presente, valore impostato alla disponibilità massima.");
+            ProdottoBusiness.getInstance().setQuantita(disponibilita,c,p);
+        }
 
     }
 
@@ -78,7 +86,7 @@ public class CarrelloTableModel extends AbstractTableModel {
 
 
 
-        String quantita = ProdottoBusiness.getInstance().getQuantita(c,p);
+        int quantita = ProdottoBusiness.getInstance().getQuantita(c,p);
 //        Paniere pan =(Paniere) SessionManager.getInstance().getSession().get("paniere");
 //
 //        String nomePan = "";

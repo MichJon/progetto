@@ -2,12 +2,15 @@ package it.progettojorick.view;
 
 import it.progettojorick.actionListeners.LoginListener;
 import it.progettojorick.actionListeners.RegistrazioneListener;
+import it.progettojorick.business.SessionManager;
 
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RegistrazioneFrame extends JFrame {
 
@@ -74,6 +77,8 @@ public class RegistrazioneFrame extends JFrame {
 
         super("Finestra di Registrazione");
 
+        RegistrazioneFrame _this = this;
+
         Container RegPane = getContentPane();
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -118,6 +123,17 @@ public class RegistrazioneFrame extends JFrame {
 
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+
+                LoginFrame loginFrame = (LoginFrame)SessionManager.getInstance().getSession().get("finestra_login");
+                loginFrame.setVisible(true);
+            }
+        });
+        sud.add(indietro);
         JButton btnRegistrazione = new JButton("REGISTRATI");
         btnRegistrazione.addActionListener(listener);
         sud.add(btnRegistrazione);

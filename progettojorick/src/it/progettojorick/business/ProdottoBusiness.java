@@ -62,15 +62,16 @@ public class ProdottoBusiness {
 
     }
 
-    public String getQuantita(Carrello c, Prodotto p){
+    public int getQuantita(Carrello c, Prodotto p){
 
-        return ProdottoDAO.getInstance().getQuantita(c.getIdcarrello(),p.getNome());
+
+        return Integer.parseInt(ProdottoDAO.getInstance().getQuantita(c.getIdcarrello(),p.getNome()));
 
     }
 
-    public void setQuantita(String quantita,Carrello c, Prodotto p){
+    public void setQuantita(int quantita,Carrello c, Prodotto p){
 
-        ProdottoDAO.getInstance().setQuantita(quantita,c.getIdcarrello(),p.getNome());
+        ProdottoDAO.getInstance().setQuantita(String.valueOf(quantita),c.getIdcarrello(),p.getNome());
 
     }
 
@@ -91,6 +92,12 @@ public class ProdottoBusiness {
 
         }
 
+
+    }
+
+    public void setDisponibilita(Prodotto p, int disponibilita){
+
+        ProdottoDAO.getInstance().setDisponibilita(p.getNome(),disponibilita);
 
     }
 

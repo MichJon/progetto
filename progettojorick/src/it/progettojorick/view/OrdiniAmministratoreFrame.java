@@ -7,6 +7,7 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.Carrello;
 import it.progettojorick.model.RichiestaOrdine;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +49,7 @@ public class OrdiniAmministratoreFrame extends JFrame {
         JButton btnLogout = new JButton("Logout");
         sud.add(btnLogout);
         JButton btnMettiInSpedizione = new JButton("Metti in spedizione");
-        sud.add(btnMettiInSpedizione);
+
         btnMettiInSpedizione.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,7 +70,67 @@ public class OrdiniAmministratoreFrame extends JFrame {
                     AmministratoreBusiness.getInstance().ordineInSpedizione(idRichiesta);
 
                 }
-                _this.setVisible(false);
+                _this.dispose();//setVisible(false);
+                SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+
+            }
+
+
+        });
+        sud.add(btnMettiInSpedizione);
+
+        JButton btnEvaso = new JButton("Evadi");
+        sud.add(btnEvaso);
+        btnEvaso.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Integer> id = new ArrayList<Integer>();
+                int[] righeSelezionate = richiesteOrd.getSelectedRows();
+                for (int i = 0; i < righeSelezionate.length; i++) {
+                    int rowCount = righeSelezionate[i];
+                    int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
+                    id.add(idd);
+                }
+
+                Iterator j = id.iterator();
+
+                while (j.hasNext()) {
+                    ////////////EMAIL
+                    int idRichiesta = (int) j.next();
+
+                    AmministratoreBusiness.getInstance().ordineEvaso(idRichiesta);
+
+                }
+                _this.dispose();//setVisible(false);
+                SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+
+            }
+
+
+        });
+        JButton btnRifiutato = new JButton("Rifiuta");
+        sud.add(btnRifiutato);
+        btnRifiutato.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Integer> id = new ArrayList<Integer>();
+                int[] righeSelezionate = richiesteOrd.getSelectedRows();
+                for (int i = 0; i < righeSelezionate.length; i++) {
+                    int rowCount = righeSelezionate[i];
+                    int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
+                    id.add(idd);
+                }
+
+                Iterator j = id.iterator();
+
+                while (j.hasNext()) {
+                    ////////////EMAIL
+                    int idRichiesta = (int) j.next();
+
+                    AmministratoreBusiness.getInstance().ordineRifiutato(idRichiesta);
+
+                }
+                _this.dispose();//setVisible(false);
                 SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
 
             }
@@ -84,10 +145,14 @@ public class OrdiniAmministratoreFrame extends JFrame {
                // _this.setVisible(false);
 
                 int index = richiesteOrd.getSelectedRow();
-                int idRichiesta = (int)richiesteOrd.getModel().getValueAt(index,0);
-                RichiestaOrdine r = RichiestaOrdineBusiness.getInstance().trovaRichiesta(idRichiesta);
-                Carrello c = r.getCarrello();
-                new ProdottiOrdineFrame(c);
+                try {
+                    int idRichiesta = (int) richiesteOrd.getModel().getValueAt(index, 0);
+                    RichiestaOrdine r = RichiestaOrdineBusiness.getInstance().trovaRichiesta(idRichiesta);
+                    Carrello c = r.getCarrello();
+                    new ProdottiOrdineFrame(c);
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, "Seleziona ordine da visualizzare");
+                }
 
 
             }
@@ -115,7 +180,7 @@ public class OrdiniAmministratoreFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 _this.dispose();
-                SessionManager.getInstance().getSession().put("finestra_amministratore",a);
+              //  SessionManager.getInstance().getSession().put("finestra_amministratore",a);
                 new AmministratoreFrame();
             }
         });

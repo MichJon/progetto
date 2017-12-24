@@ -58,6 +58,34 @@ public class AmministratoreBusiness {
 
     }
 
+    public void ordineEvaso(int id){
+
+        Amministratore a = (Amministratore) SessionManager.getInstance().getSession().get("amministratore");
+
+        RichiestaOrdine richiesta = RichiestaOrdineDAO.getInstance().findById(id);
+
+        if(richiesta.getStato().equals("In spedizione")){
+            RichiestaOrdineDAO.getInstance().setStato("Evaso", richiesta);
+            RichiestaOrdineDAO.getInstance().setAmministratore(a, richiesta);
+        }
+
+
+    }
+
+    public void ordineRifiutato(int id){
+
+        Amministratore a = (Amministratore) SessionManager.getInstance().getSession().get("amministratore");
+
+        RichiestaOrdine richiesta = RichiestaOrdineDAO.getInstance().findById(id);
+
+        if(richiesta.getStato().equals("effettuato")){
+            RichiestaOrdineDAO.getInstance().setStato("Rifiutato", richiesta);
+            RichiestaOrdineDAO.getInstance().setAmministratore(a, richiesta);
+        }
+
+
+    }
+
 
 }
 

@@ -82,7 +82,7 @@ public class RichiestaOrdineDAO implements IRichiestaOrdineDAO {
             r.setStato(riga[2]);
             r.setCarrello(CarrelloDAO.getInstance().findById(Integer.parseInt(riga[3])));
             r.setUtente(UtenteDAO.getInstance().findByEmail(riga[4]));
-            r.setPagamento(PagamentoDAO.getInstance().findByNumcarta(Integer.parseInt(riga[5])));
+            r.setPagamento(PagamentoDAO.getInstance().findByNumcarta(Long.parseLong(riga[5])));
             listaRichieste.add(r);
         }
         return listaRichieste;

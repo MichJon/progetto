@@ -86,14 +86,45 @@ public class ProdottiPaniereFrame extends JFrame {
                     Prodotto prod =(Prodotto) i.next();
 
                     prod.setDalPaniere(true);
-                    if(!CarrelloBusiness.getInstance().isPresente(prod,car)) {
+                    if(!CarrelloBusiness.getInstance().isPresente(prod,car)&&prod.getDisponibilita()>0) {
                         CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(prod, car);
 
                     }
-                    else JOptionPane.showMessageDialog(null,"Il prodotto "+prod.getNome()+" è già presente nel carrello.");
+                    else if (prod.getDisponibilita()>0){
+                        //JOptionPane.showMessageDialog(null,"Il prodotto "+prod.getNome()+" è già presente nel carrello.");
+
+                        Object[] options = {"Si",
+                                "No "};
+                        int n = JOptionPane.showOptionDialog(null,
+                                "Il prodotto "+prod.getNome()+" è già presente nel carrello. Vuoi aumentarne la quantità?",
+                                "Attenzione",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,     //do not use a custom Icon
+                                options,  //the titles of buttons
+                                options[1]); //default button title
+                        if(n==JOptionPane.YES_OPTION){
+                            int quantita =ProdottoBusiness.getInstance().getQuantita(car,prod);
+                           // String newQuantita=String.valueOf(quantita+1);
+
+                            if (prod.getDisponibilita()>quantita) {
+                                ProdottoBusiness.getInstance().setQuantita(quantita + 1, car, prod);
+
+                                JOptionPane.showMessageDialog(null, "Quantità aumentata.");
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null,"Impossibile aumentare la quantità. Corrisponde già alla quantità massima presente.");
+                            }
+
+                        }
+
+                    }
+                    else if (prod.getDisponibilita()==0){
+                        JOptionPane.showMessageDialog(null,"Impossibile inserire nel carrello, prodotto " + prod.getNome()+" terminato.");
+                    }
 
                 }
-                JOptionPane.showMessageDialog(null, "I prodotti del paniere sono stati aggiunti al carrello.");
+                JOptionPane.showMessageDialog(null, " Operazione conclusa. ");//I prodotti del paniere sono stati aggiunti al carrello.");
             }
         });
         sud.add(modificaPaniere);

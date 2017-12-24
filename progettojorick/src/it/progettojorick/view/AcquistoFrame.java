@@ -245,7 +245,7 @@ public class AcquistoFrame extends JFrame {
         for(int i=0;i<prodotti.size();i++){
 
 
-            int quantita = Integer.parseInt(ProdottoBusiness.getInstance().getQuantita(car, prodotti.get(i)));
+            int quantita = ProdottoBusiness.getInstance().getQuantita(car, prodotti.get(i));
             JLabel nomeprodotto = new JLabel(prodotti.get(i).getNome());
             JLabel prezzoprodotto = new JLabel("€"+Float.toString(prodotti.get(i).getPrezzo()));
             tot += prodotti.get(i).getPrezzo()*quantita;
@@ -266,6 +266,20 @@ public class AcquistoFrame extends JFrame {
 
                 if(pag!=null) {
                     _this.dispose();
+
+                    ArrayList<Prodotto> prodotti = car.getProdottiContenuti();
+
+                    Iterator i = prodotti.iterator();
+
+                    while(i.hasNext()){
+
+                        Prodotto p = (Prodotto) i.next();
+                        int quantita = ProdottoBusiness.getInstance().getQuantita(car,p);
+                        int disponibilita = p.getDisponibilita();
+                        ProdottoBusiness.getInstance().setDisponibilita(p,quantita-disponibilita );
+
+                    }
+
                     JOptionPane.showMessageDialog(null, "L'ordine è stato effettuato.");
                     RichiestaOrdineBusiness.getInstance().inviaRichiestaOrdine("effettuato", car.getIdcarrello(), u.getEmailUtente(), pag.getNumCarta());
                    // SessionManager.getInstance().getSession().put()

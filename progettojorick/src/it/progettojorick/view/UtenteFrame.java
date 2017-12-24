@@ -68,9 +68,18 @@ public class UtenteFrame extends JFrame {
                 new LoginFrame();
             }
         });
+        JButton btnOrdini=new JButton("Visualizza Ordini");
+        btnOrdini.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.setVisible(false);
+                new OrdiniUtenteFrame();
+            }
+        });
         sud.add(logout);
         sud.add(panieri);
         sud.add(carrello);
+        sud.add(btnOrdini);
         carrello.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
