@@ -40,11 +40,14 @@ public class RichiestaRegistrazioneFrame extends JFrame {
             JTable richiesteReg = new JTable(rrtm);
             getContentPane().add(new JScrollPane(richiesteReg), BorderLayout.CENTER);
 
-
             getContentPane().add(new JLabel("BENVENUTO " + a.getNome() + " " + a.getCognome() + "!"), BorderLayout.NORTH);
+
             JPanel sud = new JPanel();
             sud.setLayout(new FlowLayout());
+
             JButton btnLogout = new JButton("Logout");
+            JButton indietro = new JButton("Indietro");
+            sud.add(indietro);
             sud.add(btnLogout);
             JButton btnConfermaRichieste = new JButton("Conferma");
             sud.add(btnConfermaRichieste);
@@ -126,6 +129,15 @@ public class RichiestaRegistrazioneFrame extends JFrame {
                 }
 
             });
+
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                SessionManager.getInstance().getSession().put("finestra_amministratore",a);
+                new AmministratoreFrame();
+            }
+        });
 
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(x,y);

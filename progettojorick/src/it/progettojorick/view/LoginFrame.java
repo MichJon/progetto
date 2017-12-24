@@ -43,17 +43,15 @@ public class LoginFrame extends JFrame {
         blackline = BorderFactory.createLineBorder(Color.black);
 
         c.setLayout(new BorderLayout());
+        GridLayout GL = new GridLayout(1,2);
+        GL.setHgap(15);
         LoginListener listener = new LoginListener(this);
 
-        JPanel nord = new JPanel();
-        nord.setLayout(new FlowLayout());
-        JLabel benvenuto = new JLabel("Benvenuto Utente!");
-        benvenuto.setFont(new Font("Serif", Font.PLAIN, 18));
-        nord.add(benvenuto);
+        JPanel nord = new JPanel(new FlowLayout());
+        JPanel centro = new JPanel(new GridLayout(2,1));
+        JPanel sud = new JPanel(new FlowLayout());
+        JPanel Pbuttons = new JPanel(GL);
 
-
-        JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(2,1));
         TitledBorder Temail;
         Temail = BorderFactory.createTitledBorder(blackline,"Email");
         TitledBorder Tpassword;
@@ -61,30 +59,26 @@ public class LoginFrame extends JFrame {
         txtEmail.setBorder(Temail);
         txtPassword.setBorder(Tpassword);
 
+        JLabel benvenuto = new JLabel("Benvenuto Utente!");
+        benvenuto.setFont(new Font("Serif", Font.PLAIN, 18));
+
+        JButton btnlogin = new JButton("LOGIN");
+        JButton btnRegistrazione = new JButton("REGISTRATI");
+        btnRegistrazione.addActionListener(listener);
+        btnlogin.addActionListener(listener);
+
+        nord.add(benvenuto);
         centro.add(txtEmail);
         centro.add(txtPassword);
         txtEmail.addActionListener(listener);
         txtPassword.addActionListener(listener);
-
-
-        JPanel sud = new JPanel();
-        sud.setLayout(new FlowLayout());
-        JButton btnlogin = new JButton("LOGIN");
-        JButton btnRegistrazione = new JButton("REGISTRATI");
-
-        btnRegistrazione.addActionListener(listener);
-        btnlogin.addActionListener(listener);
-        sud.add(btnRegistrazione);
-        sud.add(new JSeparator(SwingConstants.VERTICAL));
-        sud.add(new JSeparator(SwingConstants.VERTICAL));
-        sud.add(new JSeparator(SwingConstants.VERTICAL));
-        sud.add(new JSeparator(SwingConstants.VERTICAL));
-        sud.add(btnlogin);
+        Pbuttons.add(btnRegistrazione);
+        Pbuttons.add(btnlogin);
+        sud.add(Pbuttons);
 
         c.add(nord,BorderLayout.NORTH);
         c.add(centro, BorderLayout.CENTER);
         c.add(sud,BorderLayout.SOUTH);
-
 
     setSize(x, y);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

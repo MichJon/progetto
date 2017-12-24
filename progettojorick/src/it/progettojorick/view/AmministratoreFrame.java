@@ -11,33 +11,41 @@ import java.awt.event.ActionListener;
 
 public class AmministratoreFrame extends JFrame {
 
-    private int x=500;
-    private int y=150;
+    private int x=550;
+    private int y=130;
 
 
-    Amministratore a = (Amministratore)SessionManager.getInstance().getSession().get("amministratore");
+
 
     public AmministratoreFrame() {
         super("finestra amministratore");
 
         AmministratoreFrame _this = this;
 
+        Amministratore a = (Amministratore)SessionManager.getInstance().getSession().get("amministratore");
 
-    Container c = getContentPane();
+        Container c = getContentPane();
 
-    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2-100);
 
         c.setLayout(new BorderLayout());
 
-        JPanel nord = new JPanel();
-        JPanel sud = new JPanel();
-        sud.setLayout(new FlowLayout());
-        JLabel benvenuto = new JLabel("Benvenuto amministratore "+a.getNome()+"!");
-        nord.add(benvenuto);
+        JPanel nord = new JPanel(new FlowLayout());
+        JPanel sud = new JPanel(new FlowLayout());
+        GridLayout GL = new GridLayout(1,3);
+        GL.setHgap(15);
+        JPanel Pbuttons = new JPanel(GL);
 
+        JLabel benvenuto = new JLabel("Benvenuto amministratore "+a.getNome()+"!");
+        benvenuto.setFont(new Font("Serif", Font.PLAIN, 25));
         JButton richiesteReg = new JButton("Gestisci registrazioni");
-        JButton ordini = new JButton("Gestisci ordini");// Sistemare action listener
+        JButton ordini = new JButton("Gestisci ordini");
+        JButton btnLogout = new JButton("Logout");
+        Pbuttons.add(new JPanel(new FlowLayout()).add(btnLogout));
+        Pbuttons.add(new JPanel(new FlowLayout()).add(richiesteReg));
+        Pbuttons.add(new JPanel(new FlowLayout()).add(ordini));
+
         ordini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,14 +56,13 @@ public class AmministratoreFrame extends JFrame {
 
             }
         });
-        JButton btnLogout = new JButton("Logout");
-        sud.add(btnLogout);
 
         richiesteReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 AmministratoreFrame a = (AmministratoreFrame)SessionManager.getInstance().getSession().get("finestra_amministratore");
-                 a.setVisible(false);
+                 //AmministratoreFrame a = (AmministratoreFrame)SessionManager.getInstance().getSession().get("finestra_amministratore");
+                 //a.setVisible(false);
+                _this.setVisible(false);
 
                  try
                  {RichiestaRegistrazioneFrame reg= new RichiestaRegistrazioneFrame();
@@ -63,12 +70,12 @@ public class AmministratoreFrame extends JFrame {
                  }catch (Exception ex){
                      System.out.println("error");
                      JOptionPane.showMessageDialog(null, "Non sono presenti richieste di registrazione.");
-                     a.setVisible(true);
+                     _this.setVisible(true);
+                     //a.setVisible(true);
                  }
             }
         });
 
-      //  AmministratoreFrame _this = this;
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,13 +89,11 @@ public class AmministratoreFrame extends JFrame {
             }
         });
 
-        sud.add(richiesteReg);
-        sud.add(ordini);
+        nord.add(benvenuto);
+        sud.add(Pbuttons);
 
-        c.add(nord, BorderLayout.NORTH);             // pattern command
+        c.add(nord, BorderLayout.NORTH);
         c.add(sud,BorderLayout.SOUTH);
-
-
         setSize(x, y);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

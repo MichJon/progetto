@@ -42,6 +42,9 @@ public class OrdiniAmministratoreFrame extends JFrame {
         getContentPane().add(new JLabel("BENVENUTO " + a.getNome() + " " + a.getCognome() + "!"), BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+
+        JButton indietro = new JButton("Indietro");
+        sud.add(indietro);
         JButton btnLogout = new JButton("Logout");
         sud.add(btnLogout);
         JButton btnMettiInSpedizione = new JButton("Metti in spedizione");
@@ -106,6 +109,15 @@ public class OrdiniAmministratoreFrame extends JFrame {
                 new LoginFrame();
             }
 
+        });
+
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                SessionManager.getInstance().getSession().put("finestra_amministratore",a);
+                new AmministratoreFrame();
+            }
         });
 
         //btnModificaStato.addActionListener(new ActionListener() {

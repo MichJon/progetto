@@ -43,7 +43,10 @@ public class InfoProdottoFrame extends JFrame {
         JPanel generale = new JPanel(new GridLayout(1,2));
         JPanel details = new JPanel(new BorderLayout());
         JPanel centro = new JPanel();
-        centro.setLayout(new GridLayout(6,2));
+        if(p.getProdottiContenuti()!=null)
+        centro.setLayout(new GridLayout(7,2));
+        else
+            centro.setLayout(new GridLayout(6,2));
         JPanel sud = new JPanel(new GridLayout(1,2));
 
         JLabel lblDescrizione = new JLabel("Descrizione:");
@@ -63,6 +66,7 @@ public class InfoProdottoFrame extends JFrame {
         JLabel lblblank = new JLabel("");
 
         JPanel prodottiCont = new JPanel();
+        prodottiCont.setBackground(Color.white);
         prodottiCont.setLayout(new BoxLayout(prodottiCont, BoxLayout.PAGE_AXIS));
 
         JPanel immagine = new JPanel(new BorderLayout());
@@ -73,7 +77,7 @@ public class InfoProdottoFrame extends JFrame {
         pack();
 
         centro.add(lblNomeI);
-        centro.add(lblblank);
+        centro.add(lblblank);  //SPAZIO VUOTO
         centro.add(lblPrezzo);
         centro.add(lblPrezzoI);
         centro.add(lblDescrizione);
@@ -86,7 +90,9 @@ public class InfoProdottoFrame extends JFrame {
         centro.add(lblDescrizioneDistributoreI);
 
         if (p.getProdottiContenuti()!=null){
-            centro.add(new JLabel("Prodotti contenuti"));
+            JLabel prodcont = new JLabel("Prodotti Contenuti");
+            prodcont.setBackground(Color.white);
+            centro.add(prodcont);
 
             Iterator i = p.getProdottiContenuti().iterator();
 

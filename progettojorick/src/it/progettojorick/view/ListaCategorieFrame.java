@@ -21,6 +21,7 @@ public class ListaCategorieFrame extends JFrame {
         super("Finestra lista categorie");
         getContentPane().setLayout(new BorderLayout());
 
+        ListaCategorieFrame _this=this;
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
@@ -38,12 +39,20 @@ public class ListaCategorieFrame extends JFrame {
         getContentPane().add(new JLabel("BENVENUTO " + g.getNome() + " " + g.getCognome() + "!"), BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                SessionManager.getInstance().getSession().put("finestra_gestore",g);
+                new GestoreFrame();
+            }
+        });
+        sud.add(indietro);
         JButton btnLogout = new JButton("Logout");
         sud.add(btnLogout);
         JButton btnAggiungi = new JButton("Aggiungi");
         sud.add(btnAggiungi);
-
-        ListaCategorieFrame _this = this;
 
         btnAggiungi.addActionListener(new ActionListener() {
             @Override

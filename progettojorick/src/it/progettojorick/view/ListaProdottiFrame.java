@@ -38,10 +38,17 @@ public class ListaProdottiFrame extends JFrame {
         getContentPane().add(new JLabel("BENVENUTO " + g.getNome() + " " + g.getCognome() + "!"), BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+
+        JButton indietro = new JButton("Indietro");
+        sud.add(indietro);
         JButton btnLogout = new JButton("Logout");
         sud.add(btnLogout);
         JButton btnAggiungi = new JButton("Aggiungi");
         sud.add(btnAggiungi);
+        JButton btnRimuovi = new JButton("Rimuovi");
+        sud.add(btnRimuovi);
+        JButton btnCreaProdComp = new JButton("Crea prodotto composto");
+        sud.add(btnCreaProdComp);
 
         ListaProdottiFrame _this = this;
 
@@ -55,9 +62,6 @@ public class ListaProdottiFrame extends JFrame {
 
             }
         });
-
-        JButton btnRimuovi = new JButton("Rimuovi");
-        sud.add(btnRimuovi);
 
         btnRimuovi.addActionListener(new ActionListener() {
             @Override
@@ -75,7 +79,14 @@ public class ListaProdottiFrame extends JFrame {
             }
         });
 
-
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                SessionManager.getInstance().getSession().put("finestra_gestore",g);
+                new GestoreFrame();
+            }
+        });
 
         btnLogout.addActionListener(new ActionListener() {
             @Override
@@ -88,7 +99,6 @@ public class ListaProdottiFrame extends JFrame {
             }
         });
 
-        JButton btnCreaProdComp = new JButton("Crea prodotto composto");
         btnCreaProdComp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,7 +135,6 @@ public class ListaProdottiFrame extends JFrame {
 
 
         });
-        sud.add(btnCreaProdComp);
 
         getContentPane().add(sud, BorderLayout.SOUTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

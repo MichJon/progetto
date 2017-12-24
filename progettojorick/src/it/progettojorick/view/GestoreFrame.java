@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class GestoreFrame extends JFrame{
 
-    private int x=500;
-    private int y=150;
+    private int x=550;
+    private int y=130;
 
     public GestoreFrame(){
         super("finestra gestore");
@@ -26,46 +26,24 @@ public class GestoreFrame extends JFrame{
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2-100);
 
         c.setLayout(new BorderLayout());
-
-        JPanel sud = new JPanel();
-        sud.setLayout(new FlowLayout());
-        JPanel nord = new JPanel();
-
-
+        JPanel nord = new JPanel(new FlowLayout());
+        JPanel sud = new JPanel(new FlowLayout());
+        GridLayout GL = new GridLayout(1,3);
+        GL.setHgap(15);
+        JPanel Pbuttons = new JPanel(GL);
 
         GestoreFrame _this=this;
 
-        //JButton inserisciProdotto=new JButton("Inserisci Prodotto");
-        //sud.add(inserisciProdotto);
         JLabel benvenuto = new JLabel("Benvenuto gestore "+g.getNome()+"!");
+        benvenuto.setFont(new Font("Serif", Font.PLAIN, 25));
         nord.add(benvenuto);
         JButton gestCategorie = new JButton("Gestisci Categorie");
-        sud.add(gestCategorie);
-
-
-
-        //inserisciProdotto.addActionListener(new ActionListener() {
-         //   @Override
-         //   public void actionPerformed(ActionEvent e) {
-         //       _this.setVisible(false);
-         //       ProdottoFrame p = new ProdottoFrame();
-         //       SessionManager.getInstance().getSession().put("finestra_prodotto",p);
-          //  }
-        //});
-
-//        inserisciCategoria.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                _this.setVisible(false);
-//                CategoriaFrame c = null;
-//                try {
-//                    c = new CategoriaFrame();               //exception
-//                } catch (IOException e1) {
-//                    e1.printStackTrace();
-//                }
-//                SessionManager.getInstance().getSession().put("finestra_categoria",c);
-//            }
-//        });
+        JButton gestProdotti = new JButton("Gestisci Prodotti");
+        JButton btnLogout = new JButton("Logout");
+        Pbuttons.add(new JPanel(new FlowLayout()).add(btnLogout));
+        Pbuttons.add(new JPanel(new FlowLayout()).add(gestCategorie));
+        Pbuttons.add(new JPanel(new FlowLayout()).add(gestProdotti));
+        sud.add(Pbuttons);
 
         gestCategorie.addActionListener(new ActionListener() {
             @Override
@@ -74,9 +52,6 @@ public class GestoreFrame extends JFrame{
                 new ListaCategorieFrame();
             }
         });
-
-        JButton btnLogout = new JButton("Logout");
-        sud.add(btnLogout);
 
         btnLogout.addActionListener(new ActionListener() {
             @Override
@@ -91,7 +66,6 @@ public class GestoreFrame extends JFrame{
             }
         });
 
-        JButton gestProdotti = new JButton("Gestisci Prodotti");
         gestProdotti.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,13 +73,9 @@ public class GestoreFrame extends JFrame{
                 new ListaProdottiFrame();
             }
         });
-        sud.add(gestProdotti);
-//
-//        JButton mostracategorie = new JButton("Lista categorie");
-//        sud.add(mostracategorie);
 
-        c.add(nord, BorderLayout.NORTH);
-        c.add(sud, BorderLayout.SOUTH);
+        c.add(nord,BorderLayout.NORTH);
+        c.add(sud,BorderLayout.SOUTH);
         setSize(x, y);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
