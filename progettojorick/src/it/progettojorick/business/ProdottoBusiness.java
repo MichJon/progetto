@@ -4,6 +4,7 @@ import it.progettojorick.dao.mysql.CarrelloDAO;
 import it.progettojorick.dao.mysql.ProdottoDAO;
 import it.progettojorick.dbInterface.DbConnection;
 import it.progettojorick.model.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ public class ProdottoBusiness {
 
     public void rimuoviProdotto(String nome){
 
-        ProdottoDAO.getInstance().deleteProdotto(nome);
+            ProdottoDAO.getInstance().deleteProdotto(nome);
+
 
     }
 
@@ -101,5 +103,52 @@ public class ProdottoBusiness {
 
     }
 
+    public void setPrezzo(Prodotto p, float prezzo){
+
+        ProdottoDAO.getInstance().setPrezzo(p.getNome(),prezzo);
+
+    }
+
+    public ArrayList<Prodotto> trovaPerFasciaDiPrezzo(float inizio, float fine){
+
+        ArrayList<Prodotto> tuttiProdotti=ProdottoBusiness.getInstance().prodottiPresenti();
+        ArrayList<Prodotto> prodottiFiltrati=new ArrayList<Prodotto>();
+
+        Iterator i = tuttiProdotti.iterator();
+
+        while (i.hasNext()){
+
+            Prodotto p = (Prodotto)i.next();
+            float prezzo = p.getPrezzo();
+            if (prezzo>=inizio && prezzo<=fine){
+                prodottiFiltrati.add(p);
+            }
+
+
+        }
+
+        return prodottiFiltrati;
+    }
+
+    public ArrayList<Prodotto> trovaPerFasciaDiPrezzo(float inizio){
+
+        ArrayList<Prodotto> tuttiProdotti=ProdottoBusiness.getInstance().prodottiPresenti();
+        ArrayList<Prodotto> prodottiFiltrati=new ArrayList<Prodotto>();
+
+        Iterator i = tuttiProdotti.iterator();
+
+        while (i.hasNext()){
+
+            Prodotto p = (Prodotto)i.next();
+            float prezzo = p.getPrezzo();
+            if (prezzo>=inizio){
+                prodottiFiltrati.add(p);
+            }
+
+
+        }
+
+        return prodottiFiltrati;
+    }
 
 }

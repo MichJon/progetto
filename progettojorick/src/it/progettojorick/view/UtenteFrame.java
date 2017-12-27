@@ -95,9 +95,11 @@ public class UtenteFrame extends JFrame {
         JMenuBar bar = new JMenuBar();
         JMenu mostraTutti = new JMenu("Mostra tutti");
         JMenu categorie = new JMenu("Categorie");
+        JMenu fdp = new JMenu("Fasce di prezzo");
         bar.add(mostraTutti);
 
         bar.add(categorie);
+        bar.add(fdp);
         mostraTutti.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -140,6 +142,51 @@ public class UtenteFrame extends JFrame {
 //            }
         });
 
+        JMenuItem fascia1 = new JMenuItem("€0 - €10");
+        JMenuItem fascia2 = new JMenuItem("€10 - €20");
+        JMenuItem fascia3 = new JMenuItem("€20 - €30");
+        JMenuItem fascia4 = new JMenuItem("€30 +");
+
+        fdp.add(fascia1);
+        fdp.add(fascia2);
+        fdp.add(fascia3);
+        fdp.add(fascia4);
+
+        fascia1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().trovaPerFasciaDiPrezzo(0,10));
+                SessionManager.getInstance().getSession().put("finestra_utente",fr);
+            }
+        });
+
+        fascia2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().trovaPerFasciaDiPrezzo(10,20));
+                SessionManager.getInstance().getSession().put("finestra_utente",fr);
+            }
+        });
+
+        fascia3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().trovaPerFasciaDiPrezzo(20,30));
+                SessionManager.getInstance().getSession().put("finestra_utente",fr);
+            }
+        });
+
+        fascia4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().trovaPerFasciaDiPrezzo(30));
+                SessionManager.getInstance().getSession().put("finestra_utente",fr);
+            }
+        });
 
         ArrayList<Categoria> categorieList = CategoriaBusiness.getInstance().categoriePresenti();
 
@@ -177,7 +224,7 @@ public class UtenteFrame extends JFrame {
         try{
             mostraProdotti(centro);
         } catch (NullPointerException e){
-            centro.add(new JLabel("Non sono presenti prodotti in questa categoria."));
+            centro.add(new JLabel("Non sono presenti prodotti."));
         }
 
 

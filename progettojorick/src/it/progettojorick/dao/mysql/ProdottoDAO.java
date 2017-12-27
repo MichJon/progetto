@@ -228,4 +228,10 @@ public class ProdottoDAO implements IProdottoDAO {
 
     }
 
+    public void setPrezzo(String nomeProdotto,float prezzo){
+
+        DbConnection.getInstance().eseguiAggiornamento("UPDATE prodotto SET prezzo = "+prezzo+" WHERE nome_prodotto = '"+nomeProdotto+"';");
+
+    }
+
 }

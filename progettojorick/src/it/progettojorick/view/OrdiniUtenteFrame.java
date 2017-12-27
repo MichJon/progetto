@@ -5,11 +5,13 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.RichiestaOrdine;
 import it.progettojorick.model.Utente;
 import sun.plugin2.os.windows.FLASHWINFO;
+import utilities.PDF;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class OrdiniUtenteFrame extends JFrame {
@@ -55,7 +57,17 @@ public class OrdiniUtenteFrame extends JFrame {
             }
         });
 
-        JButton btnPDF= new JButton("Visualizza ricevuta PDF");
+        JButton btnPDF= new JButton("Salva ricevuta PDF");
+        btnPDF.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               try {
+                   PDF.getInstance().creaPDF();
+               }catch (IOException ex){
+                   JOptionPane.showMessageDialog(null,"Errore.");
+               }
+            }
+        });
 
 
        // sudIndietro.add(indietro);

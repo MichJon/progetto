@@ -29,7 +29,7 @@ public class ModificaProdottiPaniereFrame extends JFrame {
         ArrayList<Prodotto> listaprodotti = PaniereBusiness.getInstance().prodottiContenuti(paniere);
 
 
-        ListaProdottiTableModel lptm = new ListaProdottiTableModel(listaprodotti);
+        ListaProdottiTableModel lptm = new ListaProdottiTableModel();//listaprodotti);
 
         JTable listaProd = new JTable(lptm);
         getContentPane().add(new JScrollPane(listaProd), BorderLayout.CENTER);

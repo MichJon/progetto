@@ -26,10 +26,10 @@ public class ListaProdottiFrame extends JFrame {                            ////
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
 
         GestoreCatalogo g = (GestoreCatalogo) SessionManager.getInstance().getSession().get("gestore");
-        ArrayList<Prodotto> listaprodotti = ProdottoBusiness.getInstance().prodottiPresenti();
+//        ArrayList<Prodotto> listaprodotti = ProdottoBusiness.getInstance().prodottiPresenti();
 
 
-        ListaProdottiTableModel lptm = new ListaProdottiTableModel(listaprodotti);
+        ListaProdottiTableModel lptm = new ListaProdottiTableModel();//listaprodotti);
 
         JTable listaProd = new JTable(lptm);
         getContentPane().add(new JScrollPane(listaProd), BorderLayout.CENTER);
@@ -45,8 +45,8 @@ public class ListaProdottiFrame extends JFrame {                            ////
         sud.add(btnLogout);
         JButton btnAggiungi = new JButton("Aggiungi");
         sud.add(btnAggiungi);
-        JButton btnRimuovi = new JButton("Rimuovi");
-        sud.add(btnRimuovi);
+//        JButton btnRimuovi = new JButton("Rimuovi");
+//        sud.add(btnRimuovi);
         JButton btnCreaProdComp = new JButton("Crea prodotto composto");
         sud.add(btnCreaProdComp);
 
@@ -63,25 +63,30 @@ public class ListaProdottiFrame extends JFrame {                            ////
             }
         });
 
-        btnRimuovi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
-                //REFRESH
-                int index = listaProd.getSelectedRow();
-
-                try {
-                    String nome = (String) listaProd.getModel().getValueAt(index, 0);
-                    ProdottoBusiness.getInstance().rimuoviProdotto(nome);
-                    JOptionPane.showMessageDialog(null, "Prodotto rimosso.");
-                    _this.dispose();
-                    new ListaProdottiFrame();
-                }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null,"Seleziona prodotto da rimuovere");
-                }
-            }
-        });
+//        btnRimuovi.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
+//                //REFRESH
+//                int index = listaProd.getSelectedRow();
+//
+//                try {
+//                    String nome = (String) listaProd.getModel().getValueAt(index, 0);
+//
+//                    try {
+//                        ProdottoBusiness.getInstance().rimuoviProdotto(nome);
+//                        JOptionPane.showMessageDialog(null, "Prodotto rimosso.");
+//                    }catch (Exception ex){
+//                        JOptionPane.showMessageDialog(null,"Impossibile rimuovere il prodotto finchè tutti i carrelli non lo avranno in uso e gli ordini non saranno chiusi.");
+//                    }
+//                    _this.dispose();
+//                    new ListaProdottiFrame();
+//                }catch (Exception ex){
+//                    JOptionPane.showMessageDialog(null,"Seleziona prodotto da rimuovere");
+//                }
+//            }
+//        });
 
         indietro.addActionListener(new ActionListener() {
             @Override
