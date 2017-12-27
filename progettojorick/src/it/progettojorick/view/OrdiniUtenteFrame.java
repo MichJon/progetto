@@ -4,7 +4,7 @@ import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.RichiestaOrdine;
 import it.progettojorick.model.Utente;
-import sun.plugin2.os.windows.FLASHWINFO;
+//import sun.plugin2.os.windows.FLASHWINFO;
 import utilities.PDF;
 
 import javax.swing.*;
@@ -34,10 +34,12 @@ public class OrdiniUtenteFrame extends JFrame {
         ArrayList<RichiestaOrdine> richiesteOrdine = RichiestaOrdineBusiness.getInstance().richiesteOrdineUtente(u);
         JPanel centro = new JPanel(new FlowLayout());
 
-        if (richiesteOrdine!=null) {
-            OrdiniTableModel otm = new OrdiniTableModel(richiesteOrdine);
+        OrdiniTableModel otm = new OrdiniTableModel(richiesteOrdine);
 
-            JTable richiesteOrd = new JTable(otm);
+        JTable richiesteOrd = new JTable(otm);
+
+        if (richiesteOrdine!=null) {
+
             getContentPane().add(new JScrollPane(richiesteOrd), BorderLayout.CENTER);
         }
         else {
@@ -61,8 +63,11 @@ public class OrdiniUtenteFrame extends JFrame {
         btnPDF.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int id;
+                int index = richiesteOrd.getSelectedRow();
+                id = (Integer)richiesteOrd.getModel().getValueAt(index,0);
                try {
-                   PDF.getInstance().creaPDF();
+                   PDF.getInstance().creaPDF(id);
                }catch (IOException ex){
                    JOptionPane.showMessageDialog(null,"Errore.");
                }

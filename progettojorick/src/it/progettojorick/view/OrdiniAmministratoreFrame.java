@@ -7,7 +7,7 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.Carrello;
 import it.progettojorick.model.RichiestaOrdine;
-import jdk.nashorn.internal.scripts.JO;
+//import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.*;
