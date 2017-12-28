@@ -65,12 +65,16 @@ public class OrdiniUtenteFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int id;
                 int index = richiesteOrd.getSelectedRow();
-                id = (Integer)richiesteOrd.getModel().getValueAt(index,0);
-               try {
-                   PDF.getInstance().creaPDF(id);
-               }catch (IOException ex){
-                   JOptionPane.showMessageDialog(null,"Errore.");
-               }
+                if (index != -1) {
+                    id = (Integer) richiesteOrd.getModel().getValueAt(index, 0);
+                    try {
+                        PDF.getInstance().creaPDF(id);
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Errore.");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null,"Selezionare un ordine.");
+                }
             }
         });
 

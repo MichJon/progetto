@@ -89,7 +89,7 @@ public class PDF {
         //Ending the content stream
         contentStream.endText();
         contentStream.close();
-        document.save("./PDF's/"+u.getEmailUtente()+".pdf");
+        document.save("./PDF's/"+u.getEmailUtente()+"#"+trovata.getIdRichiesta()+".pdf");
         document.close();
     }
 }
