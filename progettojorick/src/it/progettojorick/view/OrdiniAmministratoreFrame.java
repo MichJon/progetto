@@ -4,9 +4,9 @@ import it.progettojorick.business.AmministratoreBusiness;
 import it.progettojorick.business.CarrelloBusiness;
 import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
-import it.progettojorick.model.Amministratore;
-import it.progettojorick.model.Carrello;
-import it.progettojorick.model.RichiestaOrdine;
+import it.progettojorick.dao.mysql.PersonaDAO;
+import it.progettojorick.dao.mysql.UtenteDAO;
+import it.progettojorick.model.*;
 //import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
@@ -147,9 +147,12 @@ public class OrdiniAmministratoreFrame extends JFrame {
                 int index = richiesteOrd.getSelectedRow();
                 try {
                     int idRichiesta = (int) richiesteOrd.getModel().getValueAt(index, 0);
+                    long numcarta = (long) richiesteOrd.getModel().getValueAt(index, 4);
+                    String emailU = (String) richiesteOrd.getModel().getValueAt(index, 3);
+                    Persona p = PersonaDAO.getInstance().findByEmail(emailU);
                     RichiestaOrdine r = RichiestaOrdineBusiness.getInstance().trovaRichiesta(idRichiesta);
                     Carrello c = r.getCarrello();
-                    new ProdottiOrdineFrame(c);
+                    new ProdottiOrdineFrame(c,numcarta,p);
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, "Seleziona ordine da visualizzare");
                 }
