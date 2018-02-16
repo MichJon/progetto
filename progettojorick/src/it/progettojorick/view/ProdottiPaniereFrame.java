@@ -1,9 +1,6 @@
 package it.progettojorick.view;
 
-import it.progettojorick.business.CarrelloBusiness;
-import it.progettojorick.business.CategoriaBusiness;
-import it.progettojorick.business.ProdottoBusiness;
-import it.progettojorick.business.SessionManager;
+import it.progettojorick.business.*;
 import it.progettojorick.model.*;
 import utilities.BottoneConImg;
 
@@ -23,7 +20,7 @@ public class ProdottiPaniereFrame extends JFrame {
 
     Paniere p = (Paniere)SessionManager.getInstance().getSession().get("paniere");
 
-    ArrayList<Prodotto> prodottiList= ProdottoBusiness.getInstance().prodottiPresenti();
+    ArrayList<Prodotto> prodottiList= PaniereBusiness.getInstance().prodottiContenuti(p);
 
     Utente u =(Utente) SessionManager.getInstance().getSession().get("utente");
 
@@ -134,6 +131,7 @@ public class ProdottiPaniereFrame extends JFrame {
 
                 _this.dispose();
                 new ModificaProdottiPaniereFrame();
+              //  new ProdottiDisponibiliListaFrame();
             }
         });
         carrello.addActionListener(new ActionListener() {

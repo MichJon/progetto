@@ -7,6 +7,7 @@ import it.progettojorick.model.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.swing.*;
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -19,7 +20,7 @@ public class ProdottoBusiness {
             instance = new ProdottoBusiness();
         return instance;
     }
-    public Prodotto creaProdotto(String nome, String descrizione, float prezzo, int disponibilita, Categoria c, Produttore pr, Distributore d, String imgUrl){
+    public Prodotto creaProdotto(String nome, String descrizione, float prezzo, int disponibilita, Categoria c, Produttore pr, Distributore d, String imgUrl, int sconto){
 
     Prodotto p = new Prodotto();
         p.setNome(nome);
@@ -33,6 +34,7 @@ public class ProdottoBusiness {
         p.setDistributore(d);
 
         p.setImgUrl(imgUrl);
+        p.setSconto(sconto);
 
         return p;
     }
@@ -106,6 +108,14 @@ public class ProdottoBusiness {
     public void setPrezzo(Prodotto p, float prezzo){
 
         ProdottoDAO.getInstance().setPrezzo(p.getNome(),prezzo);
+
+    }
+    public void setSconto(Prodotto p, int sconto){
+
+        if(sconto<0 || sconto>100)
+            JOptionPane.showMessageDialog(null, "Valore inserito non valido.");
+        else
+            ProdottoDAO.getInstance().setSconto(p.getNome(),sconto);
 
     }
 

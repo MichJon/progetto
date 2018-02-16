@@ -46,13 +46,14 @@ public class ProdottoListener implements ActionListener {
        // Path path= finestra.get;
 //        String url=finestra.getLblUrl().getText();
 //        String imgUrl= url.replace("\\", "\\\\\\");
-            String nomeFile = finestra.getLblNomeFile().getText();
+        String nomeFile = finestra.getLblNomeFile().getText();
+        int sconto = Integer.parseInt(finestra.getTxtSconto().getText());
 
 
 
         if(e.getSource() instanceof JButton ){
 
-            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,disponibilita,categoria,produttore,distributore,nomeFile);
+            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,disponibilita,categoria,produttore,distributore,nomeFile,sconto);
             ProdottoBusiness.getInstance().inserisciProdotto(p);
             //inserimento prodotti composti
             if(prodottiContenuti!=null)

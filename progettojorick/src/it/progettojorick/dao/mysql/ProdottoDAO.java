@@ -37,6 +37,7 @@ public class ProdottoDAO implements IProdottoDAO {
         p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
         p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
         p.setImgUrl(riga[7]);
+        p.setSconto(Integer.parseInt(riga[8]));
 
         return p;
 
@@ -48,10 +49,10 @@ public class ProdottoDAO implements IProdottoDAO {
 
         DbConnection.getInstance().eseguiAggiornamento("INSERT INTO prodotto (nome_prodotto,descrizione," +
                         "prezzo,disponibilita,categoria_nome_categoria, produttore_idproduttore," +
-                        "distributore_iddistributore, url_immagine)" +
+                        "distributore_iddistributore, url_immagine, sconto)" +
                         "VALUES ('"+p.getNome()+"','"+p.getDescrizione()+"','"+p.getPrezzo()+"','"+p.getDisponibilita()+"','"+
                                     p.getCategoria().getNomecategoria()+"','"+p.getProduttore().getId()+"','"+
-                                    p.getDistributore().getId()+"','"+p.getImgUrl()+"');");
+                                    p.getDistributore().getId()+"','"+p.getImgUrl()+"','"+p.getSconto()+"');");
 
 
     }
@@ -78,6 +79,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
             p.setImgUrl(riga[7]);
+            p.setSconto(Integer.parseInt(riga[8]));
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -104,6 +106,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
             p.setImgUrl(riga[7]);
+            p.setSconto(Integer.parseInt(riga[8]));
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -162,6 +165,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
             p.setImgUrl(riga[7]);
+            p.setSconto(Integer.parseInt(riga[8]));
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -187,6 +191,7 @@ public class ProdottoDAO implements IProdottoDAO {
             p.setDistributore(DistributoreDAO.getInstance().findById(Integer.parseInt(riga[6])));
             p.setProdottiContenuti(ProdottoDAO.getInstance().findProdottiContenuti(riga[0]));
             p.setImgUrl(riga[7]);
+            p.setSconto(Integer.parseInt(riga[8]));
             listaProdotti.add(p);
         }
         return listaProdotti;
@@ -233,5 +238,12 @@ public class ProdottoDAO implements IProdottoDAO {
         DbConnection.getInstance().eseguiAggiornamento("UPDATE prodotto SET prezzo = "+prezzo+" WHERE nome_prodotto = '"+nomeProdotto+"';");
 
     }
+
+    public void setSconto(String nomeProdotto,int sconto){
+
+        DbConnection.getInstance().eseguiAggiornamento("UPDATE prodotto SET sconto = "+sconto+" WHERE nome_prodotto = '"+nomeProdotto+"';");
+
+    }
+
 
 }

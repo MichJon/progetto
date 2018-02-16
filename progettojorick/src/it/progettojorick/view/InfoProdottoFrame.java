@@ -27,6 +27,7 @@ public class InfoProdottoFrame extends JFrame {
 
 
 
+
         super("Finestra di Info");
 
          this.p = p;// = //(Prodotto)SessionManager.getInstance().getSession().get("prodotto_aperto");
@@ -123,19 +124,20 @@ public class InfoProdottoFrame extends JFrame {
         aggCarrello.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Utente u = (Utente)SessionManager.getInstance().getSession().get("utente");
+                Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
                 //Carrello c = CarrelloBusiness.getInstance().carrelloUtente(u);
 
-                Carrello c = (Carrello) SessionManager.getInstance().getSession().get("carrello");
+                if (u != null) {
 
-                    if(!CarrelloBusiness.getInstance().isPresente(p,c)&&p.getDisponibilita()>0){
+                    Carrello c = (Carrello) SessionManager.getInstance().getSession().get("carrello");
+
+                    if (!CarrelloBusiness.getInstance().isPresente(p, c) && p.getDisponibilita() > 0) {
 
                         CarrelloBusiness.getInstance().inserisciProdottoNelCarrello(p, c);
                         p.setDalPaniere(false);
-                    JOptionPane.showMessageDialog(null,"Il prodotto è stato inserito nel carrello.");
-                    }
-                    else if (p.getDisponibilita()>0){
-                     //   JOptionPane.showMessageDialog(null,"Il prodotto è già presente nel carrello.");
+                        JOptionPane.showMessageDialog(null, "Il prodotto è stato inserito nel carrello.");
+                    } else if (p.getDisponibilita() > 0) {
+                        //   JOptionPane.showMessageDialog(null,"Il prodotto è già presente nel carrello.");
 
                         Object[] options = {"Si",
                                 "No "};
@@ -148,31 +150,35 @@ public class InfoProdottoFrame extends JFrame {
                                 options,  //the titles of buttons
                                 options[1]); //default button title
 
-                        if(n==JOptionPane.YES_OPTION){
+                        if (n == JOptionPane.YES_OPTION) {
 
-                                int quantita = ProdottoBusiness.getInstance().getQuantita(c, p);
-                                // String newQuantita=String.valueOf(quantita+1);
-                                if (p.getDisponibilita()>quantita) {
+                            int quantita = ProdottoBusiness.getInstance().getQuantita(c, p);
+                            // String newQuantita=String.valueOf(quantita+1);
+                            if (p.getDisponibilita() > quantita) {
                                 ProdottoBusiness.getInstance().setQuantita(quantita + 1, c, p);
 
                                 JOptionPane.showMessageDialog(null, "Quantità aumentata.");
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(null,"Impossibile aumentare la quantità. Corrisponde già alla quantità massima presente.");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Impossibile aumentare la quantità. Corrisponde già alla quantità massima presente.");
                             }
                         }
 
+                    } else if (p.getDisponibilita() == 0) {
+                        JOptionPane.showMessageDialog(null, "Impossibile inserire nel carrello, prodotto terminato.");
                     }
-                    else if (p.getDisponibilita()==0){
-                        JOptionPane.showMessageDialog(null,"Impossibile inserire nel carrello, prodotto terminato.");
-                    }
 
 
-
-
-                _this.dispose();
+                    _this.dispose();
 //                UtenteFrame ufr=(UtenteFrame)SessionManager.getInstance().getSession().get("finestra_utente");
 //                ufr.setVisible(true);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Effettua il login prima di continuare!");
+//                    _this.setVisible(false);
+//                    UtenteFrame utfr =(UtenteFrame) SessionManager.getInstance().getSession().get("finestra_utente");
+//                    utfr.setVisible(false);
+//                    new LoginFrame();
+                }
             }
         });
         sud.add(indietro);

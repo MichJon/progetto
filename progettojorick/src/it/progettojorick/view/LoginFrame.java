@@ -1,17 +1,21 @@
 package it.progettojorick.view;
 
 import it.progettojorick.actionListeners.LoginListener;
+import it.progettojorick.business.ProdottoBusiness;
+import it.progettojorick.business.SessionManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame {
 
     private JTextField txtEmail = new JTextField();
     private JPasswordField txtPassword = new JPasswordField();
-    private int x=300;
+    private int x=500;
     private int y=250;
 
     public JTextField getTxtEmail() {
@@ -33,6 +37,8 @@ public class LoginFrame extends JFrame {
     public LoginFrame() {
 
         super("Prima finestra");
+
+        LoginFrame _this = this;
 
         Container c = getContentPane();
 
@@ -75,6 +81,21 @@ public class LoginFrame extends JFrame {
         Pbuttons.add(btnRegistrazione);
         Pbuttons.add(btnlogin);
         sud.add(Pbuttons);
+
+        JButton btnGuest = new JButton("Entra come ospite");
+        btnGuest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                _this.setVisible(false);
+
+                UtenteFrame utFr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());
+                SessionManager.getInstance().getSession().put("finestra_utente", utFr);
+                SessionManager.getInstance().getSession().put("utente", null);
+
+            }
+        });
+        Pbuttons.add(btnGuest);
 
         c.add(nord,BorderLayout.NORTH);
         c.add(centro, BorderLayout.CENTER);

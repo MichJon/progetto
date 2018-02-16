@@ -1,5 +1,7 @@
 package it.progettojorick.view;
 
+import it.progettojorick.business.RichiestaOrdineBusiness;
+import it.progettojorick.business.RichiestaRegistrazioneBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Amministratore;
 import it.progettojorick.model.RichiestaRegistrazione;
@@ -50,9 +52,16 @@ public class AmministratoreFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(RichiestaOrdineBusiness.getInstance().richiestePresenti()!=null){
                 _this.setVisible(false);
                 OrdiniAmministratoreFrame oafr= new OrdiniAmministratoreFrame();
                 SessionManager.getInstance().getSession().put("finestra_gestione_ordini",oafr);
+                }else{
+                    // System.out.println("error");
+                    JOptionPane.showMessageDialog(null, "Non sono presenti ordini.");
+                    _this.setVisible(true);
+                    //a.setVisible(true);
+                }
 
             }
         });
@@ -62,13 +71,14 @@ public class AmministratoreFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                  //AmministratoreFrame a = (AmministratoreFrame)SessionManager.getInstance().getSession().get("finestra_amministratore");
                  //a.setVisible(false);
-                _this.setVisible(false);
 
-                 try
-                 {RichiestaRegistrazioneFrame reg= new RichiestaRegistrazioneFrame();
-                 SessionManager.getInstance().getSession().put("finestra_richieste_registrazione", reg);
-                 }catch (Exception ex){
-                     System.out.println("error");
+
+                if (RichiestaRegistrazioneBusiness.getInstance().richiestePresenti()!=null) {
+                    _this.setVisible(false);
+                    RichiestaRegistrazioneFrame reg = new RichiestaRegistrazioneFrame();
+                    SessionManager.getInstance().getSession().put("finestra_richieste_registrazione", reg);
+                }else{
+                    // System.out.println("error");
                      JOptionPane.showMessageDialog(null, "Non sono presenti richieste di registrazione.");
                      _this.setVisible(true);
                      //a.setVisible(true);

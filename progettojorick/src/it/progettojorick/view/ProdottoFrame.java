@@ -25,6 +25,7 @@ public class ProdottoFrame extends JFrame{
     private JTextField txtImgUrl = new JTextField();
     private JLabel lblUrl=new JLabel();
     private JLabel lblNomeFile = new JLabel();
+    private JTextField txtSconto = new JTextField();
     private ArrayList<Prodotto> prodottiContenuti = new ArrayList<Prodotto>();
    // private Path path;
 
@@ -119,6 +120,13 @@ public class ProdottoFrame extends JFrame{
         this.txtImgUrl = txtImgUrl;
     }
 
+    public JTextField getTxtSconto() {
+        return txtSconto;
+    }
+
+    public void setTxtSconto(JTextField txtSconto) {
+        this.txtSconto = txtSconto;
+    }
 
     public ProdottoFrame(ArrayList<Prodotto> prodottiContenuti) {
 
@@ -141,7 +149,7 @@ public class ProdottoFrame extends JFrame{
 
         JPanel centro = new JPanel();
         centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
-        JPanel centroNord = new JPanel(new GridLayout(8,2));
+        JPanel centroNord = new JPanel(new GridLayout(9,2));
 
 
         JLabel lblNome = new JLabel("Nome");
@@ -152,6 +160,7 @@ public class ProdottoFrame extends JFrame{
         JLabel lblProduttore = new JLabel("Produttore");
         JLabel lblDistributore = new JLabel("Distributore");
         JLabel lblImgUrl = new JLabel("Url immagine");
+        JLabel lblSconto = new JLabel("Sconto");
 
 
         JPanel pan = new JPanel();
@@ -188,6 +197,8 @@ public class ProdottoFrame extends JFrame{
         centroNord.add(txtProduttore);
         centroNord.add(lblDistributore);
         centroNord.add(txtDistributore);
+        centroNord.add(lblSconto);
+        centroNord.add(txtSconto);
         centroNord.add(lblImgUrl);
         //pan.add(lblUrl);
         pan.add(sfoglia);

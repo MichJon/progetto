@@ -5,7 +5,9 @@ import it.progettojorick.model.Paniere;
 import it.progettojorick.model.Prodotto;
 import it.progettojorick.model.Utente;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PaniereBusiness {
 
@@ -32,10 +34,29 @@ public class PaniereBusiness {
 
     public void inserisciProdottoNelPaniere(String nomeProdotto, Paniere pan){
 
-        PaniereDAO.getInstance().insertProdottoInPaniere(pan.getIdpaniere(), nomeProdotto);
-        Paniere p= PaniereDAO.getInstance().findById(pan.getIdpaniere());
+        Prodotto prod = ProdottoBusiness.getInstance().trovaProdotto(nomeProdotto);
+        ArrayList<Prodotto> prodCont = prodottiContenuti(pan);
+        Iterator i = prodCont.iterator();
+        boolean presente = false;
 
-        SessionManager.getInstance().getSession().put("paniere",p);
+        while (i.hasNext()) {
+
+            Prodotto iterProd = (Prodotto) i.next();
+
+            if (iterProd.getNome().equals(prod.getNome())) {
+                presente = true;
+                JOptionPane.showMessageDialog(null, "Il prodotto è già presente nel paniere.");
+            }
+        }
+
+        if (!presente) {
+            PaniereDAO.getInstance().insertProdottoInPaniere(pan.getIdpaniere(), nomeProdotto);
+        }
+            Paniere p = PaniereDAO.getInstance().findById(pan.getIdpaniere());
+
+            SessionManager.getInstance().getSession().put("paniere", p);
+
+
 
     }
 

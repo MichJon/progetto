@@ -1,5 +1,6 @@
 package it.progettojorick.view;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import it.progettojorick.business.PaniereBusiness;
 import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
@@ -28,22 +29,26 @@ public class ProdottiDisponibiliListaFrame extends JFrame {
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
 
         //GestoreCatalogo g = (GestoreCatalogo) SessionManager.getInstance().getSession().get("gestore");
-        ArrayList<Prodotto> listaprodotti = ProdottoBusiness.getInstance().prodottiPresenti();
+        ArrayList<Prodotto> listaprodotti = PaniereBusiness.getInstance().prodottiContenuti(pan);
 
 
         ListaProdottiTableModel lptm = new ListaProdottiTableModel();//listaprodotti);
 
         JTable listaProd = new JTable(lptm);
+        getContentPane().add(new JLabel("Selezionare prodotto da aggiugere al paniere:"), BorderLayout.NORTH);
         getContentPane().add(new JScrollPane(listaProd), BorderLayout.CENTER);
 
 
        // getContentPane().add(new JLabel("BENVENUTO " + g.getNome() + " " + g.getCognome() + "!"), BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
-        JButton btnLogout = new JButton("Logout");
-        sud.add(btnLogout);
+//        JButton btnLogout = new JButton("Logout");
+//        sud.add(btnLogout);
+        JButton btnIndietro = new JButton("Indietro");
+        sud.add(btnIndietro);
         JButton btnAggiungi = new JButton("Aggiungi prodotto al paniere");
         sud.add(btnAggiungi);
+
 
         ProdottiDisponibiliListaFrame _this = this;
 
@@ -55,8 +60,10 @@ public class ProdottiDisponibiliListaFrame extends JFrame {
                int index = listaProd.getSelectedRow();
                String nome = (String)listaProd.getModel().getValueAt(index,0);
                PaniereBusiness.getInstance().inserisciProdottoNelPaniere(nome,pan);
+
                 _this.dispose();
                 new ModificaProdottiPaniereFrame();
+               // new ProdottiPaniereFrame(pan.getProdotti());
 
             }
         });
@@ -81,14 +88,23 @@ public class ProdottiDisponibiliListaFrame extends JFrame {
 
 
 
-        btnLogout.addActionListener(new ActionListener() {
+//        btnLogout.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//              //  SessionManager.getInstance().getSession().put("gestore", null);
+//                _this.setVisible(false);
+//                LoginFrame finestraLogin = new LoginFrame();
+//                SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
+//            }
+//        });
+
+        btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-              //  SessionManager.getInstance().getSession().put("gestore", null);
-                _this.setVisible(false);
-                LoginFrame finestraLogin = new LoginFrame();
-                SessionManager.getInstance().getSession().put("finestra_login", finestraLogin);
+                _this.dispose();
+                new ModificaProdottiPaniereFrame();
             }
         });
 

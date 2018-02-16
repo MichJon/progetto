@@ -29,18 +29,18 @@ public class ModificaProdottiPaniereFrame extends JFrame {
         ArrayList<Prodotto> listaprodotti = PaniereBusiness.getInstance().prodottiContenuti(paniere);
 
 
-        ListaProdottiTableModel lptm = new ListaProdottiTableModel();//listaprodotti);
+        ListaProdottiTableModel lptm = new ListaProdottiTableModel(listaprodotti);//listaprodotti);
 
         JTable listaProd = new JTable(lptm);
         getContentPane().add(new JScrollPane(listaProd), BorderLayout.CENTER);
 
 
-        getContentPane().add(new JLabel( paniere.getNome()), BorderLayout.NORTH);
+        getContentPane().add(new JLabel("Prodotti presenti nel paniere: "+ paniere.getNome()), BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
         JButton btnIndietro = new JButton("Indietro");
         sud.add(btnIndietro);
-        JButton btnAggiungi = new JButton("Aggiungi");
+        JButton btnAggiungi = new JButton("Aggiungi prodotto al paniere");
         sud.add(btnAggiungi);
 
         ModificaProdottiPaniereFrame _this = this;
@@ -67,10 +67,13 @@ public class ModificaProdottiPaniereFrame extends JFrame {
                 //REFRESH
                 int index = listaProd.getSelectedRow();
 
+                if(index!=-1){
                 String nome = (String)listaProd.getModel().getValueAt(index, 0);
                 PaniereBusiness.getInstance().cancellaProdottoDalPaniere(nome,paniere);
                 _this.dispose();
                 new ModificaProdottiPaniereFrame();
+                }else JOptionPane.showMessageDialog(null, "Selezionare un prodotto da rimuovere.");
+
             }
         });
 

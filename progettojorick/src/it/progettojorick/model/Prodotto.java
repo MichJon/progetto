@@ -16,7 +16,16 @@ public class Prodotto {
     private Distributore distributore;
     private ArrayList<Prodotto> prodottiContenuti=null;
     private String imgUrl;
+    private int Sconto;
     private boolean dalPaniere=false;
+
+    public int getSconto() {
+        return Sconto;
+    }
+
+    public void setSconto(int sconto) {
+        Sconto = sconto;
+    }
 
     public boolean isDalPaniere() {
         return dalPaniere;

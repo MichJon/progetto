@@ -55,8 +55,14 @@ public class UtenteFrame extends JFrame {
         panieri.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (u!=null){
                 _this.setVisible(false);
-                new ElencoPanieriView();
+                new ElencoPanieriView();}
+                else {
+                    JOptionPane.showMessageDialog(null, "Effettua il login prima di continuare!");
+                    _this.setVisible(false);
+                    new LoginFrame();
+                }
             }
         });
         JButton carrello = new JButton("Carrello");
@@ -64,16 +70,25 @@ public class UtenteFrame extends JFrame {
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _this.dispose();
-                new LoginFrame();
+
+                   _this.dispose();
+                   new LoginFrame();
+
             }
         });
         JButton btnOrdini=new JButton("Visualizza Ordini");
         btnOrdini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _this.setVisible(false);
-                new OrdiniUtenteFrame();
+               if (u!=null) {
+                   _this.setVisible(false);
+                   new OrdiniUtenteFrame();
+               }
+               else {
+                   JOptionPane.showMessageDialog(null, "Effettua il login prima di continuare!");
+                   _this.setVisible(false);
+                   new LoginFrame();
+               }
             }
         });
         sud.add(logout);
@@ -83,13 +98,20 @@ public class UtenteFrame extends JFrame {
         carrello.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _this.setVisible(false);
-                try{
-                SessionManager.getInstance().getSession().put("finestra_carrello",new CarrelloFrame());
-                }catch (NullPointerException ex){
-                    JOptionPane.showMessageDialog(null,"Non sono presenti prodotti nel carrello");
-                    _this.setVisible(true);
-                }
+               if (u!=null) {
+                   _this.setVisible(false);
+                   try {
+                       SessionManager.getInstance().getSession().put("finestra_carrello", new CarrelloFrame());
+                   } catch (NullPointerException ex) {
+                       JOptionPane.showMessageDialog(null, "Non sono presenti prodotti nel carrello");
+                       _this.setVisible(true);
+                   }
+               }
+               else {
+                   JOptionPane.showMessageDialog(null, "Effettua il login prima di continuare!");
+                   _this.setVisible(false);
+                   new LoginFrame();
+               }
             }
         });
         JMenuBar bar = new JMenuBar();

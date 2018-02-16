@@ -32,7 +32,11 @@ public class OrdiniTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return richiesteOrdine.size();
+        try{
+            return richiesteOrdine.size();
+        }catch (NullPointerException e){
+            return 0;
+        }
     }
 
     @Override

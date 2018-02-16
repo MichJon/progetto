@@ -68,6 +68,7 @@ public class ElencoPanieriView extends JFrame {
             centro.add(new JLabel("Non sono presenti panieri."));
         }
 
+        JButton btnIndietro =new JButton("Indietro");
         JButton btnCreaPaniere = new JButton("Crea paniere");
 
         btnCreaPaniere.addActionListener(new ActionListener() {
@@ -77,6 +78,15 @@ public class ElencoPanieriView extends JFrame {
             }
         });
 
+        btnIndietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                UtenteFrame utfr = (UtenteFrame) SessionManager.getInstance().getSession().get("finestra_utente");
+                utfr.setVisible(true);
+            }
+        });
+        sud.add(btnIndietro);
         sud.add(btnCreaPaniere);
         c.add(nord, BorderLayout.NORTH);
         c.add(centro, BorderLayout.CENTER);

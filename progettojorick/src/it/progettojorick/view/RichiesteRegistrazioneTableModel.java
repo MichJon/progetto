@@ -30,7 +30,12 @@ public class RichiesteRegistrazioneTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return richiesteRegistrazioni.size();
+        try{
+            return richiesteRegistrazioni.size();
+        }catch(NullPointerException ex){
+            return 0;
+        }
+
     }
 
     @Override

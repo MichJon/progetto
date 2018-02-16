@@ -119,7 +119,7 @@ public class RichiestaRegistrazioneFrame extends JFrame {
                     _this.setVisible(false);
                     try {
                         SessionManager.getInstance().getSession().put("finestra_richieste_registrazione", new RichiestaRegistrazioneFrame());
-                    }catch(Exception ex){
+                    }catch(NullPointerException ex){
                         System.out.println("error");
                         JOptionPane.showMessageDialog(null, "Sono terminate le richieste di registrazione.");
                         AmministratoreFrame ammFr= new AmministratoreFrame();
