@@ -7,8 +7,12 @@ import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.RichiestaOrdineBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.*;
+//import jdk.tools.jlink.internal.Jlink;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.html.HTML;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +23,7 @@ import java.util.Iterator;
 
 public class AcquistoFrame extends JFrame {
 
-    private int x = 1024;
+    private int x = 800;
     private int y = 700;
 
     Pagamento pag = (Pagamento)SessionManager.getInstance().getSession().get("pagamento_selezionato");
@@ -77,6 +81,8 @@ public class AcquistoFrame extends JFrame {
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
+        Border blackline;
+        blackline = BorderFactory.createLineBorder(Color.black);
 
         c.setLayout(new BoxLayout(c,BoxLayout.PAGE_AXIS));
 
@@ -90,11 +96,17 @@ public class AcquistoFrame extends JFrame {
         JPanel generalita = new JPanel();
         generalita.setLayout(new GridLayout(5,2));
 
+        JPanel intropagamento = new JPanel();
+        intropagamento.setLayout(new GridLayout(1,1));
+
         JPanel pagamento = new JPanel();
         pagamento.setLayout(new BoxLayout(pagamento,BoxLayout.PAGE_AXIS));//GridLayout(1,2));
 
         JPanel bottonipagamento =new JPanel();
         bottonipagamento.setLayout(new FlowLayout());
+
+        JPanel introconsegna = new JPanel();
+        introconsegna.setLayout(new GridLayout(1,1));
 
         JPanel consegna = new JPanel();
         consegna.setLayout(new BoxLayout(consegna,BoxLayout.PAGE_AXIS));//GridLayout(1,2));
@@ -111,6 +123,7 @@ public class AcquistoFrame extends JFrame {
 //        vuoto.setVisible(true);
 
         JLabel intro = new JLabel("Conferma o modifica le tue generalità");
+        intro.setFont(new Font("Serif", Font.BOLD, 22));
         nord.add(intro);
 
         JLabel lblNome = new JLabel("Nome: ");
@@ -140,15 +153,31 @@ public class AcquistoFrame extends JFrame {
         JLabel lblIndirizzoU = new JLabel(u.getIndirizzo());
         JLabel lblNumtelefonoU = new JLabel(u.getNumtelefono());
 
-        generalita.add(lblNome);
+        TitledBorder Tnome;
+        Tnome = BorderFactory.createTitledBorder(blackline,"Nome");
+        lblNomeU.setBorder(Tnome);
+        TitledBorder Tcognome;
+        Tcognome = BorderFactory.createTitledBorder(blackline,"Cognome");
+        lblCognomeU.setBorder(Tcognome);
+        TitledBorder Temail;
+        Temail = BorderFactory.createTitledBorder(blackline,"Email");
+        lblEmailU.setBorder(Temail);
+        TitledBorder Tindirizzo;
+        Tindirizzo = BorderFactory.createTitledBorder(blackline,"Indirizzo");
+        lblIndirizzoU.setBorder(Tindirizzo);
+        TitledBorder Tnumtelefono;
+        Tnumtelefono = BorderFactory.createTitledBorder(blackline,"Numero di Telefono");
+        lblNumtelefonoU.setBorder(Tnumtelefono);
+
+        //generalita.add(lblNome);
         generalita.add(lblNomeU);
-        generalita.add(lblCognome);
+        //generalita.add(lblCognome);
         generalita.add(lblCognomeU);
-        generalita.add(lblEmail);
+        //generalita.add(lblEmail);
         generalita.add(lblEmailU);
-        generalita.add(lblIndirizzo);
+        //generalita.add(lblIndirizzo);
         generalita.add(lblIndirizzoU);
-        generalita.add(lblNumtelefono);
+        //generalita.add(lblNumtelefono);
         generalita.add(lblNumtelefonoU);
 
 
@@ -156,24 +185,37 @@ public class AcquistoFrame extends JFrame {
 
 
         JPanel daticarta = new JPanel();
-        daticarta.setLayout(new GridLayout(2,4));
+        daticarta.setLayout(new GridLayout(2,2));
         JLabel numcarta = new JLabel("Numero Carta: ");
         JLabel circuito = new JLabel("Circuito: ");
         JLabel codsicurezza = new JLabel("CVV: ");
         JLabel datascadenza = new JLabel("Data Scadenza: ");
 
+        TitledBorder Tnumcarta;
+        Tnumcarta = BorderFactory.createTitledBorder(blackline,"Numero Carta");
+        numcartaU.setBorder(Tnumcarta);
+        TitledBorder Tcircuito;
+        Tcircuito = BorderFactory.createTitledBorder(blackline,"Circuito");
+        circuitoU.setBorder(Tcircuito);
+        TitledBorder Tcodsicurezza;
+        Tcodsicurezza = BorderFactory.createTitledBorder(blackline,"CVV");
+        codsicurezzaU.setBorder(Tcodsicurezza);
+        TitledBorder Tdatascadenza;
+        Tdatascadenza = BorderFactory.createTitledBorder(blackline,"Data Scadenza");
+        datascadenzaU.setBorder(Tdatascadenza);
 
-        daticarta.add(numcarta);
+
+        //daticarta.add(numcarta);
         daticarta.add(numcartaU);
-        daticarta.add(circuito);
+        //daticarta.add(circuito);
         daticarta.add(circuitoU);
-        daticarta.add(codsicurezza);
+        //daticarta.add(codsicurezza);
         daticarta.add(codsicurezzaU);
-        daticarta.add(datascadenza);
+        //daticarta.add(datascadenza);
         daticarta.add(datascadenzaU);
 
-
-        pagamento.add(modpagamento);
+        modpagamento.setFont(new Font("Serif", Font.BOLD, 20));
+        intropagamento.add(modpagamento);
         pagamento.add(daticarta);
 
 
@@ -202,12 +244,20 @@ public class AcquistoFrame extends JFrame {
             lblIndirizzoSpedU=new JLabel((pref.getIndirizzoConsegna()));
         }
 
-        daticonsegna.add(lblNominativo);
+        TitledBorder Tnominativo;
+        Tnominativo = BorderFactory.createTitledBorder(blackline,"Nominativo");
+        lblNominativoU.setBorder(Tnominativo);
+        TitledBorder Tindirizzosped;
+        Tindirizzosped = BorderFactory.createTitledBorder(blackline,"Indirizzo di Spedizione");
+        lblIndirizzoSpedU.setBorder(Tindirizzosped);
+
+        //daticonsegna.add(lblNominativo);
         daticonsegna.add(lblNominativoU);
-        daticonsegna.add(lblIndirizzoSped);
+        //daticonsegna.add(lblIndirizzoSped);
         daticonsegna.add(lblIndirizzoSpedU);
 
-        consegna.add(preferenzeconsegna);
+        preferenzeconsegna.setFont(new Font("Serif", Font.BOLD, 20));
+        introconsegna.add(preferenzeconsegna);
         consegna.add(daticonsegna);
 
        // JButton confermapreferenze = new JButton("Conferma");
@@ -232,11 +282,11 @@ public class AcquistoFrame extends JFrame {
         ArrayList<Prodotto> prodotti = car.getProdottiContenuti();
         prodottidaacquistare.setLayout(new GridLayout(prodotti.size()+1,3));
         JLabel nome = new JLabel("Nome prodotto:");
-        nome.setFont(new Font("Serif", Font.PLAIN, 18));
+        nome.setFont(new Font("Serif", Font.BOLD, 20));
         JLabel prezzo = new JLabel("Prezzo:");
-        prezzo.setFont(new Font("Serif", Font.PLAIN, 18));
+        prezzo.setFont(new Font("Serif", Font.BOLD, 20));
         JLabel quantitalbl = new JLabel("Quantità:");
-        quantitalbl.setFont(new Font("Serif", Font.PLAIN, 18));
+        quantitalbl.setFont(new Font("Serif", Font.BOLD, 20));
         prodottidaacquistare.add(nome);
         prodottidaacquistare.add(prezzo);
         prodottidaacquistare.add(quantitalbl);
@@ -248,14 +298,18 @@ public class AcquistoFrame extends JFrame {
             int quantita = ProdottoBusiness.getInstance().getQuantita(car, prodotti.get(i));
             JLabel nomeprodotto = new JLabel(prodotti.get(i).getNome());
             JLabel prezzoprodotto = new JLabel("€"+Float.toString(prodotti.get(i).getPrezzo()));
+            JLabel quantitaprodotto = new JLabel(String.valueOf(quantita));
+            nomeprodotto.setFont(new Font("Serif", Font.PLAIN,18));
+            prezzoprodotto.setFont(new Font("Serif", Font.PLAIN,18));
+            quantitaprodotto.setFont(new Font("Serif", Font.PLAIN,18));
             tot += prodotti.get(i).getPrezzo()*quantita;
             prodottidaacquistare.add(nomeprodotto);
             prodottidaacquistare.add(prezzoprodotto);
-            prodottidaacquistare.add(new JLabel(String.valueOf(quantita)));
+            prodottidaacquistare.add(quantitaprodotto);
         }
 
-
-        JLabel totale = new JLabel("Totale da pagare: €"+tot);
+        JLabel intrototale = new JLabel("Totale da pagare: ");
+        JLabel totale = new JLabel("€"+tot);
         JButton procedi = new JButton("Procedi all'acquisto");
 
         procedi.addActionListener(new ActionListener() {
@@ -295,7 +349,10 @@ public class AcquistoFrame extends JFrame {
                 }
             }
         });
-
+        //totale.setFont(totale.getFont().deriveFont(Font.BOLD));
+        intrototale.setFont(new Font("Serif", Font.PLAIN,18));
+        totale.setFont(new Font("Serif", Font.BOLD, 20));
+        sud.add(intrototale);
         sud.add(totale);
         sud.add(procedi);
 
@@ -304,8 +361,10 @@ public class AcquistoFrame extends JFrame {
 
         centro.add(generalita);
         centro.add(Box.createRigidArea(new Dimension(0,20)));
+        centro.add(intropagamento);
         centro.add(pagamento);
         centro.add(bottonipagamento);
+        centro.add(introconsegna);
         centro.add(consegna);
         centro.add(bottoniconsegna);
         centro.add(prodottidaacquistare);

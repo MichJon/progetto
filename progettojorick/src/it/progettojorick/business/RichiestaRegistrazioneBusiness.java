@@ -33,4 +33,12 @@ public class RichiestaRegistrazioneBusiness {
 
     }
 
+    public boolean controllaPresenza(String email){
+        Persona p = PersonaDAO.getInstance().findByEmail(email);
+        if(p==null)
+            return false;
+        else
+            return true;
+    }
+
 }

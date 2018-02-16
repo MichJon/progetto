@@ -214,9 +214,19 @@ public class ProdottoFrame extends JFrame{
 
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+        JButton btnindietro = new JButton("Indietro");
         JButton btnConferma = new JButton("Crea");
         btnConferma.addActionListener(listener);
+        sud.add(btnindietro);
         sud.add(btnConferma);
+
+        btnindietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                new ListaProdottiFrame();
+            }
+        });
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
