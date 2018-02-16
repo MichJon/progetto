@@ -13,7 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+import java.text.DecimalFormat;
 import java.util.Iterator;
+import java.util.Map;
 
 public class InfoProdottoFrame extends JFrame {
 
@@ -51,6 +54,11 @@ public class InfoProdottoFrame extends JFrame {
             centro.setLayout(new GridLayout(6,2));
         JPanel sud = new JPanel(new GridLayout(1,2));
 
+        Font font = new Font("Serif", Font.PLAIN, 16);
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+        Font newFont = new Font(attributes);
+
         JLabel lblDescrizione = new JLabel("Descrizione:");
         JLabel lblPrezzo = new JLabel("Prezzo:");
         JLabel lblCategoria = new JLabel("Categoria:");
@@ -60,8 +68,34 @@ public class InfoProdottoFrame extends JFrame {
         JLabel lblNomeI = new JLabel(p.getNome());
         lblNomeI.setFont(new Font("Serif", Font.PLAIN, 22));
         JLabel lblDescrizioneI = new JLabel(p.getDescrizione());
-        JLabel lblPrezzoI = new JLabel("€"+Float.toString(p.getPrezzo()));
-        lblPrezzoI.setFont(new Font("Serif", Font.PLAIN, 18));
+
+        float prezzoScont = p.getPrezzo()-p.getPrezzo()*p.getSconto()/100;
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        String prezzoScontato = df.format(prezzoScont);
+
+        JPanel prezzo = new JPanel(new BorderLayout());//new FlowLayout());
+        JLabel lblPrezzoIntero;
+        JLabel lblPrezzoScontato;
+        JLabel lblSconto;
+        if (p.getSconto()!=0){
+            lblPrezzoIntero = new JLabel("€"+Float.toString(p.getPrezzo()));
+            lblPrezzoIntero.setFont(newFont);//new Font("Serif", Font.PLAIN, 18));
+            lblPrezzoIntero.setForeground(Color.gray);
+            lblPrezzoScontato = new JLabel(" €"+prezzoScontato);
+            lblPrezzoScontato.setFont(new Font("Serif", Font.PLAIN, 18));
+            lblSconto = new JLabel("(-"+p.getSconto()+"%)");
+            lblSconto.setFont(new Font("Serif", Font.PLAIN, 15));
+            lblSconto.setForeground(Color.red);
+            prezzo.add(lblPrezzoIntero, BorderLayout.WEST);
+            prezzo.add(lblPrezzoScontato,BorderLayout.CENTER);
+            prezzo.add(lblSconto,BorderLayout.EAST);
+        }else{
+            lblPrezzoIntero = new JLabel("€"+Float.toString(p.getPrezzo()));
+            lblPrezzoIntero.setFont(new Font("Serif", Font.PLAIN, 18));
+            prezzo.add(lblPrezzoIntero);
+        }
+
         JLabel lblCategoriaI = new JLabel(p.getCategoria().getNomecategoria());
         JLabel lblDescrizioneProduttoreI = new JLabel(p.getProduttore().getDescrizione());
         JLabel lblDescrizioneDistributoreI = new JLabel(p.getDistributore().getDescrizione());
@@ -81,7 +115,7 @@ public class InfoProdottoFrame extends JFrame {
         centro.add(lblNomeI);
         centro.add(lblblank);  //SPAZIO VUOTO
         centro.add(lblPrezzo);
-        centro.add(lblPrezzoI);
+        centro.add(prezzo);//QUESTA
         centro.add(lblDescrizione);
         centro.add(lblDescrizioneI);
         centro.add(lblCategoria);
@@ -187,6 +221,8 @@ public class InfoProdottoFrame extends JFrame {
         immagine.setBackground(Color.white);
         centro.setBackground(Color.white);
         sud.setBackground(Color.white);
+        prezzo.setBackground(Color.white);
+
 
         details.add(centro, BorderLayout.CENTER);             // pattern command
         details.add(sud, BorderLayout.SOUTH);

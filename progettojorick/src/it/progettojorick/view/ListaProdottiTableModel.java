@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class ListaProdottiTableModel extends AbstractTableModel {
 
+    GestoreCatalogo g =(GestoreCatalogo)SessionManager.getInstance().getSession().get("gestore");
+
     private ArrayList<Prodotto> listaprodotti = new ArrayList<Prodotto>();
 
     public ListaProdottiTableModel() {
@@ -50,7 +52,7 @@ public class ListaProdottiTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        if ((GestoreCatalogo)SessionManager.getInstance().getSession().get("gestore")!=null)
+        if (g!=null)
         return col==2||col==3||col==7;
         else return false;
     }
@@ -81,7 +83,10 @@ public class ListaProdottiTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-       // listaprodotti = ProdottoBusiness.getInstance().prodottiPresenti();
+
+        if (g!=null)
+        listaprodotti = ProdottoBusiness.getInstance().prodottiPresenti();
+
         Prodotto p = listaprodotti.get(rowIndex);
 
 
@@ -91,7 +96,7 @@ public class ListaProdottiTableModel extends AbstractTableModel {
             case 1:
                 return p.getDescrizione();
             case 2:
-                return p.getPrezzo();
+                return "€"+p.getPrezzo();
             case 3:
                 return p.getDisponibilita();
             case 4:
@@ -101,7 +106,7 @@ public class ListaProdottiTableModel extends AbstractTableModel {
             case 6:
                 return p.getDistributore().getId();
             case 7:
-                return p.getSconto();
+                return p.getSconto()+"%";
             default:
                 return null;
         }

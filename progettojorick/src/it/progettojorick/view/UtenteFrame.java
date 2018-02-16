@@ -39,14 +39,18 @@ public class UtenteFrame extends JFrame {
         this.prodottiList = prodottiList;
         UtenteFrame _this=this;
         Container c = getContentPane();
+       // this.setBackground(Color.white);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
         c.setLayout(new BorderLayout());
         JPanel nord = new JPanel(new FlowLayout());
+        nord.setBackground(Color.white);
         JPanel centro = new JPanel(new FlowLayout());
+        centro.setBackground(Color.white);
         JPanel sud = new JPanel();
+        sud.setBackground(Color.white);
         c.add(nord,BorderLayout.NORTH);
         c.add(centro,BorderLayout.CENTER);
         c.add(sud, BorderLayout.SOUTH);

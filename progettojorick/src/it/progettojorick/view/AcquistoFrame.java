@@ -16,6 +16,7 @@ import javax.swing.text.html.HTML;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -291,25 +292,34 @@ public class AcquistoFrame extends JFrame {
         prodottidaacquistare.add(prezzo);
         prodottidaacquistare.add(quantitalbl);
 
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+
         float tot = 0;
         for(int i=0;i<prodotti.size();i++){
 
 
             int quantita = ProdottoBusiness.getInstance().getQuantita(car, prodotti.get(i));
             JLabel nomeprodotto = new JLabel(prodotti.get(i).getNome());
-            JLabel prezzoprodotto = new JLabel("€"+Float.toString(prodotti.get(i).getPrezzo()));
+
+            float prezzoScont = prodotti.get(i).getPrezzo()-prodotti.get(i).getPrezzo()*prodotti.get(i).getSconto()/100;
+
+            String prezzoScontato = df.format(prezzoScont);
+
+            JLabel prezzoprodotto = new JLabel("€"+prezzoScontato);
             JLabel quantitaprodotto = new JLabel(String.valueOf(quantita));
             nomeprodotto.setFont(new Font("Serif", Font.PLAIN,18));
             prezzoprodotto.setFont(new Font("Serif", Font.PLAIN,18));
             quantitaprodotto.setFont(new Font("Serif", Font.PLAIN,18));
-            tot += prodotti.get(i).getPrezzo()*quantita;
+            tot += prezzoScont*quantita;
             prodottidaacquistare.add(nomeprodotto);
             prodottidaacquistare.add(prezzoprodotto);
             prodottidaacquistare.add(quantitaprodotto);
         }
 
+        String totale = df.format(tot);
         JLabel intrototale = new JLabel("Totale da pagare: ");
-        JLabel totale = new JLabel("€"+tot);
+        JLabel total = new JLabel("€"+totale);
         JButton procedi = new JButton("Procedi all'acquisto");
 
         procedi.addActionListener(new ActionListener() {
@@ -351,9 +361,9 @@ public class AcquistoFrame extends JFrame {
         });
         //totale.setFont(totale.getFont().deriveFont(Font.BOLD));
         intrototale.setFont(new Font("Serif", Font.PLAIN,18));
-        totale.setFont(new Font("Serif", Font.BOLD, 20));
+        total.setFont(new Font("Serif", Font.BOLD, 20));
         sud.add(intrototale);
-        sud.add(totale);
+        sud.add(total);
         sud.add(procedi);
 
         c.add(nord);
