@@ -14,13 +14,13 @@ import java.awt.event.ActionListener;
 public class AmministratoreFrame extends JFrame {
 
     private int x=550;
-    private int y=130;
+    private int y=340;
 
 
 
 
     public AmministratoreFrame() {
-        super("finestra amministratore");
+        super("Finestra amministratore");
 
         AmministratoreFrame _this = this;
 
@@ -29,26 +29,29 @@ public class AmministratoreFrame extends JFrame {
         Container c = getContentPane();
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2-100);
+        this.setLocation((dim.width/2)-x/2, (dim.height/2)-y/2);
 
         c.setLayout(new BorderLayout());
 
-        JPanel nord = new JPanel(new FlowLayout());
+        JPanel nord = new JPanel(new BorderLayout());
+        JPanel centro = new JPanel(new GridLayout(2,1));
         JPanel sud = new JPanel(new FlowLayout());
         GridLayout GL = new GridLayout(1,3);
         GL.setHgap(15);
         JPanel Pbuttons = new JPanel(GL);
 
-        JLabel benvenuto = new JLabel("Benvenuto amministratore "+a.getNome()+"!");
+        JLabel benvenuto = new JLabel("Benvenuto amministratore ", SwingConstants.CENTER);
         benvenuto.setFont(new Font("Serif", Font.PLAIN, 25));
-        JButton richiesteReg = new JButton("Gestisci registrazioni");
-        JButton ordini = new JButton("Gestisci ordini");
+        JLabel nomeAmm = new JLabel(a.getNome()+" "+a.getCognome(), SwingConstants.CENTER);
+        nomeAmm.setFont(new Font("Serif", Font.PLAIN, 30));
+        JButton btnrichiesteReg = new JButton("Gestisci registrazioni");
+        JButton btnordini = new JButton("Gestisci ordini");
         JButton btnLogout = new JButton("Logout");
-        Pbuttons.add(new JPanel(new FlowLayout()).add(btnLogout));
-        Pbuttons.add(new JPanel(new FlowLayout()).add(richiesteReg));
-        Pbuttons.add(new JPanel(new FlowLayout()).add(ordini));
+        Pbuttons.add(btnLogout);
+        Pbuttons.add(btnrichiesteReg);
+        Pbuttons.add(btnordini);
 
-        ordini.addActionListener(new ActionListener() {
+        btnordini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -66,7 +69,7 @@ public class AmministratoreFrame extends JFrame {
             }
         });
 
-        richiesteReg.addActionListener(new ActionListener() {
+        btnrichiesteReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                  //AmministratoreFrame a = (AmministratoreFrame)SessionManager.getInstance().getSession().get("finestra_amministratore");
@@ -99,10 +102,24 @@ public class AmministratoreFrame extends JFrame {
             }
         });
 
-        nord.add(benvenuto);
+        JPanel immagine = new JPanel(new BorderLayout());
+        ImageIcon img = new ImageIcon("./images/LOGO2.jpg");
+        Image image = img.getImage().getScaledInstance(525,100,0);
+        ImageIcon newImg = new ImageIcon(image);
+        immagine.add(new JLabel(newImg), BorderLayout.CENTER);
+
+        nord.add(immagine);
+        centro.add(benvenuto);
+        centro.add(nomeAmm);
         sud.add(Pbuttons);
 
+        nord.setBackground(Color.white);
+        centro.setBackground(Color.white);
+        Pbuttons.setBackground(Color.white);
+        sud.setBackground(Color.white);
+
         c.add(nord, BorderLayout.NORTH);
+        c.add(centro, BorderLayout.CENTER);
         c.add(sud,BorderLayout.SOUTH);
         setSize(x, y);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

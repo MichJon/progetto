@@ -48,10 +48,12 @@ public class InfoProdottoFrame extends JFrame {
         JPanel generale = new JPanel(new GridLayout(1,2));
         JPanel details = new JPanel(new BorderLayout());
         JPanel centro = new JPanel();
+
         if(p.getProdottiContenuti()!=null)
         centro.setLayout(new GridLayout(7,2));
         else
             centro.setLayout(new GridLayout(6,2));
+
         JPanel sud = new JPanel(new GridLayout(1,2));
 
         Font font = new Font("Serif", Font.PLAIN, 16);
@@ -75,6 +77,7 @@ public class InfoProdottoFrame extends JFrame {
         String prezzoScontato = df.format(prezzoScont);
 
         JPanel prezzo = new JPanel(new BorderLayout());//new FlowLayout());
+
         JLabel lblPrezzoIntero;
         JLabel lblPrezzoScontato;
         JLabel lblSconto;
@@ -93,7 +96,7 @@ public class InfoProdottoFrame extends JFrame {
         }else{
             lblPrezzoIntero = new JLabel("€"+Float.toString(p.getPrezzo()));
             lblPrezzoIntero.setFont(new Font("Serif", Font.PLAIN, 18));
-            prezzo.add(lblPrezzoIntero);
+            prezzo.add(lblPrezzoIntero, BorderLayout.CENTER);
         }
 
         JLabel lblCategoriaI = new JLabel(p.getCategoria().getNomecategoria());
@@ -126,9 +129,9 @@ public class InfoProdottoFrame extends JFrame {
         centro.add(lblDescrizioneDistributoreI);
 
         if (p.getProdottiContenuti()!=null){
-            JLabel prodcont = new JLabel("Prodotti Contenuti");
-            prodcont.setBackground(Color.white);
-            centro.add(prodcont);
+            JLabel lblprodcont = new JLabel("Prodotti Contenuti");
+            lblprodcont.setBackground(Color.white);
+            centro.add(lblprodcont);
 
             Iterator i = p.getProdottiContenuti().iterator();
 
