@@ -36,19 +36,21 @@ public class PaniereBusiness {
 
         Prodotto prod = ProdottoBusiness.getInstance().trovaProdotto(nomeProdotto);
         ArrayList<Prodotto> prodCont = prodottiContenuti(pan);
-        Iterator i = prodCont.iterator();
         boolean presente = false;
+        if(prodCont!=null) {
+            Iterator i = prodCont.iterator();
 
-        while (i.hasNext()) {
 
-            Prodotto iterProd = (Prodotto) i.next();
+            while (i.hasNext()) {
 
-            if (iterProd.getNome().equals(prod.getNome())) {
-                presente = true;
-                JOptionPane.showMessageDialog(null, "Il prodotto è già presente nel paniere.");
+                Prodotto iterProd = (Prodotto) i.next();
+
+                if (iterProd.getNome().equals(prod.getNome())) {
+                    presente = true;
+                    JOptionPane.showMessageDialog(null, "Il prodotto è già presente nel paniere.");
+                }
             }
         }
-
         if (!presente) {
             PaniereDAO.getInstance().insertProdottoInPaniere(pan.getIdpaniere(), nomeProdotto);
         }

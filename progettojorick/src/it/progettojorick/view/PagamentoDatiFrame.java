@@ -102,7 +102,7 @@ public class PagamentoDatiFrame extends JFrame {
         sud.setLayout(new FlowLayout());
         JButton btnConferma = new JButton("Conferma");
        // btnConferma.addActionListener(listener);
-        sud.add(btnConferma);
+
         btnConferma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,6 +126,18 @@ public class PagamentoDatiFrame extends JFrame {
               }
             }
         });
+
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                new PagamentiSalvatiFrame();
+            }
+        });
+
+        sud.add(indietro);
+        sud.add(btnConferma);
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());

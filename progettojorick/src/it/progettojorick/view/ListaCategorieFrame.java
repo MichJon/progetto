@@ -57,10 +57,11 @@ public class ListaCategorieFrame extends JFrame {
         btnAggiungi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _this.setVisible(false);
+                _this.dispose();
                 CategoriaFrame c = null;
                 try {
-                    c = new CategoriaFrame();               //exception
+                    c = new CategoriaFrame();//exception
+
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

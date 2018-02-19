@@ -65,6 +65,7 @@ public class AmministratoreBusiness {
                         ", il suo ordine che comprende "+ StampaNomiProdotti.getInstance().Stampa(prodottiOrdinati,c)+ "è stato messo in spedizione.");
                 RichiestaOrdineDAO.getInstance().setStato("In spedizione", richiesta);
                 RichiestaOrdineDAO.getInstance().setAmministratore(a, richiesta);
+                JOptionPane.showMessageDialog(null,"Email inviata.");
             }catch (RuntimeException e){
                 JOptionPane.showMessageDialog(null,"Controllare la connessione.");
             }
@@ -96,6 +97,7 @@ public class AmministratoreBusiness {
                         ", il suo ordine che comprende "+ StampaNomiProdotti.getInstance().Stampa(prodottiOrdinati,c)+ "è stato evaso. In allegato può trovare la ricevuta.","./PDF's/"+u.getEmailUtente()+"#"+richiesta.getIdRichiesta()+".pdf","Ricevuta ordine #"+richiesta.getIdRichiesta()+".pdf");
                 RichiestaOrdineDAO.getInstance().setStato("Evaso", richiesta);
                 RichiestaOrdineDAO.getInstance().setAmministratore(a, richiesta);
+                JOptionPane.showMessageDialog(null,"Email inviata.");
             }catch (RuntimeException e){
                 JOptionPane.showMessageDialog(null,"Controllare la connessione.");
             }
@@ -121,6 +123,7 @@ public class AmministratoreBusiness {
                         ", il suo ordine che comprende "+ StampaNomiProdotti.getInstance().Stampa(prodottiOrdinati,c)+ "è stato rifiutato.");
                 RichiestaOrdineDAO.getInstance().setStato("Rifiutato", richiesta);
                 RichiestaOrdineDAO.getInstance().setAmministratore(a, richiesta);
+                JOptionPane.showMessageDialog(null,"Email inviata.");
             }catch (RuntimeException e){
                 JOptionPane.showMessageDialog(null,"Controllare la connessione.");
             }

@@ -74,7 +74,9 @@ public class ProdottiPaniereFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 ArrayList<Prodotto> prodContenuti = p.getProdotti();
+        if(prodContenuti!=null){
 
                 Iterator i = prodContenuti.iterator();
 
@@ -122,6 +124,9 @@ public class ProdottiPaniereFrame extends JFrame {
 
                 }
                 JOptionPane.showMessageDialog(null, " Operazione conclusa. ");//I prodotti del paniere sono stati aggiunti al carrello.");
+
+        }else
+            JOptionPane.showMessageDialog(null, "Non sono presenti prodotti, impossibile inserire nel carrello.");
             }
         });
         sud.add(modificaPaniere);

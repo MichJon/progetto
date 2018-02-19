@@ -14,8 +14,11 @@ private String nomeFile;
 
         super("file");
 
-        JFileChooser fc = new JFileChooser();
+        JFileChooser fc = new JFileChooser("./images");
         int returnVal = fc.showOpenDialog(FileChooser.this);
+//        File dir=new File("./images");
+//        fc.setCurrentDirectory(dir);
+
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();

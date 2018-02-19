@@ -39,9 +39,18 @@ public class ProdottoListener implements ActionListener {
         String descrizione= finestra.getTxtDescrizone().getText();
         float prezzo= Float.parseFloat(finestra.getTxtPrezzo().getText());
         int disponibilita = Integer.parseInt(finestra.getTxtDisponibilita().getText());
-        Categoria categoria= CategoriaDAO.getInstance().findByName(finestra.getTxtCategoria().getText());
-        Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtProduttore().getText()));
-        Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtDistributore().getText()));
+       // Categoria categoria= CategoriaDAO.getInstance().findByName(finestra.getTxtCategoria().getText());
+        Categoria categoria =  CategoriaDAO.getInstance().findByName((String)finestra.getCbCategoria().getSelectedItem());
+
+        String idProd =finestra.getCbProduttore().getSelectedItem().toString().split(":")[1].split("\\)")[0];
+
+//        Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtProduttore().getText()));
+        Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(idProd));
+
+        String idDist =finestra.getCbDistributore().getSelectedItem().toString().split(":")[1].split("\\)")[0];
+
+//        Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtDistributore().getText()));
+        Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(idDist));
         ArrayList<Prodotto> prodottiContenuti = finestra.getProdottiContenuti();
        // Path path= finestra.get;
 //        String url=finestra.getLblUrl().getText();

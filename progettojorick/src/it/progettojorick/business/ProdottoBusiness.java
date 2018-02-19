@@ -121,44 +121,57 @@ public class ProdottoBusiness {
 
     public ArrayList<Prodotto> trovaPerFasciaDiPrezzo(float inizio, float fine){
 
-        ArrayList<Prodotto> tuttiProdotti=ProdottoBusiness.getInstance().prodottiPresenti();
-        ArrayList<Prodotto> prodottiFiltrati=new ArrayList<Prodotto>();
+        ArrayList<Prodotto> prodottiFiltrati = new ArrayList<Prodotto>();
 
-        Iterator i = tuttiProdotti.iterator();
+        try {
+            ArrayList<Prodotto> tuttiProdotti = ProdottoBusiness.getInstance().prodottiPresenti();
 
-        while (i.hasNext()){
 
-            Prodotto p = (Prodotto)i.next();
-            float prezzo = p.getPrezzo();
-            if (prezzo>=inizio && prezzo<=fine){
-                prodottiFiltrati.add(p);
+
+            Iterator i = tuttiProdotti.iterator();
+
+            while (i.hasNext()) {
+
+                Prodotto p = (Prodotto) i.next();
+                float prezzo = p.getPrezzo();
+                if (prezzo >= inizio && prezzo <= fine) {
+                    prodottiFiltrati.add(p);
+                }
+
+
             }
-
+            return prodottiFiltrati;
+        }catch(NullPointerException ex){
 
         }
 
-        return prodottiFiltrati;
+        return null;
     }
 
     public ArrayList<Prodotto> trovaPerFasciaDiPrezzo(float inizio){
 
-        ArrayList<Prodotto> tuttiProdotti=ProdottoBusiness.getInstance().prodottiPresenti();
-        ArrayList<Prodotto> prodottiFiltrati=new ArrayList<Prodotto>();
+        try {
+            ArrayList<Prodotto> tuttiProdotti = ProdottoBusiness.getInstance().prodottiPresenti();
+            ArrayList<Prodotto> prodottiFiltrati = new ArrayList<Prodotto>();
 
-        Iterator i = tuttiProdotti.iterator();
+            Iterator i = tuttiProdotti.iterator();
 
-        while (i.hasNext()){
+            while (i.hasNext()) {
 
-            Prodotto p = (Prodotto)i.next();
-            float prezzo = p.getPrezzo();
-            if (prezzo>=inizio){
-                prodottiFiltrati.add(p);
+                Prodotto p = (Prodotto) i.next();
+                float prezzo = p.getPrezzo();
+                if (prezzo >= inizio) {
+                    prodottiFiltrati.add(p);
+                }
+
+
             }
-
+            return prodottiFiltrati;
+        }catch (NullPointerException ex){
 
         }
 
-        return prodottiFiltrati;
+        return null;
     }
 
 }

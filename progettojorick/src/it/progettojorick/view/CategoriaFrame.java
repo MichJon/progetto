@@ -33,6 +33,7 @@ public class CategoriaFrame extends JFrame{
 
         super("Finestra categoria");
 
+        CategoriaFrame _this=this;
         Container RegPane = getContentPane();
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -68,6 +69,17 @@ public class CategoriaFrame extends JFrame{
         sud.setLayout(new FlowLayout());
         JButton btnConferma = new JButton("Crea");
         btnConferma.addActionListener(listener);
+
+
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                new ListaCategorieFrame();
+            }
+        });
+        sud.add(indietro);
         sud.add(btnConferma);
 
 //        BottoneConImg b = new BottoneConImg("fototessera.png");

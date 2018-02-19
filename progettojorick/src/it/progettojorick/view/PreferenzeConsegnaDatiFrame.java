@@ -68,6 +68,17 @@ public class PreferenzeConsegnaDatiFrame extends JFrame {
             }
         });
 
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                AcquistoFrame acqfr=(AcquistoFrame)SessionManager.getInstance().getSession().get("finestra_acquisto");
+                acqfr.setVisible(true);
+            }
+        });
+
+        sud.add(indietro);
         sud.add(conferma);
 
         JPanel nord = new JPanel();

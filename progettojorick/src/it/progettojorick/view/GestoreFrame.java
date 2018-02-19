@@ -38,7 +38,7 @@ public class GestoreFrame extends JFrame{
 
         JLabel benvenuto = new JLabel("Benvenuto gestore", SwingConstants.CENTER);
         benvenuto.setFont(new Font("Serif", Font.PLAIN, 25));
-        JLabel nomeGest = new JLabel(g.getNome(), SwingConstants.CENTER);
+        JLabel nomeGest = new JLabel(g.getNome()+" "+g.getCognome(), SwingConstants.CENTER);
         nomeGest.setFont(new Font("Serif", Font.PLAIN, 30));
 
         JButton gestCategorie = new JButton("Gestisci Categorie");

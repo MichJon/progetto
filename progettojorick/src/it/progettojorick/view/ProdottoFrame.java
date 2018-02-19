@@ -1,8 +1,14 @@
 package it.progettojorick.view;
 
 import it.progettojorick.actionListeners.ProdottoListener;
+import it.progettojorick.business.CategoriaBusiness;
 import it.progettojorick.business.SessionManager;
+import it.progettojorick.dao.mysql.DistributoreDAO;
+import it.progettojorick.dao.mysql.ProduttoreDAO;
+import it.progettojorick.model.Categoria;
+import it.progettojorick.model.Distributore;
 import it.progettojorick.model.Prodotto;
+import it.progettojorick.model.Produttore;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,10 +33,40 @@ public class ProdottoFrame extends JFrame{
     private JLabel lblNomeFile = new JLabel();
     private JTextField txtSconto = new JTextField();
     private ArrayList<Prodotto> prodottiContenuti = new ArrayList<Prodotto>();
+    private JComboBox cbCategoria = new JComboBox();
+    private JComboBox cbProduttore = new JComboBox();
+    private JComboBox cbDistributore = new JComboBox();
    // private Path path;
 
     private int x = 400;
     private int y = 350;
+
+
+    public JComboBox getCbProduttore() {
+        return cbProduttore;
+    }
+
+    public void setCbProduttore(JComboBox cbProduttore) {
+        this.cbProduttore = cbProduttore;
+    }
+
+    public JComboBox getCbDistributore() {
+        return cbDistributore;
+    }
+
+    public void setCbDistributore(JComboBox cbDistributore) {
+        this.cbDistributore = cbDistributore;
+    }
+
+    public JComboBox getCbCategoria() {
+        return cbCategoria;
+    }
+
+
+
+    public void setCbCategoria(JComboBox cbCategoria) {
+        this.cbCategoria = cbCategoria;
+    }
 
     public ArrayList<Prodotto> getProdottiContenuti() {
         return prodottiContenuti;
@@ -163,6 +199,44 @@ public class ProdottoFrame extends JFrame{
         JLabel lblSconto = new JLabel("Sconto");
 
 
+
+        ArrayList<Categoria> categorie= CategoriaBusiness.getInstance().categoriePresenti();
+
+        Iterator j = categorie.iterator();
+
+        while (j.hasNext()){
+
+            Categoria cat = (Categoria) j.next();
+
+            cbCategoria.addItem(cat.getNomecategoria());
+
+        }
+
+        ArrayList<Distributore> distributori= DistributoreDAO.getInstance().findAll();
+
+        Iterator k = distributori.iterator();
+
+        while (k.hasNext()){
+
+            Distributore dist = (Distributore) k.next();
+
+            cbDistributore.addItem(dist.getNome()+" (id:"+dist.getId()+")");
+
+        }
+
+        ArrayList<Produttore> produttori= ProduttoreDAO.getInstance().findAll();
+
+        Iterator l = produttori.iterator();
+
+        while (l.hasNext()){
+
+            Produttore prod = (Produttore) l.next();
+
+            cbProduttore.addItem(prod.getNome()+" (id:"+prod.getId()+")");
+
+        }
+
+
         JPanel pan = new JPanel();
         pan.setLayout(new GridLayout(1,2));
         JButton sfoglia = new JButton("Sfoglia");
@@ -192,11 +266,14 @@ public class ProdottoFrame extends JFrame{
         centroNord.add(lblDisponibilita);
         centroNord.add(txtDisponibilita);
         centroNord.add(lblCategoria);
-        centroNord.add(txtCategoria);
+        //centroNord.add(txtCategoria);
+        centroNord.add(cbCategoria);
         centroNord.add(lblProduttore);
-        centroNord.add(txtProduttore);
+        //centroNord.add(txtProduttore);
+        centroNord.add(cbProduttore);
         centroNord.add(lblDistributore);
-        centroNord.add(txtDistributore);
+        //centroNord.add(txtDistributore);
+        centroNord.add(cbDistributore);
         centroNord.add(lblSconto);
         centroNord.add(txtSconto);
         centroNord.add(lblImgUrl);

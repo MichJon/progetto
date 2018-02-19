@@ -1,6 +1,7 @@
 package it.progettojorick.view;
 
 import it.progettojorick.business.CarrelloBusiness;
+import it.progettojorick.business.PaniereBusiness;
 import it.progettojorick.business.ProdottoBusiness;
 import it.progettojorick.business.SessionManager;
 import it.progettojorick.model.Carrello;
@@ -82,8 +83,32 @@ public class CarrelloFrame extends JFrame {
             }
         });
 
+        JButton btnRimuovi = new JButton("Rimuovi prodotto dal carrello");
+
+
+        btnRimuovi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
+                //REFRESH
+                int index = carrello.getSelectedRow();
+
+                if(index!=-1){
+                   String nome = (String)carrello.getModel().getValueAt(index, 0);
+                    Prodotto pr = ProdottoBusiness.getInstance().trovaProdotto(nome);
+                    CarrelloBusiness.getInstance().rimuoviProdottoDalCarrello(pr,c);
+                    _this.dispose();
+                    new CarrelloFrame();
+                }else JOptionPane.showMessageDialog(null, "Selezionare un prodotto da rimuovere.");
+
+            }
+        });
+
+
         getContentPane().add(new JScrollPane(carrello), BorderLayout.CENTER);
         sud.add(indietro);
+        sud.add(btnRimuovi);
         sud.add(procedi);
         getContentPane().add(sud, BorderLayout.SOUTH);
 

@@ -7,6 +7,7 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.dao.mysql.PersonaDAO;
 import it.progettojorick.dao.mysql.UtenteDAO;
 import it.progettojorick.model.*;
+import jdk.nashorn.internal.scripts.JO;
 //import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
@@ -55,24 +56,33 @@ public class OrdiniAmministratoreFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Integer> id = new ArrayList<Integer>();
                 int[] righeSelezionate = richiesteOrd.getSelectedRows();
-                for (int i = 0; i < righeSelezionate.length; i++) {
-                    int rowCount = righeSelezionate[i];
-                    int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
-                    id.add(idd);
-                }
+                if (righeSelezionate.length!=0){
 
-                Iterator j = id.iterator();
+                    for (int i = 0; i < righeSelezionate.length; i++) {
 
-                while (j.hasNext()) {
-                                                            ////////////EMAIL
-                    int idRichiesta = (int) j.next();
+                        int rowCount = righeSelezionate[i];
 
-                    AmministratoreBusiness.getInstance().ordineInSpedizione(idRichiesta);
+                        int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
 
-                }
-                _this.dispose();//setVisible(false);
-                SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+                        id.add(idd);
 
+                    }
+
+                    Iterator j = id.iterator();
+
+
+                    while (j.hasNext()) {
+                                                                ////////////EMAIL
+                        int idRichiesta = (int) j.next();
+
+                        AmministratoreBusiness.getInstance().ordineInSpedizione(idRichiesta);
+
+                    }
+                    _this.dispose();//setVisible(false);
+                    SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+
+
+                }else JOptionPane.showMessageDialog(null, "Selezionare una richiesta.");
             }
 
 
@@ -86,24 +96,26 @@ public class OrdiniAmministratoreFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Integer> id = new ArrayList<Integer>();
                 int[] righeSelezionate = richiesteOrd.getSelectedRows();
-                for (int i = 0; i < righeSelezionate.length; i++) {
-                    int rowCount = righeSelezionate[i];
-                    int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
-                    id.add(idd);
-                }
+                if (righeSelezionate.length != 0) {
+                    for (int i = 0; i < righeSelezionate.length; i++) {
+                        int rowCount = righeSelezionate[i];
+                        int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
+                        id.add(idd);
+                    }
 
-                Iterator j = id.iterator();
+                    Iterator j = id.iterator();
 
-                while (j.hasNext()) {
-                    ////////////EMAIL
-                    int idRichiesta = (int) j.next();
+                    while (j.hasNext()) {
+                        ////////////EMAIL
+                        int idRichiesta = (int) j.next();
 
-                    AmministratoreBusiness.getInstance().ordineEvaso(idRichiesta);
+                        AmministratoreBusiness.getInstance().ordineEvaso(idRichiesta);
 
-                }
-                _this.dispose();//setVisible(false);
-                SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+                    }
+                    _this.dispose();//setVisible(false);
+                    SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
 
+                }else JOptionPane.showMessageDialog(null, "Selezionare una richiesta.");
             }
 
 
@@ -115,24 +127,26 @@ public class OrdiniAmministratoreFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Integer> id = new ArrayList<Integer>();
                 int[] righeSelezionate = richiesteOrd.getSelectedRows();
-                for (int i = 0; i < righeSelezionate.length; i++) {
-                    int rowCount = righeSelezionate[i];
-                    int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
-                    id.add(idd);
-                }
+                if (righeSelezionate.length != 0) {
+                    for (int i = 0; i < righeSelezionate.length; i++) {
+                        int rowCount = righeSelezionate[i];
+                        int idd = (int) richiesteOrd.getModel().getValueAt(rowCount, 0);
+                        id.add(idd);
+                    }
 
-                Iterator j = id.iterator();
+                    Iterator j = id.iterator();
 
-                while (j.hasNext()) {
-                    ////////////EMAIL
-                    int idRichiesta = (int) j.next();
+                    while (j.hasNext()) {
+                        ////////////EMAIL
+                        int idRichiesta = (int) j.next();
 
-                    AmministratoreBusiness.getInstance().ordineRifiutato(idRichiesta);
+                        AmministratoreBusiness.getInstance().ordineRifiutato(idRichiesta);
 
-                }
-                _this.dispose();//setVisible(false);
-                SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
+                    }
+                    _this.dispose();//setVisible(false);
+                    SessionManager.getInstance().getSession().put("finestra_gestione_ordini", new OrdiniAmministratoreFrame());
 
+                }else JOptionPane.showMessageDialog(null, "Selezionare una richiesta.");
             }
 
 

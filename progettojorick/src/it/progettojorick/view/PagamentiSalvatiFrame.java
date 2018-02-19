@@ -84,8 +84,18 @@ public class PagamentiSalvatiFrame extends JFrame{
 
             }
         });
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                AcquistoFrame acqfr=(AcquistoFrame)SessionManager.getInstance().getSession().get("finestra_acquisto");
+                acqfr.setVisible(true);
+            }
+        });
 
         getContentPane().add(new JScrollPane(pagamenti), BorderLayout.CENTER);
+        sud.add(indietro);
         sud.add(aggiungiPagamento);
         sud.add(seleziona);
         getContentPane().add(sud, BorderLayout.SOUTH);

@@ -16,6 +16,7 @@ import javax.swing.text.html.HTML;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UTFDataFormatException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -317,6 +318,17 @@ public class AcquistoFrame extends JFrame {
             prodottidaacquistare.add(quantitaprodotto);
         }
 
+        JButton indietro = new JButton("Indietro");
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+                UtenteFrame utfr=(UtenteFrame) SessionManager.getInstance().getSession().get("finestra_utente");
+                utfr.setVisible(true);
+
+            }
+        });
+
         String totale = df.format(tot);
         JLabel intrototale = new JLabel("Totale da pagare: ");
         JLabel total = new JLabel("€"+totale);
@@ -362,6 +374,7 @@ public class AcquistoFrame extends JFrame {
         //totale.setFont(totale.getFont().deriveFont(Font.BOLD));
         intrototale.setFont(new Font("Serif", Font.PLAIN,18));
         total.setFont(new Font("Serif", Font.BOLD, 20));
+        sud.add(indietro);
         sud.add(intrototale);
         sud.add(total);
         sud.add(procedi);

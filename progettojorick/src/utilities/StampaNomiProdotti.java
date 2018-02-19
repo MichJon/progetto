@@ -33,9 +33,9 @@ public class StampaNomiProdotti {
         while (i.hasNext()){
 
              Prodotto p = (Prodotto) i.next();
-             int quantita = ProdottoBusiness.getInstance().getQuantita(c,p);
+//             int quantita = ProdottoBusiness.getInstance().getQuantita(c,p);
 
-            stringa = stringa+p.getNome()+" (quantità: "+quantita+") , ";
+            stringa = stringa+p.getNome()+", ";//+" (quantità: "+quantita+") , ";
 
         }
         return stringa;
