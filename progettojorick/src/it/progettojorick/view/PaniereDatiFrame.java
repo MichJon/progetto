@@ -71,16 +71,29 @@ public class PaniereDatiFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                PaniereBusiness.getInstance().inserisciPaniere(txtNome.getText(),u);
-                _this.dispose();
-                ElencoPanieriView epfr =(ElencoPanieriView)SessionManager.getInstance().getSession().get("finestra_elenco_panieri");
-                epfr.dispose();
-                new ElencoPanieriView();
+                if(!txtNome.getText().equals("")) {
+                    PaniereBusiness.getInstance().inserisciPaniere(txtNome.getText(), u);
+                    _this.dispose();
+                    ElencoPanieriView epfr = (ElencoPanieriView) SessionManager.getInstance().getSession().get("finestra_elenco_panieri");
+                    epfr.dispose();
+                    new ElencoPanieriView();
+                }else JOptionPane.showMessageDialog(null, "Inserire un nome.");
 
             }
         });
-        sud.add(btnConferma);
 
+
+        JButton annulla = new JButton("Annulla");
+        annulla.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _this.dispose();
+            }
+        });
+
+
+        sud.add(annulla);
+        sud.add(btnConferma);
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
