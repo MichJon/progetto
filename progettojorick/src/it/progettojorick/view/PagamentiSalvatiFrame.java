@@ -59,21 +59,25 @@ public class PagamentiSalvatiFrame extends JFrame{
         seleziona.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _this.setVisible(false);
+
                 //AcquistoFrame acq=(AcquistoFrame)SessionManager.getInstance().getSession().get("finestra_acquisto");
 
                 int index = pagamenti.getSelectedRow();
-                long numcarta = (long)pagamenti.getModel().getValueAt(index,0);
-              //  String numCarta=pagamenti.getModel().getValueAt(index,0).toString();
+                if(index!=-1) {
+                    long numcarta = (long) pagamenti.getModel().getValueAt(index, 0);
+                    //  String numCarta=pagamenti.getModel().getValueAt(index,0).toString();
 //                String circuito = (String)pagamenti.getModel().getValueAt(index,1);
 //                String cvv= pagamenti.getModel().getValueAt(index,2).toString();
 //                String data= (String)pagamenti.getModel().getValueAt(index,3);
 
-               Pagamento p = PagamentoBusiness.getInstance().trovaPagamento(numcarta);
-               SessionManager.getInstance().getSession().put("pagamento_selezionato",p);
-               SessionManager.getInstance().getSession().put("finestra_acquisto", new AcquistoFrame());
+                    Pagamento p = PagamentoBusiness.getInstance().trovaPagamento(numcarta);
+                    _this.setVisible(false);
+                    SessionManager.getInstance().getSession().put("pagamento_selezionato", p);
+                    SessionManager.getInstance().getSession().put("finestra_acquisto", new AcquistoFrame());
 
-
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Selezionare un metodo di pagamento");
 //
 //                acq.setNumcartaU(new JLabel(numCarta));
 //                acq.setCircuitoU(new JLabel(circuito));

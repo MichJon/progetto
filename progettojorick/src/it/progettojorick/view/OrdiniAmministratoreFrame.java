@@ -7,7 +7,7 @@ import it.progettojorick.business.SessionManager;
 import it.progettojorick.dao.mysql.PersonaDAO;
 import it.progettojorick.dao.mysql.UtenteDAO;
 import it.progettojorick.model.*;
-import jdk.nashorn.internal.scripts.JO;
+//import jdk.nashorn.internal.scripts.JO;
 //import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
