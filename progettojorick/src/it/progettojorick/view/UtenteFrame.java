@@ -172,16 +172,6 @@ public class UtenteFrame extends JFrame {
 
             }
 
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.out.println(e.getID()+ MouseEvent.MOUSE_PRESSED);
-//               if (e.getID()== MouseEvent.MOUSE_PRESSED){
-//                        _this.setVisible(false);
-//                        UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().prodottiPresenti());
-//                        SessionManager.getInstance().getSession().put("finestra_utente",fr);
-//                }
-//
-//            }
         });
 
         JMenuItem fascia1 = new JMenuItem("€0 - €10");
@@ -224,9 +214,10 @@ public class UtenteFrame extends JFrame {
         fascia4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _this.dispose();
-                UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().trovaPerFasciaDiPrezzo(30));
-                SessionManager.getInstance().getSession().put("finestra_utente",fr);
+                _this.setVisible(false);
+                    UtenteFrame fr = new UtenteFrame(ProdottoBusiness.getInstance().trovaPerFasciaDiPrezzo(30));
+                    SessionManager.getInstance().getSession().put("finestra_utente", fr);
+
             }
         });
 

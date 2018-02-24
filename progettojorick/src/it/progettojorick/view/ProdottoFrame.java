@@ -199,7 +199,6 @@ public class ProdottoFrame extends JFrame{
         JLabel lblSconto = new JLabel("Sconto");
 
 
-
         ArrayList<Categoria> categorie= CategoriaBusiness.getInstance().categoriePresenti();
 
         Iterator j = categorie.iterator();
@@ -307,7 +306,9 @@ public class ProdottoFrame extends JFrame{
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
-        nord.add(new JLabel(" Compila i campi seguenti con i dati richiesti "));
+        JLabel intro = new JLabel(" Compila i campi seguenti con i dati richiesti ");
+        intro.setFont(new Font("Serif", Font.PLAIN, 18));
+        nord.add(intro);
         JPanel centroSud = new JPanel(new GridLayout(1,2));
         JPanel prodottiCont = new JPanel();
         prodottiCont.setLayout(new BoxLayout(prodottiCont, BoxLayout.PAGE_AXIS));

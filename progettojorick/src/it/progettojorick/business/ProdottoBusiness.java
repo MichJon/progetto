@@ -167,7 +167,7 @@ public class ProdottoBusiness {
 
             }
             return prodottiFiltrati;
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex){
 
         }
 

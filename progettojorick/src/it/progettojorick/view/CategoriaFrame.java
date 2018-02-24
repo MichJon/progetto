@@ -84,7 +84,9 @@ public class CategoriaFrame extends JFrame{
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
-        nord.add(new JLabel(" Compila i campi seguenti con i dati richiesti "));
+        JLabel intro = new JLabel(" Compila i campi seguenti con i dati richiesti ");
+        intro.setFont(new Font("Serif", Font.PLAIN, 18));
+        nord.add(intro);
 
         RegPane.add(centro, BorderLayout.CENTER);             // pattern command
         RegPane.add(sud,BorderLayout.SOUTH);

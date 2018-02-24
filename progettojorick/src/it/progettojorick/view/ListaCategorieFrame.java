@@ -36,7 +36,9 @@ public class ListaCategorieFrame extends JFrame {
         getContentPane().add(new JScrollPane(listaCat), BorderLayout.CENTER);
 
 
-        getContentPane().add(new JLabel("BENVENUTO " + g.getNome() + " " + g.getCognome() + "!"), BorderLayout.NORTH);
+        JLabel intro = new JLabel("Benvenuto " + g.getNome() + " " + g.getCognome() + "!");
+        intro.setFont(new Font("Serif", Font.PLAIN, 18));
+        getContentPane().add(intro, BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
         JButton indietro = new JButton("Indietro");

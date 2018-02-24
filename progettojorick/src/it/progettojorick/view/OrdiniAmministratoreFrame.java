@@ -40,8 +40,9 @@ public class OrdiniAmministratoreFrame extends JFrame {
         JTable richiesteOrd = new JTable(otm);
         getContentPane().add(new JScrollPane(richiesteOrd), BorderLayout.CENTER);
 
-
-        getContentPane().add(new JLabel("BENVENUTO " + a.getNome() + " " + a.getCognome() + "!"), BorderLayout.NORTH);
+        JLabel intro = new JLabel("Benvenuto " + a.getNome() + " " + a.getCognome() + "!");
+        intro.setFont(new Font("Serif", Font.PLAIN, 18));
+        getContentPane().add(intro, BorderLayout.NORTH);
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
 
