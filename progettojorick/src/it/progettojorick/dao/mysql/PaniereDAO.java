@@ -125,4 +125,11 @@ public class PaniereDAO implements IPaniereDAO {
                 "VALUES ('"+nome+"','"+emailUt+"');");
 
     }
+
+    public void deletePaniere(int id){
+
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM paniere_has_prodotto WHERE paniere_idpaniere ="+id);
+        DbConnection.getInstance().eseguiAggiornamento("DELETE FROM paniere WHERE idpaniere ="+id);
+
+    }
 }

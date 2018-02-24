@@ -34,38 +34,41 @@ public class ProdottoListener implements ActionListener {
 
         //CONTROLLI
         System.out.println("Evento catturato!");
+try {
+    String nome = finestra.getTxtNome().getText();
+    String descrizione = finestra.getTxtDescrizone().getText();
+    float prezzo = Float.parseFloat(finestra.getTxtPrezzo().getText());
+    int disponibilita = Integer.parseInt(finestra.getTxtDisponibilita().getText());
+    // Categoria categoria= CategoriaDAO.getInstance().findByName(finestra.getTxtCategoria().getText());
+    Categoria categoria = CategoriaDAO.getInstance().findByName((String) finestra.getCbCategoria().getSelectedItem());
 
-        String nome= finestra.getTxtNome().getText();
-        String descrizione= finestra.getTxtDescrizone().getText();
-        float prezzo= Float.parseFloat(finestra.getTxtPrezzo().getText());
-        int disponibilita = Integer.parseInt(finestra.getTxtDisponibilita().getText());
-       // Categoria categoria= CategoriaDAO.getInstance().findByName(finestra.getTxtCategoria().getText());
-        Categoria categoria =  CategoriaDAO.getInstance().findByName((String)finestra.getCbCategoria().getSelectedItem());
-
-        String idProd =finestra.getCbProduttore().getSelectedItem().toString().split(":")[1].split("\\)")[0];
+    String idProd = finestra.getCbProduttore().getSelectedItem().toString().split(":")[1].split("\\)")[0];
 
 //        Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtProduttore().getText()));
-        Produttore produttore= ProduttoreDAO.getInstance().findById(Integer.parseInt(idProd));
+    Produttore produttore = ProduttoreDAO.getInstance().findById(Integer.parseInt(idProd));
 
-        String idDist =finestra.getCbDistributore().getSelectedItem().toString().split(":")[1].split("\\)")[0];
+    String idDist = finestra.getCbDistributore().getSelectedItem().toString().split(":")[1].split("\\)")[0];
 
 //        Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(finestra.getTxtDistributore().getText()));
-        Distributore distributore= DistributoreDAO.getInstance().findById(Integer.parseInt(idDist));
-        ArrayList<Prodotto> prodottiContenuti = finestra.getProdottiContenuti();
-       // Path path= finestra.get;
+    Distributore distributore = DistributoreDAO.getInstance().findById(Integer.parseInt(idDist));
+    ArrayList<Prodotto> prodottiContenuti = finestra.getProdottiContenuti();
+    // Path path= finestra.get;
 //        String url=finestra.getLblUrl().getText();
 //        String imgUrl= url.replace("\\", "\\\\\\");
-        String nomeFile = finestra.getLblNomeFile().getText();
-        int sconto = Integer.parseInt(finestra.getTxtSconto().getText());
+    String nomeFile = finestra.getLblNomeFile().getText();
+    int sconto = Integer.parseInt(finestra.getTxtSconto().getText());
 
 
+    if (e.getSource() instanceof JButton) {
+//        if (nome.equals("") || descrizione.equals("") || finestra.getTxtPrezzo().getText().equals("") || finestra.getTxtDisponibilita().getText().equals("") || finestra.getTxtSconto().getText().equals("")) {
+//            JOptionPane.showMessageDialog(null, "Compilare tutti i campi.");
+//        } else {
 
-        if(e.getSource() instanceof JButton ){
 
-            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome,descrizione,prezzo,disponibilita,categoria,produttore,distributore,nomeFile,sconto);
+            Prodotto p = ProdottoBusiness.getInstance().creaProdotto(nome, descrizione, prezzo, disponibilita, categoria, produttore, distributore, nomeFile, sconto);
             ProdottoBusiness.getInstance().inserisciProdotto(p);
             //inserimento prodotti composti
-            if(prodottiContenuti!=null)
+            if (prodottiContenuti != null)
                 ProdottoBusiness.getInstance().inserisciProdottiContenuti(p, prodottiContenuti);
 
             finestra.setVisible(false);
@@ -73,8 +76,13 @@ public class ProdottoListener implements ActionListener {
 //            SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);
             new ListaProdottiFrame();
 
-        }
 
+
+//        }
+    }
+}catch (NumberFormatException ex){
+    JOptionPane.showMessageDialog(null, "Compilare tutti i campi o controllare dati inseriti.");
+}
 
     }
 }

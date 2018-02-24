@@ -39,7 +39,7 @@ public class ProdottoFrame extends JFrame{
    // private Path path;
 
     private int x = 400;
-    private int y = 350;
+    private int y = 400;
 
 
     public JComboBox getCbProduttore() {

@@ -75,5 +75,11 @@ public class PaniereBusiness {
 
     }
 
+    public void eliminaPaniere(Paniere pan){
+
+        PaniereDAO.getInstance().deletePaniere(pan.getIdpaniere());
+
+    }
+
 
 }

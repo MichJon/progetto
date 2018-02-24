@@ -34,9 +34,12 @@ public class PreferenzeConsegnaDatiFrame extends JFrame {
 
         RegPane.setLayout(new BorderLayout());
 
+
         JPanel centro = new JPanel();
         centro.setLayout(new GridLayout(2,2));
         JPanel sud = new JPanel(new FlowLayout());
+
+
 
         JLabel nominativo = new JLabel("Nominativo:");
         JLabel indirizzo = new JLabel("Indirizzo di consegna:");
@@ -52,16 +55,18 @@ public class PreferenzeConsegnaDatiFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(!nominativoU.getText().equals("")&&!indirizzoU.getText().equals("")) {
 
-                PreferenzeConsegnaBusiness.getInstance().inserisciPreferenza(u,nominativoU.getText(),indirizzoU.getText());
-                _this.dispose();
-                //SessionManager.getInstance().getSession().put("finestra_preferenze",new PreferenzeConsegnaFrame());
-                PreferenzeConsegna pr= PreferenzeConsegnaBusiness.getInstance().preferenzaConsegna(u);
-                SessionManager.getInstance().getSession().put("preferenza_consegna",pr);
-                AcquistoFrame ac= (AcquistoFrame)SessionManager.getInstance().getSession().get("finestra_acquisto");
-                ac.dispose();
-                SessionManager.getInstance().getSession().put("finestra_acquisto", new AcquistoFrame());
+                    PreferenzeConsegnaBusiness.getInstance().inserisciPreferenza(u, nominativoU.getText(), indirizzoU.getText());
+                    _this.dispose();
+                    //SessionManager.getInstance().getSession().put("finestra_preferenze",new PreferenzeConsegnaFrame());
+                    PreferenzeConsegna pr = PreferenzeConsegnaBusiness.getInstance().preferenzaConsegna(u);
+                    SessionManager.getInstance().getSession().put("preferenza_consegna", pr);
+                    AcquistoFrame ac = (AcquistoFrame) SessionManager.getInstance().getSession().get("finestra_acquisto");
+                    ac.dispose();
+                    SessionManager.getInstance().getSession().put("finestra_acquisto", new AcquistoFrame());
 
+                }else JOptionPane.showMessageDialog(null, "Compilare tutti i campi.");
 
 
 
@@ -85,9 +90,11 @@ public class PreferenzeConsegnaDatiFrame extends JFrame {
         nord.setLayout(new FlowLayout());
         nord.add(new JLabel("Inserisci i dati della consegna:"));
 
+
         RegPane.add(centro, BorderLayout.CENTER);             // pattern command
         RegPane.add(sud,BorderLayout.SOUTH);
         RegPane.add(nord,BorderLayout.NORTH);
+
 
 
 

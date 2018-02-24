@@ -43,11 +43,16 @@ public class BottoneConImg extends JPanel {
         Prodotto pr= ProdottoDAO.getInstance().findByName(nomeProdotto);
         sconto = pr.getSconto();
 
-
+        if (nomeFile.equals("")||nomeFile.equals("null"))
+            nomeFile = "punto_interrogativo.png";
         ImageIcon img = new ImageIcon("./images/"+nomeFile);
         Image image = img.getImage().getScaledInstance(70,60,0);
         ImageIcon newImg = new ImageIcon(image);
         JButton b = new JButton();
+
+           // b = new JButton("No Image");
+
+      //  }
        // b.setBorder(noLine);
         b.addActionListener(new ActionListener() {
             @Override
@@ -76,12 +81,16 @@ public class BottoneConImg extends JPanel {
        // centro.add(p);
        // b.setSize(1,1);
        // ImageIcon img = new ImageIcon(imgb.getScaledInstance(70,60,0));
-        b.setIcon(newImg);
+      //  if (!nomeFile.equals("")&&!nomeFile.equals("null")) {
+            b.setIcon(newImg);
+
+    //    }
         super.add(b);
         super.add(lblNome);
         super.add(lblPrezzo);
 
         b.setContentAreaFilled(false);
+
     //p.setVisible(true);
     }
 }

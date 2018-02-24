@@ -31,14 +31,16 @@ public class CategoriaListener implements ActionListener{
         String nome= finestra.getTxtNome().getText();
 
         if(e.getSource() instanceof JButton){
+            if (!nome.equals("")) {
 
-            Categoria c = CategoriaBusiness.getInstance().creaCategoria(nome,g);
-            CategoriaBusiness.getInstance().inserisciCategoria(c);
-            JOptionPane.showMessageDialog(null,"Categoria inserita.");
-            finestra.setVisible(false);
+                Categoria c = CategoriaBusiness.getInstance().creaCategoria(nome, g);
+                CategoriaBusiness.getInstance().inserisciCategoria(c);
+                JOptionPane.showMessageDialog(null, "Categoria inserita.");
+                finestra.setVisible(false);
 //            GestoreFrame finestraGestore = new GestoreFrame();
 //            SessionManager.getInstance().getSession().put("finestra_gestore", finestraGestore);
-            new ListaCategorieFrame();
+                new ListaCategorieFrame();
+            }else JOptionPane.showMessageDialog(null, "Inserire il nome della categoria.");
 
         }
 

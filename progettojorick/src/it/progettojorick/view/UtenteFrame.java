@@ -90,6 +90,7 @@ public class UtenteFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                SessionManager.getInstance().getSession().put("utente", null);
                    _this.dispose();
                    new LoginFrame();
 

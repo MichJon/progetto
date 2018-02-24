@@ -32,6 +32,7 @@ public class ProdottiOrdineFrame extends JFrame {
         blackline = BorderFactory.createLineBorder(Color.black);
 
         Container cont = getContentPane();
+        cont.setBackground(Color.white);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((dim.width / 2) - x / 2, (dim.height / 2) - y / 2);
@@ -42,18 +43,23 @@ public class ProdottiOrdineFrame extends JFrame {
         ProdottiOrdineFrame _this = this;
 
         JPanel introgeneralita = new JPanel(new GridLayout(1,1));
+        introgeneralita.setBackground(Color.white);
         JLabel lblGeneralita = new JLabel("Generalità dell'Utente:");
         lblGeneralita.setFont(new Font("Serif", Font.BOLD, 18));
         introgeneralita.add(lblGeneralita);
         JPanel generalita = new JPanel(new GridLayout(2,2));
+        generalita.setBackground(Color.white);
         JPanel nord = new JPanel(new GridLayout(3,1));
+        nord.setBackground(Color.white);
         JPanel centro = new JPanel(new GridLayout(4,1));
+        centro.setBackground(Color.white);
 
      //   centro.setAlignmentY(CENTER_ALIGNMENT);
        // centro.setAlignmentX(getWidth()/2);
         //centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
         //.add(centro, new GridBagConstraints());
         JPanel sud = new JPanel(new FlowLayout());
+        sud.setBackground(Color.white);
 
         JLabel nomeU = new JLabel(pers.getNome());
         JLabel congomeU = new JLabel(pers.getCognome());
@@ -82,6 +88,7 @@ public class ProdottiOrdineFrame extends JFrame {
 
         JPanel prodottiPan = new JPanel();
         prodottiPan.setLayout(new BoxLayout(prodottiPan, BoxLayout.PAGE_AXIS));
+        prodottiPan.setBackground(Color.white);
 
         ArrayList<Prodotto> prodotti= CarrelloBusiness.getInstance().prodottiContenuti(c);
 
@@ -101,6 +108,7 @@ public class ProdottiOrdineFrame extends JFrame {
 
         Pagamento Pag = PagamentoBusiness.getInstance().trovaPagamento(numcarta);
         JPanel daticarta = new JPanel(new GridLayout(2,2));
+        daticarta.setBackground(Color.white);
         JLabel numerocarta = new JLabel(String.valueOf(Pag.getNumCarta()));
         JLabel circuito = new JLabel(Pag.getCircuito());
         JLabel codsicurezza = new JLabel(String.valueOf(Pag.getCodSicurezza()));

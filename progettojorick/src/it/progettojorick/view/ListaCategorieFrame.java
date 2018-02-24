@@ -70,27 +70,27 @@ public class ListaCategorieFrame extends JFrame {
             }
         });
 
-        JButton btnRimuovi = new JButton("Rimuovi");
-        sud.add(btnRimuovi);
-
-        btnRimuovi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
-                //REFRESH
-                int index = listaCat.getSelectedRow();
-
-                try {
-                    String nome = (String) listaCat.getModel().getValueAt(index, 0);
-                    CategoriaBusiness.getInstance().rimuoviCategoria(nome);
-                    JOptionPane.showMessageDialog(null, "Categoria rimossa.");
-                    _this.dispose();
-                    new ListaCategorieFrame();
-                }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null,"Seleziona categoria da rimuovere");
-                }
-            }
-        });
+//        JButton btnRimuovi = new JButton("Rimuovi");
+//        sud.add(btnRimuovi);
+//
+//        btnRimuovi.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //RIMOZIONE E NUOVA QUERY NEL DAO PER RIMUOVERE
+//                //REFRESH
+//                int index = listaCat.getSelectedRow();
+//
+//                try {
+//                    String nome = (String) listaCat.getModel().getValueAt(index, 0);
+//                    CategoriaBusiness.getInstance().rimuoviCategoria(nome);
+//                    JOptionPane.showMessageDialog(null, "Categoria rimossa.");
+//                    _this.dispose();
+//                    new ListaCategorieFrame();
+//                }catch (Exception ex){
+//                    JOptionPane.showMessageDialog(null,"Seleziona categoria da rimuovere");
+//                }
+//            }
+//        });
 
 
         btnLogout.addActionListener(new ActionListener() {

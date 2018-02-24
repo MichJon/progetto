@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EventObject;
@@ -95,7 +96,13 @@ public class CarrelloTableModel extends AbstractTableModel {
 
         switch(columnIndex) {
             case 0: return p.getNome();
-            case 1: return p.getPrezzo();
+            case 1:
+
+                float prezzoScont = p.getPrezzo()-p.getPrezzo()*p.getSconto()/100;
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
+                String prezzoScontato = df.format(prezzoScont);
+                return "€"+prezzoScontato+" (€"+p.getPrezzo()+" -"+p.getSconto()+"%)";
             case 2:
 
                 return quantita ;

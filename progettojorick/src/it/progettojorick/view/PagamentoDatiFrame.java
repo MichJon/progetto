@@ -116,11 +116,17 @@ public class PagamentoDatiFrame extends JFrame {
 
                   int cvv = Integer.parseInt(_this.getTxtCodSicurezza().getText());
                   String data = _this.getTxtDataScadenza().getText();
-                  PagamentoBusiness.getInstance().inserisciPagamento(numcarta, circuito, cvv, data);
-                  Pagamento p = PagamentoBusiness.getInstance().trovaPagamento(numcarta);
-                  PagamentoBusiness.getInstance().inserisciPagamentoUtente(u, p);
-                  _this.dispose();
-                  new PagamentiSalvatiFrame();
+                  if(_this.getTxtNumCarta().getText().length()==16){
+                      if (cvv < 100 && cvv > 99) {
+                          if (data.matches("(.*)/(.*)") && data.length() <= 5) {
+                              PagamentoBusiness.getInstance().inserisciPagamento(numcarta, circuito, cvv, data);
+                              Pagamento p = PagamentoBusiness.getInstance().trovaPagamento(numcarta);
+                              PagamentoBusiness.getInstance().inserisciPagamentoUtente(u, p);
+                              _this.dispose();
+                              new PagamentiSalvatiFrame();
+                          } else JOptionPane.showMessageDialog(null, "Inserire la data nel formato MM/AA.");
+                      } else JOptionPane.showMessageDialog(null, "Il CVV dev'essere di tre cifre.");
+                  }else JOptionPane.showMessageDialog(null, "Il numero della carta dev'essere di 16 cifre.");
               }catch (Exception ex){
                   JOptionPane.showMessageDialog(null,"Errore. Controllare i dati inseriti.");
               }

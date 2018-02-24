@@ -37,6 +37,10 @@ public class ElencoPanieriView extends JFrame {
         JPanel centro = new JPanel(new FlowLayout());
         JPanel sud = new JPanel(new FlowLayout());
 
+        c.setBackground(Color.white);
+        nord.setBackground(Color.white);
+        centro.setBackground(Color.white);
+        sud.setBackground(Color.white);
 
 
         ArrayList<Paniere> panieri= PaniereBusiness.getInstance().trovaPanieriUtente(u);

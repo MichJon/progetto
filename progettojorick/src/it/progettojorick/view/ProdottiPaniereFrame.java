@@ -51,6 +51,11 @@ public class ProdottiPaniereFrame extends JFrame {
         c.add(nord,BorderLayout.NORTH);
         c.add(centro,BorderLayout.CENTER);
         c.add(sud, BorderLayout.SOUTH);
+        c.setBackground(Color.white);
+        nord.setBackground(Color.white);
+        centro.setBackground(Color.white);
+        sud.setBackground(Color.white);
+
 
         JButton panieri = new JButton("Panieri");
         panieri.addActionListener(new ActionListener() {
@@ -191,6 +196,24 @@ public class ProdottiPaniereFrame extends JFrame {
 
         });
 
+        JButton elimina = new JButton("Elimina questo paniere");
+        elimina.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                _this.dispose();
+                JOptionPane.showMessageDialog(null, "Il paniere "+p.getNome()+" è stato eliminato.");
+                PaniereBusiness.getInstance().eliminaPaniere(p);
+                SessionManager.getInstance().getSession().put("paniere",null);
+
+                ElencoPanieriView epw  = new ElencoPanieriView();
+                SessionManager.getInstance().getSession().put("finestra_elenco_panieri",epw);
+
+
+            }
+        });
+
+        sud.add(elimina);
 
 
         try{

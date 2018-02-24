@@ -134,11 +134,12 @@ public class ListaProdottiFrame extends JFrame {                            ////
                         prodottiContenuti.add(p);
                     }
 
+                    _this.dispose();
                     new ProdottoFrame(prodottiContenuti);
 
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Selezionare 2 o più prodotti.");
+                    JOptionPane.showMessageDialog(null, "Selezionare 2 o più prodotti tenendo premuto Ctrl (o Cmd su Mac) e cliccare col mouse.");
                 }
             }
 

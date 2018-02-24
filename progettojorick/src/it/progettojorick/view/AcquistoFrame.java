@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-//import static jdk.nashorn.internal.objects.NativeSymbol.iterator;
+
 
 public class AcquistoFrame extends JFrame {
 
@@ -33,43 +33,12 @@ public class AcquistoFrame extends JFrame {
 
 
 
-//    public JLabel getNumcartaU() {
-//        return numcartaU;
-//    }
-//
-//    public void setNumcartaU(JLabel numcartaU) {
-//        this.numcartaU = numcartaU;
-//    }
-//
-//    public JLabel getCircuitoU() {
-//        return circuitoU;
-//    }
-//
-//    public void setCircuitoU(JLabel circuitoU) {
-//        this.circuitoU = circuitoU;
-//    }
-//
-//    public JLabel getCodsicurezzaU() {
-//        return codsicurezzaU;
-//    }
-//
-//    public void setCodsicurezzaU(JLabel codsicurezzaU) {
-//        this.codsicurezzaU = codsicurezzaU;
-//    }
-//
-//    public JLabel getDatascadenzaU() {
-//        return datascadenzaU;
-//    }
-//
-//    public void setDatascadenzaU(JLabel datascadenzaU) {
-//        this.datascadenzaU = datascadenzaU;
-//    }
 
     Utente u = (Utente) SessionManager.getInstance().getSession().get("utente");
-   // Persona p = (Persona) SessionManager.getInstance().getSession().get("persona");
+
 
     Carrello car = (Carrello) SessionManager.getInstance().getSession().get("carrello");
-    //Carrello car = CarrelloBusiness.getInstance().carrelloUtente(u);
+
 
 
 
@@ -87,37 +56,47 @@ public class AcquistoFrame extends JFrame {
         blackline = BorderFactory.createLineBorder(Color.black);
 
         c.setLayout(new BoxLayout(c,BoxLayout.PAGE_AXIS));
-
+        c.setBackground(Color.white);
 
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
+        nord.setBackground(Color.white);
 
         JPanel centro = new JPanel();
         centro.setLayout(new BoxLayout(centro,BoxLayout.PAGE_AXIS));//GridLayout(6,1));
+        centro.setBackground(Color.white);
 
         JPanel generalita = new JPanel();
         generalita.setLayout(new GridLayout(5,2));
+        generalita.setBackground(Color.white);
 
         JPanel intropagamento = new JPanel();
         intropagamento.setLayout(new GridLayout(1,1));
+        intropagamento.setBackground(Color.white);
 
         JPanel pagamento = new JPanel();
         pagamento.setLayout(new BoxLayout(pagamento,BoxLayout.PAGE_AXIS));//GridLayout(1,2));
+        pagamento.setBackground(Color.white);
 
         JPanel bottonipagamento =new JPanel();
         bottonipagamento.setLayout(new FlowLayout());
+        bottonipagamento.setBackground(Color.white);
 
         JPanel introconsegna = new JPanel();
         introconsegna.setLayout(new GridLayout(1,1));
+        introconsegna.setBackground(Color.white);
 
         JPanel consegna = new JPanel();
         consegna.setLayout(new BoxLayout(consegna,BoxLayout.PAGE_AXIS));//GridLayout(1,2));
+        consegna.setBackground(Color.white);
 
         JPanel bottoniconsegna = new JPanel();
         bottoniconsegna.setLayout(new FlowLayout());
+        bottoniconsegna.setBackground(Color.white);
 
         JPanel sud = new JPanel();
         sud.setLayout(new FlowLayout());
+        sud.setBackground(Color.white);
 
 //        JPanel vuoto = new JPanel();
 //        vuoto.setLayout(new FlowLayout());
@@ -188,6 +167,7 @@ public class AcquistoFrame extends JFrame {
 
         JPanel daticarta = new JPanel();
         daticarta.setLayout(new GridLayout(2,2));
+        daticarta.setBackground(Color.white);
         JLabel numcarta = new JLabel("Numero Carta: ");
         JLabel circuito = new JLabel("Circuito: ");
         JLabel codsicurezza = new JLabel("CVV: ");
@@ -237,6 +217,7 @@ public class AcquistoFrame extends JFrame {
         JLabel preferenzeconsegna = new JLabel("Preferenze di consegna: ");
         JPanel daticonsegna = new JPanel();
         daticonsegna.setLayout(new GridLayout(2,2));
+        daticonsegna.setBackground(Color.white);
         JLabel lblNominativo = new JLabel("Nominativo");
         JLabel lblNominativoU = new JLabel(u.getNome()+" "+u.getCognome());
         JLabel lblIndirizzoSped = new JLabel("Indirizzo di spedizione: ");
@@ -280,6 +261,7 @@ public class AcquistoFrame extends JFrame {
         bottoniconsegna.add(modificapreferenze);
 
         JPanel prodottidaacquistare = new JPanel();
+        prodottidaacquistare.setBackground(Color.white);
 
         ArrayList<Prodotto> prodotti = car.getProdottiContenuti();
         prodottidaacquistare.setLayout(new GridLayout(prodotti.size()+1,3));
@@ -396,6 +378,8 @@ public class AcquistoFrame extends JFrame {
 
 
         c.add(sud);
+
+
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

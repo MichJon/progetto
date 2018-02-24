@@ -109,7 +109,11 @@ public class InfoProdottoFrame extends JFrame {
         prodottiCont.setLayout(new BoxLayout(prodottiCont, BoxLayout.PAGE_AXIS));
 
         JPanel immagine = new JPanel(new BorderLayout());
-        ImageIcon img = new ImageIcon("./images/"+p.getImgUrl());
+        String url = p.getImgUrl();
+        if (url.equals("")||url.equals("null"))
+            url = "punto_interrogativo.png";
+
+        ImageIcon img = new ImageIcon("./images/"+url);
         Image image = img.getImage().getScaledInstance(200,200,0);
         ImageIcon newImg = new ImageIcon(image);
         immagine.add(new JLabel(newImg), BorderLayout.CENTER);
@@ -234,7 +238,7 @@ public class InfoProdottoFrame extends JFrame {
         c.add(generale,BorderLayout.CENTER);
 
         setSize(x, y);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(false);
     }
 }

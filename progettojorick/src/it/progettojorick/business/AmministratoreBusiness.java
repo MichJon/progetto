@@ -35,7 +35,7 @@ public class AmministratoreBusiness {
             RichiestaRegistrazioneDAO.getInstance().setAmministratore(a, r);
 
             UtenteDAO.getInstance().insertUtente(email);
-        }
+        }else JOptionPane.showMessageDialog(null, "Richiesta già accettata.");
 
     }
     public void negaRichiesta(String email){
@@ -45,7 +45,7 @@ public class AmministratoreBusiness {
             RichiestaRegistrazioneDAO.getInstance().deleteRichiesta(r);
             Persona p = PersonaDAO.getInstance().findByEmail(email);
             PersonaDAO.getInstance().deletePersona(p);
-        }
+        }else JOptionPane.showMessageDialog(null, "Richiesta già accettata. Non può essere negata.");
     }
 
     public void ordineInSpedizione(int id){
@@ -70,7 +70,7 @@ public class AmministratoreBusiness {
                 JOptionPane.showMessageDialog(null,"Controllare la connessione.");
             }
 
-        }
+        }else JOptionPane.showMessageDialog(null, "Impossibile cambiare stato. Ordine già messo in spedizione o evaso o rifiutato. ");
 
 
     }
@@ -101,7 +101,9 @@ public class AmministratoreBusiness {
             }catch (RuntimeException e){
                 JOptionPane.showMessageDialog(null,"Controllare la connessione.");
             }
-        }
+        }else if (richiesta.getStato().equals("effettuato")){
+                 JOptionPane.showMessageDialog(null, "Prima mettere in spedizione.");
+        }else JOptionPane.showMessageDialog(null, "Impossibile cambiare stato. Ordine già evaso o rifiutato. ");
 
 
     }
@@ -127,7 +129,7 @@ public class AmministratoreBusiness {
             }catch (RuntimeException e){
                 JOptionPane.showMessageDialog(null,"Controllare la connessione.");
             }
-        }
+        }else JOptionPane.showMessageDialog(null, "Impossibile rifiutare. Ordine già messo in spedizione o evaso o rifiutato. ");
 
 
     }

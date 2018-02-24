@@ -82,26 +82,6 @@ public class CategoriaFrame extends JFrame{
         sud.add(indietro);
         sud.add(btnConferma);
 
-//        BottoneConImg b = new BottoneConImg("fototessera.png");
-//        centro.add(b);
-//-----------------------------------------------------------------------------
-
-//      BufferedImage imgb = ImageIO.read(new File("C:\\Users\\micel\\Desktop\\fototessera.jpg"));
-//
-//
-//        JButton b = new JButton();                                          //|
-//                                                                            //|
-//        JPanel p = new JPanel();                                            //|
-//                                                                            //|
-//        centro.add(p);                                                      //|
-//        b.setSize(50,50);                                                   //|
-//        ImageIcon img = new ImageIcon(imgb.getScaledInstance(70,60,0));     //|
-//        b.setIcon(img);                                                     //|
-//        p.add(b);                                                           //|
-//                                                                            //|
-//        b.setContentAreaFilled(false);                                      //|
-//-----------------------------------------------------------------------------
-
         JPanel nord = new JPanel();
         nord.setLayout(new FlowLayout());
         nord.add(new JLabel(" Compila i campi seguenti con i dati richiesti "));
