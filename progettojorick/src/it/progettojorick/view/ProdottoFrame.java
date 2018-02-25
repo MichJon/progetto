@@ -18,7 +18,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ProdottoFrame extends JFrame{
+public class ProdottoFrame extends JFrame {
 
 
     private JTextField txtNome = new JTextField();
@@ -164,7 +164,7 @@ public class ProdottoFrame extends JFrame{
         this.txtSconto = txtSconto;
     }
 
-    public ProdottoFrame(ArrayList<Prodotto> prodottiContenuti) {
+    public ProdottoFrame(ArrayList<Prodotto> prodottiContenuti) throws NullPointerException {
 
         super("Finestra prodotto");
 
@@ -210,6 +210,9 @@ public class ProdottoFrame extends JFrame{
             cbCategoria.addItem(cat.getNomecategoria());
 
         }
+       //}catch (NullPointerException ex){
+         //  JOptionPane.showMessageDialog(null, "Inserire prima le categorie.");
+       //}
 
         ArrayList<Distributore> distributori= DistributoreDAO.getInstance().findAll();
 

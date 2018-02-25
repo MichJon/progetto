@@ -56,9 +56,16 @@ public class ListaProdottiFrame extends JFrame {                            ////
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                _this.setVisible(false);
-                ProdottoFrame p = new ProdottoFrame(null);
-                SessionManager.getInstance().getSession().put("finestra_prodotto",p);
+
+                try {
+                    ProdottoFrame p = new ProdottoFrame(null);
+                    _this.setVisible(false);
+                    SessionManager.getInstance().getSession().put("finestra_prodotto",p);
+                }catch (NullPointerException ex){
+                    JOptionPane.showMessageDialog(null,"Inserire prima almeno una categoria.");
+
+                }
+
 
             }
         });

@@ -22,8 +22,8 @@ public class InfoProdottoFrame extends JFrame {
 
     Prodotto p;
 
-    private int x = 600;
-    private int y = 450;
+    private int x = 1024;
+    private int y = 500;
 
 
     public InfoProdottoFrame(Prodotto p) {
@@ -68,7 +68,7 @@ public class InfoProdottoFrame extends JFrame {
         JLabel lblDescrizioneDistributore = new JLabel("Info Distributore:");
 
         JLabel lblNomeI = new JLabel(p.getNome());
-        lblNomeI.setFont(new Font("Serif", Font.PLAIN, 22));
+        lblNomeI.setFont(new Font("Serif", Font.PLAIN, 30));
         JLabel lblDescrizioneI = new JLabel(p.getDescrizione());
 
         float prezzoScont = p.getPrezzo()-p.getPrezzo()*p.getSconto()/100;
@@ -100,8 +100,8 @@ public class InfoProdottoFrame extends JFrame {
         }
 
         JLabel lblCategoriaI = new JLabel(p.getCategoria().getNomecategoria());
-        JLabel lblDescrizioneProduttoreI = new JLabel(p.getProduttore().getDescrizione());
-        JLabel lblDescrizioneDistributoreI = new JLabel(p.getDistributore().getDescrizione());
+        JLabel lblDescrizioneProduttoreI = new JLabel(p.getProduttore().getNome()+" - "+p.getProduttore().getDescrizione());
+        JLabel lblDescrizioneDistributoreI = new JLabel(p.getDistributore().getNome()+" - "+p.getDistributore().getDescrizione());
         JLabel lblblank = new JLabel("");
 
         JPanel prodottiCont = new JPanel();
@@ -133,7 +133,7 @@ public class InfoProdottoFrame extends JFrame {
         centro.add(lblDescrizioneDistributoreI);
 
         if (p.getProdottiContenuti()!=null){
-            JLabel lblprodcont = new JLabel("Prodotti Contenuti");
+            JLabel lblprodcont = new JLabel("Prodotti Contenuti:");
             lblprodcont.setBackground(Color.white);
             centro.add(lblprodcont);
 

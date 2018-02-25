@@ -58,13 +58,12 @@ public class ProdottiDisponibiliListaFrame extends JFrame {
 
 
                int index = listaProd.getSelectedRow();
-               String nome = (String)listaProd.getModel().getValueAt(index,0);
-               PaniereBusiness.getInstance().inserisciProdottoNelPaniere(nome,pan);
-
-                _this.dispose();
-                new ModificaProdottiPaniereFrame();
-               // new ProdottiPaniereFrame(pan.getProdotti());
-
+               if (index!=-1) {
+                   String nome = (String) listaProd.getModel().getValueAt(index, 0);
+                   PaniereBusiness.getInstance().inserisciProdottoNelPaniere(nome, pan);
+                   _this.dispose();
+                   new ModificaProdottiPaniereFrame();
+               }else JOptionPane.showMessageDialog(null, "Selezionare un prodotto da aggiungere.");
             }
         });
 
