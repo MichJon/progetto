@@ -168,10 +168,10 @@ public class ProdottoBusiness {
             }
             return prodottiFiltrati;
         } catch (NullPointerException ex){
-
+            return null;
         }
 
-        return null;
+
     }
 
 }

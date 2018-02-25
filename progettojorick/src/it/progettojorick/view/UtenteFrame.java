@@ -258,6 +258,8 @@ public class UtenteFrame extends JFrame {
         }
 
         try{
+            if (prodottiList.size()==0)
+                centro.add(new JLabel("Non sono presenti prodotti."));
             mostraProdotti(centro);
         } catch (NullPointerException e){
             centro.add(new JLabel("Non sono presenti prodotti."));
